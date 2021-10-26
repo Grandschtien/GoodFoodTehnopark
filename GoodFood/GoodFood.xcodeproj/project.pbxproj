@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6A271F12EE00935800 /* AppDelegate.swift */; };
 		601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6C271F12EE00935800 /* SceneDelegate.swift */; };
-		601DAD6F271F12EE00935800 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6E271F12EE00935800 /* ViewController.swift */; };
+		601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6E271F12EE00935800 /* EnterViewController.swift */; };
 		601DAD72271F12EE00935800 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 601DAD70271F12EE00935800 /* Main.storyboard */; };
 		601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD73271F12EE00935800 /* GoodFood.xcdatamodeld */; };
 		601DAD77271F12F300935800 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601DAD76271F12F300935800 /* Assets.xcassets */; };
@@ -40,7 +40,7 @@
 		601DAD67271F12EE00935800 /* GoodFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD6A271F12EE00935800 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		601DAD6C271F12EE00935800 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		601DAD6E271F12EE00935800 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		601DAD6E271F12EE00935800 /* EnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterViewController.swift; sourceTree = "<group>"; };
 		601DAD71271F12EE00935800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		601DAD74271F12EE00935800 /* GoodFood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoodFood.xcdatamodel; sourceTree = "<group>"; };
 		601DAD76271F12F300935800 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,14 +101,10 @@
 		601DAD69271F12EE00935800 /* GoodFood */ = {
 			isa = PBXGroup;
 			children = (
-				601DAD6A271F12EE00935800 /* AppDelegate.swift */,
-				601DAD6C271F12EE00935800 /* SceneDelegate.swift */,
-				601DAD6E271F12EE00935800 /* ViewController.swift */,
-				601DAD70271F12EE00935800 /* Main.storyboard */,
-				601DAD76271F12F300935800 /* Assets.xcassets */,
-				601DAD78271F12F300935800 /* LaunchScreen.storyboard */,
-				601DAD7B271F12F300935800 /* Info.plist */,
-				601DAD73271F12EE00935800 /* GoodFood.xcdatamodeld */,
+				60F6034B272858C000B69B4D /* Application */,
+				60F6034C272858CA00B69B4D /* EnterScreen */,
+				60F6034D272858D200B69B4D /* RegisterScreen */,
+				60F6034E272858DD00B69B4D /* RestorePasswordScreen */,
 			);
 			path = GoodFood;
 			sourceTree = "<group>";
@@ -128,6 +124,146 @@
 				601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */,
 			);
 			path = GoodFoodUITests;
+			sourceTree = "<group>";
+		};
+		60F6034B272858C000B69B4D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				60F603522728599100B69B4D /* Delegates */,
+				60F603512728598700B69B4D /* CoreData */,
+				60F603502728597900B69B4D /* Storyboards */,
+				60F6034F2728596F00B69B4D /* SupportingFiles */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		60F6034C272858CA00B69B4D /* EnterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035527285A0C00B69B4D /* Model */,
+				60F6035427285A0600B69B4D /* View */,
+				60F60353272859FF00B69B4D /* ViewModel */,
+			);
+			path = EnterScreen;
+			sourceTree = "<group>";
+		};
+		60F6034D272858D200B69B4D /* RegisterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035827285A3300B69B4D /* Model */,
+				60F6035727285A2A00B69B4D /* View */,
+				60F6035627285A2100B69B4D /* ViewModel */,
+			);
+			path = RegisterScreen;
+			sourceTree = "<group>";
+		};
+		60F6034E272858DD00B69B4D /* RestorePasswordScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035B27285A4900B69B4D /* Model */,
+				60F6035A27285A4400B69B4D /* View */,
+				60F6035927285A3D00B69B4D /* ViewModel */,
+			);
+			path = RestorePasswordScreen;
+			sourceTree = "<group>";
+		};
+		60F6034F2728596F00B69B4D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD76271F12F300935800 /* Assets.xcassets */,
+				601DAD7B271F12F300935800 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		60F603502728597900B69B4D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD70271F12EE00935800 /* Main.storyboard */,
+				601DAD78271F12F300935800 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		60F603512728598700B69B4D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD73271F12EE00935800 /* GoodFood.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		60F603522728599100B69B4D /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD6A271F12EE00935800 /* AppDelegate.swift */,
+				601DAD6C271F12EE00935800 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		60F60353272859FF00B69B4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60F6035427285A0600B69B4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD6E271F12EE00935800 /* EnterViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60F6035527285A0C00B69B4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60F6035627285A2100B69B4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60F6035727285A2A00B69B4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60F6035827285A3300B69B4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60F6035927285A3D00B69B4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60F6035A27285A4400B69B4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60F6035B27285A4900B69B4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				601DAD6F271F12EE00935800 /* ViewController.swift in Sources */,
+				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
 				601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */,
@@ -445,7 +581,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GoodFood/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -473,7 +609,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GoodFood/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
