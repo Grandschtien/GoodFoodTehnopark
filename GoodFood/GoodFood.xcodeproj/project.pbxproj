@@ -17,6 +17,9 @@
 		601DAD85271F12F400935800 /* GoodFoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD84271F12F400935800 /* GoodFoodTests.swift */; };
 		601DAD8F271F12F400935800 /* GoodFoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD8E271F12F400935800 /* GoodFoodUITests.swift */; };
 		601DAD91271F12F400935800 /* GoodFoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */; };
+		60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D3272AB672006B479A /* RegisterViewController.swift */; };
+		60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */; };
+		60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +46,7 @@
 		601DAD6E271F12EE00935800 /* EnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterViewController.swift; sourceTree = "<group>"; };
 		601DAD71271F12EE00935800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		601DAD74271F12EE00935800 /* GoodFood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoodFood.xcdatamodel; sourceTree = "<group>"; };
-		601DAD76271F12F300935800 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		601DAD76271F12F300935800 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = GoodFood/Application/SupportingFiles/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		601DAD79271F12F300935800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		601DAD7B271F12F300935800 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		601DAD80271F12F300935800 /* GoodFoodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodFoodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +54,9 @@
 		601DAD8A271F12F400935800 /* GoodFoodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodFoodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD8E271F12F400935800 /* GoodFoodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodUITests.swift; sourceTree = "<group>"; };
 		601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		60ECE5D3272AB672006B479A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewController.swift; sourceTree = "<group>"; };
+		60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,7 @@
 		60F6034B272858C000B69B4D /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				60F6035C2729493800B69B4D /* Extensions */,
 				60F603522728599100B69B4D /* Delegates */,
 				60F603512728598700B69B4D /* CoreData */,
 				60F603502728597900B69B4D /* Storyboards */,
@@ -234,6 +241,7 @@
 		60F6035727285A2A00B69B4D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				60ECE5D3272AB672006B479A /* RegisterViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -255,6 +263,7 @@
 		60F6035A27285A4400B69B4D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -264,6 +273,14 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		60F6035C2729493800B69B4D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -400,6 +417,9 @@
 				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
+				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
+				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
+				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
