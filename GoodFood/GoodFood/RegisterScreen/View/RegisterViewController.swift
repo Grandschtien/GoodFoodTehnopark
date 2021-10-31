@@ -78,117 +78,44 @@ extension RegisterViewController {
         self.registerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
         
     }
-    //MARK: - Настройка стека для поля имени
-    /// Настройка стека для поля имени
-    private func setupNameStackView() {
-        self.nameTF.translatesAutoresizingMaskIntoConstraints = false
-        setupTF(nameTF, superView: self.view)
+    
+    private func setupRegisterTextStackViews(_ tf: UITextField, label: UILabel, stackView: UIStackView, labelText: String) {
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        setupTF(tf, superView: self.view)
         
-        self.nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupTextLabels(nameLabel, text: "Имя")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        setupTextLabels(label, text: labelText)
         
-        self.nameStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(nameStackView, spacing: 0)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        setupStackViews(stackView, spacing: 0, aligment: .leading)
         
-        self.nameStackView.addArrangedSubview(nameLabel)
-        self.nameStackView.addArrangedSubview(nameTF)
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(tf)
         
-        self.nameLabel.leadingAnchor.constraint(equalTo: self.nameStackView.leadingAnchor,
+        label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
                                                 constant: 0).isActive = true
-        self.nameTF.trailingAnchor.constraint(equalTo: self.nameStackView.trailingAnchor,
+        tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
                                               constant: 0).isActive = true
-        self.mainStackView.addArrangedSubview(nameStackView)
-        self.nameStackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
+        self.mainStackView.addArrangedSubview(stackView)
+        stackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
                                                     constant: 0).isActive = true
-        self.nameStackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
+        stackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
                                                      constant: 0).isActive = true
     }
     
-    //MARK: - Настройка стека для поля почты
-    /// Настройка стека для поля почты
-    private func setupMailStackView() {
-        self.mailTF.translatesAutoresizingMaskIntoConstraints = false
-        setupTF(mailTF, superView: self.view)
-        self.mailLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupTextLabels(mailLabel, text: "Почта")
-        
-        self.mailStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(mailStackView, spacing: 0)
-        
-        self.mailStackView.addArrangedSubview(mailLabel)
-        self.mailStackView.addArrangedSubview(mailTF)
-        
-        self.mailLabel.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor,
-                                                constant: 0).isActive = true
-        self.mailTF.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor,
-                                              constant: 0).isActive = true
-        self.mainStackView.addArrangedSubview(mailStackView)
-        
-        //  стек почты внутри основного стека (констреинты)
-        self.mailStackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
-                                                    constant: 0).isActive = true
-        self.mailStackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
-                                                     constant: 0).isActive = true
-    }
-    //MARK: - Настройка стека для поля пароля
-    /// Настройка стека для поля пароля
-    private func setupPasswordStackView() {
-        
-        self.passwordTF.translatesAutoresizingMaskIntoConstraints = false
-        setupTF(passwordTF, superView: self.view)
-        passwordTF.isSecureTextEntry = true
-        self.passwordLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupTextLabels(passwordLabel, text: "Пароль")
-        
-        self.passwordStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(passwordStackView, spacing: 0)
-        self.passwordStackView.addArrangedSubview(passwordLabel)
-        self.passwordStackView.addArrangedSubview(passwordTF)
-        self.passwordLabel.leadingAnchor.constraint(equalTo: self.passwordStackView.leadingAnchor,
-                                                    constant: 0).isActive = true
-        self.passwordTF.trailingAnchor.constraint(equalTo: self.passwordStackView.trailingAnchor,
-                                                  constant: 0).isActive = true
-        
-        self.mainStackView.addArrangedSubview(passwordStackView)
-        
-        self.passwordStackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
-                                                        constant: 0).isActive = true
-        self.passwordStackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
-                                                         constant: 0).isActive = true
-    }
-    //MARK: - настройка поля для поля повторения пароля
-    /// настройка поля для поля повторения пароля
-    private func setupCheckPasswordStackView() {
-        self.checkPasswordTF.translatesAutoresizingMaskIntoConstraints = false
-        setupTF(checkPasswordTF, superView: self.view)
-        checkPasswordTF.isSecureTextEntry = true
-        self.checkPasswordLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupTextLabels(checkPasswordLabel, text: "Повторите пароль")
-        self.checkPasswordStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(checkPasswordStackView, spacing: 0)
-        
-        self.checkPasswordStackView.addArrangedSubview(checkPasswordLabel)
-        self.checkPasswordStackView.addArrangedSubview(checkPasswordTF)
-        self.checkPasswordLabel.leadingAnchor.constraint(equalTo: self.checkPasswordStackView.leadingAnchor,
-                                                         constant: 0).isActive = true
-        self.checkPasswordTF.trailingAnchor.constraint(equalTo: self.checkPasswordStackView.trailingAnchor,
-                                                       constant: 0).isActive = true
-        self.mainStackView.addArrangedSubview(checkPasswordStackView)
-        self.checkPasswordStackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
-                                                        constant: 0).isActive = true
-        self.checkPasswordStackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
-                                                         constant: 0).isActive = true
-    }
+    
+    
     //MARK: - Настрйока основного стека с текстовыми полями
     /// Настрйока стека для всех полей
     private func setupMainStackView() {
-        setupNameStackView()
-        setupMailStackView()
-        setupPasswordStackView()
-        setupCheckPasswordStackView()
+        
+        setupRegisterTextStackViews(nameTF, label: nameLabel, stackView: nameStackView, labelText: "Имя")
+        setupRegisterTextStackViews(mailTF, label: mailLabel, stackView: mailStackView, labelText: "Почта")
+        setupRegisterTextStackViews(passwordTF, label: passwordLabel, stackView: passwordStackView, labelText: "Пароль")
+        setupRegisterTextStackViews(checkPasswordTF, label: checkPasswordLabel, stackView: checkPasswordStackView, labelText: "Повторите пароль")
         
         self.mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(mainStackView, spacing: 8)
+        setupStackViews(mainStackView, spacing: 8, aligment: .leading)
         
         self.view.addSubview(self.mainStackView)
         self.mainStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
@@ -206,7 +133,7 @@ extension RegisterViewController {
         self.userAgreementLabel.translatesAutoresizingMaskIntoConstraints = false
         setupAgreementLabel()
         self.buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(buttonStackView, spacing: 8)
+        setupStackViews(buttonStackView, spacing: 8, aligment:  .leading)
         self.view.addSubview(buttonStackView)
         self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
                                                     constant: 56).isActive = true

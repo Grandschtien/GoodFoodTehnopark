@@ -39,6 +39,7 @@ extension EnterViewController {
     ///Настройка всех view
     private func setupViews() {
         self.view.backgroundColor = .white
+        self.tabBarController?.tabBar.isHidden = true
         setupEnterLabel()
         setupTextFieldStackView()
         setupButtonStackView()
@@ -59,8 +60,6 @@ extension EnterViewController {
     /// Настройка stackVeiws
     private func setupTextFieldStackView() {
         self.textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.mailStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.passwordStackView.translatesAutoresizingMaskIntoConstraints = false
         self.textFieldsStackView.addArrangedSubview(mailStackView)
         self.textFieldsStackView.addArrangedSubview(passwordStackView)
         self.textFieldsStackView.addArrangedSubview(forgetPasswordButton)
@@ -73,69 +72,56 @@ extension EnterViewController {
         self.textFieldsStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
                                                            constant: -30).isActive = true
         
-        setupStackViews(textFieldsStackView, spacing: 8)
+        setupStackViews(textFieldsStackView, spacing: 8, aligment: .leading)
         
         // Настройка mailStackView
-        setupStackViews(mailStackView, spacing: 8)
-        self.mailStackView.leadingAnchor.constraint(equalTo: self.textFieldsStackView.leadingAnchor,
-                                                    constant: 0).isActive = true
-        self.mailStackView.trailingAnchor.constraint(equalTo: self.textFieldsStackView.trailingAnchor,
-                                                     constant: 0).isActive = true
+        setupEnterScreenStackViews(stackView: mailStackView, spacing: 8, aligment: .leading)
         //Настройка passwordStackView
-        
-        setupStackViews(passwordStackView, spacing: 5)
-        self.passwordStackView.leadingAnchor.constraint(equalTo: self.textFieldsStackView.leadingAnchor,
-                                                        constant: 0).isActive = true
-        self.passwordStackView.trailingAnchor.constraint(equalTo: self.textFieldsStackView.trailingAnchor,
-                                                         constant: 0).isActive = true
+        setupEnterScreenStackViews(stackView: passwordStackView, spacing: 5, aligment: .leading)
+
         //Настройка остальных view
-        setupMailTF()
-        setupPasswordTF()
+        setupTextFields(self.mailTF, stackView: mailStackView, label: mailLabel, labelText: "Почта")
+        setupTextFields(self.passwordTF, stackView: passwordStackView, label: passwordLabel, labelText: "Пароль")
+        self.passwordTF.isSecureTextEntry = true
         setupFogetButton()
         
     }
+    private func setupEnterScreenStackViews(stackView: UIStackView, spacing: CGFloat, aligment: UIStackView.Alignment) {
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        setupStackViews(stackView, spacing: spacing, aligment: aligment)
+        stackView.leadingAnchor.constraint(equalTo: self.textFieldsStackView.leadingAnchor,
+                                                        constant: 0).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: self.textFieldsStackView.trailingAnchor,
+                                                         constant: 0).isActive = true
+    }
+    
     //MARK: - Настройки текстовых полей
-    private func setupMailTF() {
-        self.mailLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.mailTF.translatesAutoresizingMaskIntoConstraints = false
+    /// Функция для настройки связки стека, лейбла и тестового поля
+    private func setupTextFields(_ tf: UITextField, stackView: UIStackView, label: UILabel, labelText: String) {
+        label.translatesAutoresizingMaskIntoConstraints = false
+        tf.translatesAutoresizingMaskIntoConstraints = false
         
-        setupTextLabels(mailLabel, text: "Почта")
-        setupTF(mailTF, superView: self.view)
+        setupTextLabels(label, text: labelText)
+        setupTF(tf, superView: self.view)
         
-        self.mailStackView.addArrangedSubview(mailLabel)
-        self.mailStackView.addArrangedSubview(mailTF)
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(tf)
         //constraints
-        self.mailTF.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor,
+        tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
                                               constant: 0).isActive = true
-        self.mailTF.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor,
+        tf.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
                                              constant: 0).isActive = true
-        self.mailLabel.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor,
+        label.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
                                                  constant: 0).isActive = true
-        self.mailLabel.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor,
+        label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
                                                 constant: 0).isActive = true
     }
     
-    private func setupPasswordTF() {
-        self.passwordTF.translatesAutoresizingMaskIntoConstraints = false
-        self.passwordLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupTextLabels(passwordLabel, text: "Пароль")
-        setupTF(passwordTF, superView: self.view)
-        self.passwordTF.isSecureTextEntry = true
-        self.passwordStackView.addArrangedSubview(passwordLabel)
-        self.passwordStackView.addArrangedSubview(passwordTF)
-        //constraints
-        self.passwordTF.trailingAnchor.constraint(equalTo: self.passwordStackView.trailingAnchor).isActive = true
-        self.passwordTF.leadingAnchor.constraint(equalTo: self.passwordStackView.leadingAnchor).isActive = true
-        
-        self.passwordLabel.trailingAnchor.constraint(equalTo: self.passwordStackView.trailingAnchor,
-                                                     constant: 0).isActive = true
-        self.passwordLabel.leadingAnchor.constraint(equalTo: self.passwordStackView.leadingAnchor,
-                                                    constant: 0).isActive = true
-    }
     //MARK: - Настройка кнопки забыл пароль
     private func setupFogetButton() {
         setupButton(forgetPasswordButton, text: "Забыли пароль? Нажмите сюда", alignment: .leading)
         self.forgetPasswordButton.addTarget(self, action: #selector(forgetPasswodButtonAction(_:)), for: .touchUpInside)
+        
         self.forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         self.forgetPasswordButton.trailingAnchor.constraint(equalTo: self.textFieldsStackView.trailingAnchor,
                                                             constant: 0).isActive = true
@@ -145,8 +131,6 @@ extension EnterViewController {
     }
     //MARK: - Настройка нижнего stackView
     private func setupButtonStackView() {
-        self.noAccountButton.translatesAutoresizingMaskIntoConstraints = false
-        self.guestButton.translatesAutoresizingMaskIntoConstraints = false
         self.buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         self.buttonStackView.addArrangedSubview(enterButton)
         self.buttonStackView.addArrangedSubview(noAccountButton)
@@ -158,13 +142,8 @@ extension EnterViewController {
                                                        constant: -56).isActive = true
         self.buttonStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,
                                                      constant: -40).isActive = true
-        
-        //Настройка stackView
-        self.buttonStackView.axis = .vertical
-        self.buttonStackView.spacing = 4
-        self.buttonStackView.distribution = .fill
-        self.buttonStackView.contentMode = .scaleToFill
-        self.buttonStackView.alignment = .center
+
+        setupStackViews(buttonStackView, spacing: 4, aligment: .center)
         
         // Настройка кнопок
         setupEnterButton()
@@ -185,6 +164,7 @@ extension EnterViewController {
     
     //MARK: - Настройка кнопки "нет аккаунта"
     private func setupNoAccountButton() {
+        self.noAccountButton.translatesAutoresizingMaskIntoConstraints = false
         setupButton(noAccountButton, text: "Нет аккаунта? Нажмите сюда", alignment: .center)
         self.noAccountButton.addTarget(self, action: #selector(registerButtonAction(_:)), for: .touchUpInside)
         
@@ -192,6 +172,7 @@ extension EnterViewController {
     //MARK: - настройка кнопки "войти как гость"
     ///настройка кнопки "войти как гость"
     private func setupGuestButton() {
+        self.guestButton.translatesAutoresizingMaskIntoConstraints = false
         setupButton(guestButton, text: "Или войдите как гость", alignment: .center)
     }
     
@@ -201,12 +182,30 @@ extension EnterViewController {
     
     @objc
     private func enterEnterButtonAction(_ sender: UIButton) {
-        //TODO: Переход в меню
+        let tabBarController = UITabBarController()
+        
+        let menuViewController = MenuViewController()
+        menuViewController.tabBarItem = UITabBarItem(title: "Меню", image:  UIImage(named: "menu"), selectedImage:  UIImage(named: "menu"))
+        
+        let profileVC = ProfileViewController()
+        profileVC.tabBarItem = UITabBarItem(title: "Профиль", image:  UIImage(named: "Profile"), selectedImage:  UIImage(named: "Profile"))
+        
+        let likedVC = LikedViewController()
+        likedVC.tabBarItem = UITabBarItem(title: "Избранное", image:  UIImage(named: "liked"), selectedImage:  UIImage(named: "liked"))
+        
+        let controllers = [menuViewController, likedVC, profileVC]
+        tabBarController.viewControllers = controllers.map({ controller in
+            UINavigationController(rootViewController: controller)
+        })
+        self.view.window?.rootViewController = tabBarController
+        self.view.window?.makeKeyAndVisible()
     }
     
     @objc
     private func guestButtonAction(_ sender: UIButton){
-        //TODO: Переход в меню
+        let menuViewController = MenuViewController()
+        
+        self.navigationController?.pushViewController(menuViewController, animated: true)
     }
     
     @objc

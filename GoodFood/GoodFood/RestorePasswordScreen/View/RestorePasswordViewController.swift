@@ -7,60 +7,8 @@
 
 import UIKit
 
-protocol RegistrationProtocol {
-    func setupButton(_ button: UIButton, text: String, alignment: UIControl.ContentHorizontalAlignment)
-    func setupTF(_ tf: UITextField, superView: UIView)
-    func setupTextLabels(_ label: UILabel, text: String)
-    func setupStackViews(_ stack: UIStackView, spacing: CGFloat)
-    func setupMainLabel(_ label: UILabel, text: String)
-    func setupMainButtons(_ button: UIButton, text: String)
-}
-
-extension RegistrationProtocol {
-    func setupButton(_ button: UIButton, text: String, alignment: UIControl.ContentHorizontalAlignment) {
-        button.setTitle(text, for: .normal)
-        button.titleLabel?.font = button.titleLabel?.font.withSize(15)
-        button.setTitleColor(UIColor(named: "LaunchScreenLabelColor"), for: .normal)
-        button.contentHorizontalAlignment = alignment
-    }
-    
-    func setupMainButtons(_ button: UIButton, text: String) {
-        button.setTitle(text, for: .normal)
-        button.titleLabel?.font = button.titleLabel?.font.withSize(17)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(named: "mainColor")
-        button.layer.cornerRadius = 15
-    }
-
-    func setupTF(_ tf: UITextField, superView: UIView) {
-        tf.font = UIFont(name: "system", size: 17)
-        tf.font = tf.font?.withSize(17)
-        tf.setUnderLine(superView: superView)
-    }
-    
-    func setupTextLabels(_ label: UILabel, text: String) {
-        label.text = text
-        label.font = UIFont(name: "system", size: 15)
-        label.font = label.font.withSize(15)
-        label.textColor = UIColor(named: "LaunchScreenLabelColor")
-    }
-    
-    func setupStackViews(_ stack: UIStackView, spacing: CGFloat) {
-        stack.axis = .vertical
-        stack.spacing = spacing
-        stack.distribution = .fill
-        stack.contentMode = .scaleToFill
-        stack.alignment = .leading
-    }
-    
-    func setupMainLabel(_ label: UILabel, text: String) {
-        label.text = text
-        label.font = label.font.withSize(30)
-        label.sizeToFit()
-    }
-}
-
 class RestorePasswordViewController: UIViewController, RegistrationProtocol {
+    
     
     private var mainLabel: UILabel = UILabel()
     private var mailLabel: UILabel = UILabel()
@@ -111,7 +59,7 @@ extension RestorePasswordViewController {
         self.mailStackView.addArrangedSubview(mailTF)
         self.mailStackView.addArrangedSubview(helpLabel)
         self.view.addSubview(mailStackView)
-        setupStackViews(self.mailStackView, spacing: 0)
+        setupStackViews(self.mailStackView, spacing: 0, aligment: .leading)
         setupMailLabel()
         setupMailTF()
         setupHelpLabel()

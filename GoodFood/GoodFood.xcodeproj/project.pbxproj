@@ -19,6 +19,12 @@
 		601DAD91271F12F400935800 /* GoodFoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */; };
 		60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D3272AB672006B479A /* RegisterViewController.swift */; };
 		60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */; };
+		60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */; };
+		60ECE5DE272D56AB006B479A /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5DD272D56AB006B479A /* MenuViewController.swift */; };
+		60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5E2272E9999006B479A /* MenuCell.swift */; };
+		60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60ECE5E3272E9999006B479A /* MenuCell.xib */; };
+		60ECE5F5272EAC87006B479A /* LikedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5F4272EAC87006B479A /* LikedViewController.swift */; };
+		60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5F6272EAC94006B479A /* ProfileViewController.swift */; };
 		60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +62,12 @@
 		601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		60ECE5D3272AB672006B479A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewController.swift; sourceTree = "<group>"; };
+		60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProtocol.swift; sourceTree = "<group>"; };
+		60ECE5DD272D56AB006B479A /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		60ECE5E2272E9999006B479A /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		60ECE5E3272E9999006B479A /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		60ECE5F4272EAC87006B479A /* LikedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedViewController.swift; sourceTree = "<group>"; };
+		60ECE5F6272EAC94006B479A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +123,9 @@
 				60F6034C272858CA00B69B4D /* EnterScreen */,
 				60F6034D272858D200B69B4D /* RegisterScreen */,
 				60F6034E272858DD00B69B4D /* RestorePasswordScreen */,
+				60ECE5D9272D567B006B479A /* MenuScreen */,
+				60ECE5ED272EAC0A006B479A /* LikedScreen */,
+				60ECE5EC272EABFF006B479A /* ProfileScreen */,
 			);
 			path = GoodFood;
 			sourceTree = "<group>";
@@ -130,6 +145,112 @@
 				601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */,
 			);
 			path = GoodFoodUITests;
+			sourceTree = "<group>";
+		};
+		60ECE5D9272D567B006B479A /* MenuScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5DC272D5696006B479A /* Model */,
+				60ECE5DB272D5690006B479A /* View */,
+				60ECE5DA272D568A006B479A /* ViewModel */,
+			);
+			path = MenuScreen;
+			sourceTree = "<group>";
+		};
+		60ECE5DA272D568A006B479A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60ECE5DB272D5690006B479A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5E1272E9970006B479A /* Cell */,
+				60ECE5DD272D56AB006B479A /* MenuViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60ECE5DC272D5696006B479A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60ECE5E1272E9970006B479A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5E2272E9999006B479A /* MenuCell.swift */,
+				60ECE5E3272E9999006B479A /* MenuCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		60ECE5EC272EABFF006B479A /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5F3272EAC6A006B479A /* Model */,
+				60ECE5F2272EAC65006B479A /* View */,
+				60ECE5F1272EAC60006B479A /* ViewModel */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		60ECE5ED272EAC0A006B479A /* LikedScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5EE272EAC3A006B479A /* Model */,
+				60ECE5EF272EAC3E006B479A /* View */,
+				60ECE5F0272EAC4F006B479A /* ViewModel */,
+			);
+			path = LikedScreen;
+			sourceTree = "<group>";
+		};
+		60ECE5EE272EAC3A006B479A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60ECE5EF272EAC3E006B479A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5F4272EAC87006B479A /* LikedViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60ECE5F0272EAC4F006B479A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60ECE5F1272EAC60006B479A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60ECE5F2272EAC65006B479A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5F6272EAC94006B479A /* ProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60ECE5F3272EAC6A006B479A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		60F6034B272858C000B69B4D /* Application */ = {
@@ -279,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */,
+				60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -389,6 +511,7 @@
 			files = (
 				601DAD7A271F12F300935800 /* LaunchScreen.storyboard in Resources */,
 				601DAD77271F12F300935800 /* Assets.xcassets in Resources */,
+				60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */,
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,12 +537,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */,
 				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
+				60ECE5DE272D56AB006B479A /* MenuViewController.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
+				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
+				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
 				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
+				60ECE5F5272EAC87006B479A /* LikedViewController.swift in Sources */,
 				601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
