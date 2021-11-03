@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     var isFlag: Bool = false
+    //Presentable protocol для всех координаторов
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,12 +21,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.overrideUserInterfaceStyle = .light
-        let enterController = EnterViewController()
-        let navigationController = UINavigationController(rootViewController: enterController)
+        let tabBarCoordinator = GoodFoodCoordinator(window: window!)
+        let navVC = UINavigationController()
+        let authCoordinator = AuthCoordinator(window: window!, navigationController: navVC, tabBarController: tabBarCoordinator)
         
-        //enterScreen(войти) -> tabBar
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        if isFlag {
+            tabBarCoordinator.start()
+        } else {
+            authCoordinator.start()
+        }
         
     }
     
@@ -62,4 +66,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
 }
+
 

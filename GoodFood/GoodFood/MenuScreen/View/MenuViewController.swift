@@ -11,7 +11,7 @@ class MenuViewController: UIViewController {
 
     private var searchController: UISearchController = UISearchController(searchResultsController: nil)
     private var tableView: UITableView = UITableView()
-    
+    var coordinator: GoodFoodCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -25,7 +25,8 @@ extension MenuViewController {
         self.title = "Меню"
         setupNavigationBar()
         setupSearchController()
-        setupTableView()
+        setupConstraints()
+        setupUI()
         setupTabBar()
     }
     
@@ -48,7 +49,21 @@ extension MenuViewController {
        
     }
     
-    private func setupTableView() {
+    private func setupConstraints() {
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,
+                                                constant: 0),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+                                                    constant: 0),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+                                                    constant: 0),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,
+                                                   constant: 0)
+        ])
+    }
+    
+    private func setupUI() {
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -57,15 +72,6 @@ extension MenuViewController {
         self.tableView.showsHorizontalScrollIndicator = false
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: MenuCell.reuseId, bundle: nil), forCellReuseIdentifier: MenuCell.reuseId)
-        self.view.addSubview(tableView)
-        self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,
-                                            constant: 0).isActive = true
-        self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
-                                                constant: 0).isActive = true
-        self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
-                                                constant: 0).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,
-                                               constant: 0).isActive = true
     }
 }
 //MARK: - Actions
@@ -102,7 +108,7 @@ extension MenuViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 342
+        return UITableView.automaticDimension
     }
 
 }

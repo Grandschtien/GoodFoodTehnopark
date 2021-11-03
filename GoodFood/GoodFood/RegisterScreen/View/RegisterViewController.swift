@@ -9,33 +9,35 @@ import UIKit
 
 class RegisterViewController: UIViewController, RegistrationProtocol {
     // Label регистрация
-    private var registerLabel: UILabel = UILabel()
+    private let registerLabel: UILabel = UILabel()
     
     // Текстовое поле имени
-    private var nameLabel: UILabel = UILabel()
-    private var nameTF: UITextField = UITextField()
-    private var nameStackView: UIStackView = UIStackView()
+    private let nameLabel: UILabel = UILabel()
+    private let nameTF: UITextField = UITextField()
+    private let nameStackView: UIStackView = UIStackView()
     
     // Текстовое поле почты
-    private var mailLabel: UILabel = UILabel()
-    private var mailTF: UITextField = UITextField()
-    private var mailStackView: UIStackView = UIStackView()
+    private let mailLabel: UILabel = UILabel()
+    private let mailTF: UITextField = UITextField()
+    private let mailStackView: UIStackView = UIStackView()
     
     // Текстовое поле пароля
-    private var passwordLabel: UILabel = UILabel()
-    private var passwordTF: UITextField = UITextField()
-    private var passwordStackView: UIStackView = UIStackView()
+    private let passwordLabel: UILabel = UILabel()
+    private let passwordTF: UITextField = UITextField()
+    private let passwordStackView: UIStackView = UIStackView()
     
     // Текстовое поле повторения пароля
-    private var checkPasswordLabel: UILabel = UILabel()
-    private var checkPasswordTF: UITextField = UITextField()
-    private var checkPasswordStackView: UIStackView = UIStackView()
+    private let checkPasswordLabel: UILabel = UILabel()
+    private let checkPasswordTF: UITextField = UITextField()
+    private let checkPasswordStackView: UIStackView = UIStackView()
     
     // Главный стек
-    private var mainStackView: UIStackView = UIStackView()
-    private var registerButton: UIButton = UIButton()
-    private var userAgreementLabel: UILabel = UILabel()
-    private var buttonStackView: UIStackView = UIStackView()
+    private let mainStackView: UIStackView = UIStackView()
+    private let registerButton: UIButton = UIButton()
+    private let userAgreementLabel: UILabel = UILabel()
+    private let buttonStackView: UIStackView = UIStackView()
+    
+    var coordinator: AuthCoordinator?
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -53,7 +55,7 @@ extension RegisterViewController {
     /// Акшон кнопки назад
     @objc
     private func backAction() {
-        self.navigationController?.popViewController(animated: true)
+        self.coordinator?.pop(animated: true)
     }
 }
 
@@ -62,21 +64,84 @@ extension RegisterViewController {
     private func setupViews() {
         self.view.backgroundColor = .white
         setupNavigationBar()
-        setupRegisterLabel()
-        setupMainStackView()
-        setupButtonStackView()
+        setupConstraints()
+        setupUI()
     }
-    //MARK: - Настрйока лейбла Регистрация
-    /// Настройка лейбла регистрации
-    private func setupRegisterLabel() {
+    
+    private func setupConstraints() {
         self.registerLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(registerLabel)
+        NSLayoutConstraint.activate([
+            self.registerLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            self.registerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0)
+        ])
+        self.mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.mainStackView)
+        NSLayoutConstraint.activate([
+            self.mainStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+                                                        constant: 30),
+            self.mainStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+                                                         constant: -30),
+            self.mainStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor,
+                                                        constant: 0),
+            self.mainStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor,
+                                                        constant: -130)
+        ])
+        setupRegisterTextStackViews(nameTF,
+                                    label: nameLabel,
+                                    stackView: nameStackView,
+                                    labelText: "Имя")
+        setupRegisterTextStackViews(mailTF,
+                                    label: mailLabel,
+                                    stackView: mailStackView,
+                                    labelText: "Почта")
+        setupRegisterTextStackViews(passwordTF, label:
+                                    passwordLabel, stackView:
+                                    passwordStackView,
+                                    labelText: "Пароль")
+        setupRegisterTextStackViews(checkPasswordTF,
+                                    label: checkPasswordLabel,
+                                    stackView: checkPasswordStackView,
+                                    labelText: "Повторите пароль")
+        
+        self.registerButton.translatesAutoresizingMaskIntoConstraints = false
+        self.userAgreementLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(buttonStackView)
+        NSLayoutConstraint.activate([
+            self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+                                                          constant: 56),
+            self.buttonStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+                                                           constant: -56),
+            self.buttonStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
+                                                         constant: -28)
+        ])
+        
+        self.buttonStackView.addArrangedSubview(registerButton)
+        self.buttonStackView.addArrangedSubview(userAgreementLabel)
+        
+        NSLayoutConstraint.activate([
+            self.registerButton.leadingAnchor.constraint(equalTo: self.buttonStackView.leadingAnchor,
+                                                         constant: 0),
+            self.registerButton.trailingAnchor.constraint(equalTo: self.buttonStackView.trailingAnchor,
+                                                          constant: 0),
+            self.registerButton.heightAnchor.constraint(equalToConstant: 70)
+        ])
+        
+    }
+    
+    private func setupUI() {
         self.registerLabel.text = "Регистрация"
         self.registerLabel.font = self.registerLabel.font.withSize(30)
         self.registerLabel.sizeToFit()
-        self.view.addSubview(registerLabel)
-        self.registerLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        self.registerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        self.passwordTF.isSecureTextEntry = true
+        self.passwordTF.isSecureTextEntry = true
+        setupStackViews(mainStackView, spacing: 8, aligment: .leading)
+        setupStackViews(buttonStackView, spacing: 8, aligment:  .center)
         
+        setupMainButtons(registerButton, text: "Зарегистрироваться")
+        setupAgreementLabel()
     }
     
     private func setupRegisterTextStackViews(_ tf: UITextField, label: UILabel, stackView: UIStackView, labelText: String) {
@@ -92,74 +157,28 @@ extension RegisterViewController {
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(tf)
         
-        label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
-                                                constant: 0).isActive = true
-        tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
-                                              constant: 0).isActive = true
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
+                                           constant: 0),
+            tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
+                                         constant: 0)
+        ])
+        
         self.mainStackView.addArrangedSubview(stackView)
-        stackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
-                                                    constant: 0).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
-                                                     constant: 0).isActive = true
-    }
-    
-    
-    
-    //MARK: - Настрйока основного стека с текстовыми полями
-    /// Настрйока стека для всех полей
-    private func setupMainStackView() {
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
+                                               constant: 0),
+            stackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
+                                                constant: 0)
+        ])
         
-        setupRegisterTextStackViews(nameTF, label: nameLabel, stackView: nameStackView, labelText: "Имя")
-        setupRegisterTextStackViews(mailTF, label: mailLabel, stackView: mailStackView, labelText: "Почта")
-        setupRegisterTextStackViews(passwordTF, label: passwordLabel, stackView: passwordStackView, labelText: "Пароль")
-        setupRegisterTextStackViews(checkPasswordTF, label: checkPasswordLabel, stackView: checkPasswordStackView, labelText: "Повторите пароль")
         
-        self.mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(mainStackView, spacing: 8, aligment: .leading)
-        
-        self.view.addSubview(self.mainStackView)
-        self.mainStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
-                                                    constant: 30).isActive = true
-        self.mainStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
-                                                     constant: -30).isActive = true
-        self.mainStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
-        self.mainStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -130).isActive = true
-    }
-    //MARK: - Настройка стека для кнопки регистарации
-    /// Настройка стека для кнопки
-    private func setupButtonStackView() {
-        self.registerButton.translatesAutoresizingMaskIntoConstraints = false
-        setupButton()
-        self.userAgreementLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupAgreementLabel()
-        self.buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupStackViews(buttonStackView, spacing: 8, aligment:  .leading)
-        self.view.addSubview(buttonStackView)
-        self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
-                                                    constant: 56).isActive = true
-        self.buttonStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
-                                                     constant: -56).isActive = true
-        self.buttonStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
-                                                     constant: -28).isActive = true
-    }
-    // MARK: - Настрйока кнопки Регистрация
-    /// Настройка кнопки регистарция
-    private func setupButton() {
-        self.buttonStackView.addArrangedSubview(registerButton)
-        
-        self.registerButton.leadingAnchor.constraint(equalTo: self.buttonStackView.leadingAnchor,
-                                                     constant: 0).isActive  = true
-        self.registerButton.trailingAnchor.constraint(equalTo: self.buttonStackView.trailingAnchor,
-                                                     constant: 0).isActive  = true
-        self.registerButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        setupMainButtons(registerButton, text: "Зарегистрироваться")
-        self.buttonStackView.addArrangedSubview(registerButton)
     }
     //MARK: - Настрйока лейбля пользовательского соглажения
     /// Настрйока лейбля пользовательского соглажения
     private func setupAgreementLabel() {
-        self.buttonStackView.addArrangedSubview(userAgreementLabel)
         self.userAgreementLabel.text = "Нажимая кнопку “Зарегистрироваться”, вы принимаете пользовательское соглашение"
+        self.userAgreementLabel.textAlignment = .center
         self.userAgreementLabel.numberOfLines = 3
         self.userAgreementLabel.font = UIFont(name: "system", size: 13)
         self.userAgreementLabel.font = self.passwordLabel.font.withSize(13)
@@ -171,6 +190,6 @@ extension RegisterViewController {
 extension RegisterViewController {
     @objc
     private func registerButtonAction(_ sender: UIButton) {
-        debugPrint("Registered")
+        coordinator?.enterButton()
     }
 }
