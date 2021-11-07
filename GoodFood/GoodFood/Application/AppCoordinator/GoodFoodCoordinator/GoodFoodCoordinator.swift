@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 final class GoodFoodCoordinator {
     private var window: UIWindow
     private(set) var tabBarController: UITabBarController = UITabBarController()
@@ -19,10 +20,11 @@ final class GoodFoodCoordinator {
 
 }
 
-extension GoodFoodCoordinator {    
+extension GoodFoodCoordinator: CoordinatorProtocol {    
     func start() {
-        let menuViewController = MenuViewController()
-        menuViewController.coordinator = self
+        let menuViewModel = MenuViewModel()
+        let menuViewController = MenuViewController(viewModel: menuViewModel, coordinatror: self)
+        
         menuViewController.tabBarItem = UITabBarItem(title: "Меню", image:  UIImage(named: "menu"), selectedImage:  UIImage(named: "menu"))
         
         let profileVC = ProfileViewController()

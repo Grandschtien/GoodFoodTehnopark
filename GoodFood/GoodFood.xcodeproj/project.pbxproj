@@ -30,6 +30,9 @@
 		60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5FF273067C0006B479A /* GoodFoodCoordinator.swift */; };
 		60ECE602273067CC006B479A /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE601273067CC006B479A /* AuthCoordinator.swift */; };
 		60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE608273178B8006B479A /* EnterViewModel.swift */; };
+		60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61827380BD1006B479A /* RegisterViewModel.swift */; };
+		60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */; };
+		60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61C2738122F006B479A /* MenuViewModel.swift */; };
 		60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */; };
 		8D6341B7D8665E4E99FF939A /* Pods_GoodFood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */; };
 /* End PBXBuildFile section */
@@ -82,6 +85,9 @@
 		60ECE5FF273067C0006B479A /* GoodFoodCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodCoordinator.swift; sourceTree = "<group>"; };
 		60ECE601273067CC006B479A /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		60ECE608273178B8006B479A /* EnterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterViewModel.swift; sourceTree = "<group>"; };
+		60ECE61827380BD1006B479A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewModel.swift; sourceTree = "<group>"; };
+		60ECE61C2738122F006B479A /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		610DC6D0127F8147AA3DF746 /* Pods-GoodFood-GoodFoodUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.release.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.release.xcconfig"; sourceTree = "<group>"; };
 		802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFoodTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +189,7 @@
 		60ECE5DA272D568A006B479A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				60ECE61C2738122F006B479A /* MenuViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -405,6 +412,7 @@
 		60F6035627285A2100B69B4D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				60ECE61827380BD1006B479A /* RegisterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -427,6 +435,7 @@
 		60F6035927285A3D00B69B4D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -721,16 +730,19 @@
 				60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */,
 				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
 				60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */,
+				60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
 				60ECE602273067CC006B479A /* AuthCoordinator.swift in Sources */,
 				60ECE5DE272D56AB006B479A /* MenuViewController.swift in Sources */,
 				60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */,
+				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
 				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
 				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
 				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
+				60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */,
 				60ECE5F5272EAC87006B479A /* LikedViewController.swift in Sources */,
 				601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */,
 			);

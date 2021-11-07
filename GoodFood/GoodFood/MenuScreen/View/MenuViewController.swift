@@ -11,7 +11,18 @@ class MenuViewController: UIViewController {
 
     private var searchController: UISearchController = UISearchController(searchResultsController: nil)
     private var tableView: UITableView = UITableView()
-    var coordinator: GoodFoodCoordinator?
+    private var coordinator: CoordinatorProtocol?
+    private(set) var viewModel: MenuViewModel?
+    
+    init(viewModel: MenuViewModel, coordinatror: CoordinatorProtocol) {
+        self.coordinator = coordinatror
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -21,8 +32,8 @@ class MenuViewController: UIViewController {
 //MARK: - Настройка views
 extension MenuViewController {
     private func setupViews(){
-        self.view.backgroundColor = UIColor(named: "BackgroundColor")
-        self.title = "Меню"
+        view.backgroundColor = UIColor(named: "BackgroundColor")
+        title = "Меню"
         setupNavigationBar()
         setupSearchController()
         setupConstraints()
@@ -33,12 +44,12 @@ extension MenuViewController {
     private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(menuFilterButtonAction))
         let sortButton = UIBarButtonItem(image: UIImage(named: "sort"), style: .plain, target: self, action: #selector(menuSortButtonAction))
-        let addButton = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(menuAddButtomAction))
+        let addButton = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(menuAddButtonAction))
         navigationItem.setRightBarButtonItems([addButton, sortButton], animated: true)
     }
     private func setupTabBar() {
-        self.tabBarController?.tabBar.isHidden = false
-        self.tabBarController?.tabBar.backgroundColor = UIColor(named: "tabBarColor")
+        tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.backgroundColor = UIColor(named: "tabBarColor")
     }
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
@@ -50,28 +61,28 @@ extension MenuViewController {
     }
     
     private func setupConstraints() {
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
                                                 constant: 0),
-            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                     constant: 0),
-            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                     constant: 0),
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
                                                    constant: 0)
         ])
     }
     
     private func setupUI() {
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.backgroundColor = self.view.backgroundColor
-        self.tableView.showsVerticalScrollIndicator = false
-        self.tableView.showsHorizontalScrollIndicator = false
-        self.tableView.separatorStyle = .none
-        self.tableView.register(UINib(nibName: MenuCell.reuseId, bundle: nil), forCellReuseIdentifier: MenuCell.reuseId)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = view.backgroundColor
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.separatorStyle = .none
+        tableView.register(UINib(nibName: MenuCell.reuseId, bundle: nil), forCellReuseIdentifier: MenuCell.reuseId)
     }
 }
 //MARK: - Actions
@@ -85,7 +96,7 @@ extension MenuViewController {
         
     }
     @objc
-    private func menuAddButtomAction() {
+    private func menuAddButtonAction() {
         
     }
 }

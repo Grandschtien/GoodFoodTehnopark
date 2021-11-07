@@ -37,8 +37,21 @@ class RegisterViewController: UIViewController, RegistrationProtocol {
     private let userAgreementLabel: UILabel = UILabel()
     private let buttonStackView: UIStackView = UIStackView()
     
-    var coordinator: AuthCoordinator?
+    private var coordinator: CoordinatorProtocol?
+    private(set) var viewModel: RegisterViewModel?
+    var enter: (()->Void)?
+    var back: (()->Void)?
     
+    
+    init(viewModel: RegisterViewModel, coordinator: CoordinatorProtocol) {
+        self.coordinator = coordinator
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,36 +68,36 @@ extension RegisterViewController {
     /// Акшон кнопки назад
     @objc
     private func backAction() {
-        self.coordinator?.pop(animated: true)
+        back?()
     }
 }
 
 //MARK: - НАстройка constraints
 extension RegisterViewController {
     private func setupViews() {
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         setupNavigationBar()
         setupConstraints()
         setupUI()
     }
     
     private func setupConstraints() {
-        self.registerLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(registerLabel)
+        registerLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(registerLabel)
         NSLayoutConstraint.activate([
-            self.registerLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            self.registerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0)
+            registerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            registerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
-        self.mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.mainStackView)
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mainStackView)
         NSLayoutConstraint.activate([
-            self.mainStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                         constant: 30),
-            self.mainStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                          constant: -30),
-            self.mainStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor,
+            mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor,
                                                         constant: 0),
-            self.mainStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor,
+            mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor,
                                                         constant: -130)
         ])
         setupRegisterTextStackViews(nameTF,
@@ -104,49 +117,49 @@ extension RegisterViewController {
                                     stackView: checkPasswordStackView,
                                     labelText: "Повторите пароль")
         
-        self.registerButton.translatesAutoresizingMaskIntoConstraints = false
-        self.userAgreementLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        userAgreementLabel.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(buttonStackView)
+        view.addSubview(buttonStackView)
         NSLayoutConstraint.activate([
-            self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                           constant: 56),
-            self.buttonStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                            constant: -56),
-            self.buttonStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
+            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                                          constant: -28)
         ])
         
-        self.buttonStackView.addArrangedSubview(registerButton)
-        self.buttonStackView.addArrangedSubview(userAgreementLabel)
+        buttonStackView.addArrangedSubview(registerButton)
+        buttonStackView.addArrangedSubview(userAgreementLabel)
         
         NSLayoutConstraint.activate([
-            self.registerButton.leadingAnchor.constraint(equalTo: self.buttonStackView.leadingAnchor,
+            registerButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor,
                                                          constant: 0),
-            self.registerButton.trailingAnchor.constraint(equalTo: self.buttonStackView.trailingAnchor,
+            registerButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor,
                                                           constant: 0),
-            self.registerButton.heightAnchor.constraint(equalToConstant: 70)
+            registerButton.heightAnchor.constraint(equalToConstant: 70)
         ])
         
     }
     
     private func setupUI() {
-        self.registerLabel.text = "Регистрация"
-        self.registerLabel.font = self.registerLabel.font.withSize(30)
-        self.registerLabel.sizeToFit()
-        self.passwordTF.isSecureTextEntry = true
-        self.passwordTF.isSecureTextEntry = true
+        registerLabel.text = "Регистрация"
+        registerLabel.font = registerLabel.font.withSize(30)
+        registerLabel.sizeToFit()
+        passwordTF.isSecureTextEntry = true
+        passwordTF.isSecureTextEntry = true
         setupStackViews(mainStackView, spacing: 8, aligment: .leading)
         setupStackViews(buttonStackView, spacing: 8, aligment:  .center)
-        
         setupMainButtons(registerButton, text: "Зарегистрироваться")
         setupAgreementLabel()
+        registerButton.addTarget(self, action: #selector(registerButtonAction(_:)), for: .touchUpInside)
     }
     
     private func setupRegisterTextStackViews(_ tf: UITextField, label: UILabel, stackView: UIStackView, labelText: String) {
         tf.translatesAutoresizingMaskIntoConstraints = false
-        setupTF(tf, superView: self.view)
+        setupTF(tf, superView: view)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         setupTextLabels(label, text: labelText)
@@ -164,11 +177,11 @@ extension RegisterViewController {
                                          constant: 0)
         ])
         
-        self.mainStackView.addArrangedSubview(stackView)
+        mainStackView.addArrangedSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.mainStackView.leadingAnchor,
+            stackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor,
                                                constant: 0),
-            stackView.trailingAnchor.constraint(equalTo: self.mainStackView.trailingAnchor,
+            stackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor,
                                                 constant: 0)
         ])
         
@@ -177,12 +190,12 @@ extension RegisterViewController {
     //MARK: - Настрйока лейбля пользовательского соглажения
     /// Настрйока лейбля пользовательского соглажения
     private func setupAgreementLabel() {
-        self.userAgreementLabel.text = "Нажимая кнопку “Зарегистрироваться”, вы принимаете пользовательское соглашение"
-        self.userAgreementLabel.textAlignment = .center
-        self.userAgreementLabel.numberOfLines = 3
-        self.userAgreementLabel.font = UIFont(name: "system", size: 13)
-        self.userAgreementLabel.font = self.passwordLabel.font.withSize(13)
-        self.userAgreementLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        userAgreementLabel.text = "Нажимая кнопку “Зарегистрироваться”, вы принимаете пользовательское соглашение"
+        userAgreementLabel.textAlignment = .center
+        userAgreementLabel.numberOfLines = 3
+        userAgreementLabel.font = UIFont(name: "system", size: 13)
+        userAgreementLabel.font = passwordLabel.font.withSize(13)
+        userAgreementLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
     }
 }
 
@@ -190,6 +203,6 @@ extension RegisterViewController {
 extension RegisterViewController {
     @objc
     private func registerButtonAction(_ sender: UIButton) {
-        coordinator?.enterButton()
+        enter?()
     }
 }

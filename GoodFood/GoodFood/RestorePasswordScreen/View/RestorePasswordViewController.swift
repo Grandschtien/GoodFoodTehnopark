@@ -18,13 +18,26 @@ class RestorePasswordViewController: UIViewController, RegistrationProtocol {
     
     private var sendButton: UIButton = UIButton()
     
+    private var coordinator: CoordinatorProtocol?
+    private(set) var viewModel: RestorePasswordViewModel?
+    var enter:(() -> Void)?
+    var back: (() -> Void)?
+    
+    
+    init(viewModel: RestorePasswordViewModel, coordinator: CoordinatorProtocol) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-    
-    var coordinator: AuthCoordinator?
     
 }
 //MARK: - Setup views
@@ -38,81 +51,88 @@ extension RestorePasswordViewController {
     }
     ///Setup navigation bar
     private func setupNavigationBar() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBarButton"), style: .plain, target: self, action: #selector(backAction))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBarButton"), style: .plain, target: self, action: #selector(backAction))
     }
     
     private func setupConstraints() {
-        self.mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(mainLabel)
-        self.mainLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 45).isActive = true
-        self.mainLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -45).isActive = true
-        self.mainLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 45).isActive = true
+        mainLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mainLabel)
+        NSLayoutConstraint.activate([
+            mainLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                               constant: 45),
+            mainLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                constant: -45),
+            mainLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                           constant: 45)
+        ])
+        mailStackView.translatesAutoresizingMaskIntoConstraints = false
+        mailStackView.addArrangedSubview(mailLabel)
+        mailStackView.addArrangedSubview(mailTF)
+        mailStackView.addArrangedSubview(helpLabel)
         
-        self.mailStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.mailStackView.addArrangedSubview(mailLabel)
-        self.mailStackView.addArrangedSubview(mailTF)
-        self.mailStackView.addArrangedSubview(helpLabel)
-        self.view.addSubview(mailStackView)
-        self.mailStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30).isActive = true
-        self.mailStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30).isActive = true
-        self.mailStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
-        self.mailStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -120).isActive = true
+        view.addSubview(mailStackView)
+        NSLayoutConstraint.activate([
+            mailStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                   constant: 30),
+            mailStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                    constant: -30),
+            mailStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor,
+                                                   constant: 0),
+            mailStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor,
+                                                   constant: -120)
+        ])
         
-        self.mailLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.mailLabel.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor, constant: 0).isActive = true
-        self.mailLabel.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor, constant: 0).isActive = true
+        mailLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mailLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
+                                               constant: 0),
+            mailLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
+                                                constant: 0)
+        ])
         
-        self.mailTF.translatesAutoresizingMaskIntoConstraints = false
-        self.mailTF.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor, constant: 0).isActive = true
-        self.mailTF.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor, constant: 0).isActive = true
         
-        self.sendButton.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(sendButton)
-        self.sendButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
-                                                 constant: 56).isActive = true
-        self.sendButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
-                                                  constant: -56).isActive = true
-        self.sendButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
-                                                     constant: -26).isActive = true
-        self.sendButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        mailTF.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mailTF.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
+                                            constant: 0),
+            mailTF.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
+                                             constant: 0)
+        ])
         
-        self.helpLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.helpLabel.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor,
-                                                 constant: 0).isActive = true
-        self.helpLabel.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor,
-                                                  constant: 0).isActive = true
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(sendButton)
+        NSLayoutConstraint.activate([
+            sendButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                constant: 56),
+            sendButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                 constant: -56),
+            sendButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                               constant: -26),
+            sendButton.heightAnchor.constraint(equalToConstant: 70)
+        ])
+        
+        
+        helpLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            helpLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
+                                               constant: 0),
+            helpLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
+                                                constant: 0)
+        ])
+        
     }
-     
+    
     private func setupUI() {
-        setupMainLabel(self.mainLabel, text: "Введите адрес электронной почты")
-        self.mainLabel.numberOfLines = 0
-        self.mainLabel.textAlignment = .center
-        setupStackViews(self.mailStackView, spacing: 0, aligment: .leading)
-        setupMailLabel()
-        setupMailTF()
-        setupTextLabels(self.mailLabel, text: "Почта")
-        setupTF(self.mailTF, superView: self.view)
-        setupMainButtons(self.sendButton, text: "Отправить")
+        title = "Восстановление пароля"
+        setupMainLabel(mainLabel, text: "Введите адрес электронной почты")
+        mainLabel.numberOfLines = 0
+        mainLabel.textAlignment = .center
+        setupStackViews(mailStackView, spacing: 0, aligment: .leading)
+        setupTextLabels(mailLabel, text: "Почта")
+        setupTF(mailTF, superView: view)
+        setupMainButtons(sendButton, text: "Отправить")
         setupTextLabels(helpLabel, text: "Вам придет письмо с дальнейшими указаниями")
-    }
-    
-    
-    
-    private func setupMailLabel() {
-        self.mailLabel.translatesAutoresizingMaskIntoConstraints = false
-        setupTextLabels(self.mailLabel, text: "Почта")
-        self.mailLabel.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor, constant: 0).isActive = true
-        self.mailLabel.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor, constant: 0).isActive = true
-        
-    }
-    
-    private func setupMailTF() {
-        self.mailTF.translatesAutoresizingMaskIntoConstraints = false
-        setupTF(self.mailTF, superView: self.view)
-        self.mailTF.leadingAnchor.constraint(equalTo: self.mailStackView.leadingAnchor,
-                                             constant: 0).isActive = true
-        self.mailTF.trailingAnchor.constraint(equalTo: self.mailStackView.trailingAnchor,
-                                              constant: 0).isActive = true
+        sendButton.addTarget(self, action: #selector(sendAction), for: .touchUpInside)
         
     }
 }
@@ -121,6 +141,10 @@ extension RestorePasswordViewController {
 extension RestorePasswordViewController {
     @objc
     private func backAction() {
-        self.coordinator?.dismiss(animated: true, completion: nil)
+        back?()
+    }
+    @objc
+    private func sendAction() {
+        enter?()
     }
 }

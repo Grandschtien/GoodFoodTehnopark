@@ -29,93 +29,108 @@ class EnterViewController: UIViewController, RegistrationProtocol {
     private let buttonStackView: UIStackView = UIStackView()
     //properties
     
-    var viewModel: EnterViewModel?
-    var coordinator: AuthCoordinator?
+    private(set) var viewModel: EnterViewModel?
+    private var coordinator: CoordinatorProtocol?
+    
+    var enter: (()->Void)?
+    var registration: (()->Void)?
+    var forgetPassword: (()->Void)?
+ 
+    init(viewModel: EnterViewModel, coordinator: CoordinatorProtocol) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = EnterViewModel()
         setupViews()
     }
 }
+
+
 
 // MARK: - SetupViews
 extension EnterViewController {
     ///Настройка всех view
     private func setupViews() {
-        self.view.backgroundColor = .white
-        self.tabBarController?.tabBar.isHidden = true
+        view.backgroundColor = .white
+        tabBarController?.tabBar.isHidden = true
         setupConstraints()
         setupUI()
     }
     
     private func setupConstraints() {
-        self.enterLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(enterLabel)
+        enterLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(enterLabel)
         
         NSLayoutConstraint.activate([
-            self.enterLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            self.enterLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            enterLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            enterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        self.textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
+        textFieldsStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.textFieldsStackView.addArrangedSubview(mailStackView)
+        textFieldsStackView.addArrangedSubview(mailStackView)
         setupTextFields(mailTF, stackView: mailStackView, label: mailLabel)
         setupEnterScreenStackViews(mailStackView)
         
-        self.textFieldsStackView.addArrangedSubview(passwordStackView)
+        textFieldsStackView.addArrangedSubview(passwordStackView)
         setupTextFields(passwordTF, stackView: passwordStackView, label: passwordLabel)
         setupEnterScreenStackViews(passwordStackView)
         
-        self.textFieldsStackView.addArrangedSubview(forgetPasswordButton)
-        self.forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+        textFieldsStackView.addArrangedSubview(forgetPasswordButton)
+        forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.forgetPasswordButton.trailingAnchor.constraint(equalTo: self.textFieldsStackView.trailingAnchor,
+            forgetPasswordButton.trailingAnchor.constraint(equalTo: textFieldsStackView.trailingAnchor,
                                                                 constant: 0),
-            self.forgetPasswordButton.leadingAnchor.constraint(equalTo: self.textFieldsStackView.leadingAnchor,
+            forgetPasswordButton.leadingAnchor.constraint(equalTo: textFieldsStackView.leadingAnchor,
                                                                constant: 0)
         ])
         
-        self.view.addSubview(textFieldsStackView)
+        view.addSubview(textFieldsStackView)
         
         NSLayoutConstraint.activate([
-            self.textFieldsStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -70),
-            self.textFieldsStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+            textFieldsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -70),
+            textFieldsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                               constant: 30),
-            self.textFieldsStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+            textFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                                constant: -30)
         ])
         
-        self.buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.buttonStackView.addArrangedSubview(enterButton)
-        self.enterButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.addArrangedSubview(enterButton)
+        enterButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.enterButton.heightAnchor.constraint(equalToConstant: 70),
-            self.enterButton.leadingAnchor.constraint(equalTo: self.buttonStackView.leadingAnchor,
+            enterButton.heightAnchor.constraint(equalToConstant: 70),
+            enterButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor,
                                                       constant: 0),
-            self.enterButton.trailingAnchor.constraint(equalTo: self.buttonStackView.trailingAnchor,
+            enterButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor,
                                                        constant: 0)
         ])
         
-        self.buttonStackView.addArrangedSubview(noAccountButton)
-        self.noAccountButton.translatesAutoresizingMaskIntoConstraints = false
-
-        self.buttonStackView.addArrangedSubview(guestButton)
-        self.guestButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.addArrangedSubview(noAccountButton)
+        noAccountButton.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(buttonStackView)
+        buttonStackView.addArrangedSubview(guestButton)
+        guestButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(buttonStackView)
         
         NSLayoutConstraint.activate([
-            self.buttonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,
+            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                           constant: 56),
-            self.buttonStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,
+            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                            constant: -56),
-            self.buttonStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor,
+            buttonStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
                                                          constant: -40)
         ])
-        self.view.addSubview(buttonStackView)
+        view.addSubview(buttonStackView)
         
     }
     
@@ -128,27 +143,27 @@ extension EnterViewController {
         setupStackViews(buttonStackView, spacing: 4, aligment: .center)
         setupMainLabel(enterLabel, text: "Вход")
         setupTextLabels(mailLabel, text: "Почта")
-        setupTF(mailTF, superView: self.view)
+        setupTF(mailTF, superView: view)
         setupTextLabels(passwordLabel, text: "Пароль")
-        setupTF(passwordTF, superView: self.view)
-        self.passwordTF.isSecureTextEntry = true
+        setupTF(passwordTF, superView: view)
+        passwordTF.isSecureTextEntry = true
         setupButton(forgetPasswordButton, text: "Забыли пароль? Нажмите сюда", alignment: .leading)
-        self.forgetPasswordButton.addTarget(self, action: #selector(forgetPasswodButtonAction(_:)), for: .touchUpInside)
+        forgetPasswordButton.addTarget(self, action: #selector(forgetPasswodButtonAction(_:)), for: .touchUpInside)
         setupMainButtons(enterButton, text: "Войти")
-        self.enterButton.addTarget(self, action: #selector(enterEnterButtonAction(_:)), for: .touchUpInside)
+        enterButton.addTarget(self, action: #selector(enterEnterButtonAction(_:)), for: .touchUpInside)
         setupButton(noAccountButton, text: "Нет аккаунта? Нажмите сюда", alignment: .center)
-        self.noAccountButton.addTarget(self, action: #selector(registerButtonAction(_:)), for: .touchUpInside)
+        noAccountButton.addTarget(self, action: #selector(registerButtonAction(_:)), for: .touchUpInside)
         setupButton(guestButton, text: "Или войдите как гость", alignment: .center)
-        self.guestButton.addTarget(self, action: #selector(guestButtonAction(_:)), for: .touchUpInside)
+        guestButton.addTarget(self, action: #selector(guestButtonAction(_:)), for: .touchUpInside)
     }
-
+    
     private func setupEnterScreenStackViews(_ stackView: UIStackView) {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.textFieldsStackView.leadingAnchor,
-                                                            constant: 0),
-            stackView.trailingAnchor.constraint(equalTo: self.textFieldsStackView.trailingAnchor,
-                                                             constant: 0)
+            stackView.leadingAnchor.constraint(equalTo: textFieldsStackView.leadingAnchor,
+                                               constant: 0),
+            stackView.trailingAnchor.constraint(equalTo: textFieldsStackView.trailingAnchor,
+                                                constant: 0)
         ])
     }
     
@@ -163,36 +178,35 @@ extension EnterViewController {
         //constraints
         NSLayoutConstraint.activate([
             tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
-                                                  constant: 0),
+                                         constant: 0),
             tf.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
-                                                 constant: 0),
+                                        constant: 0),
             label.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
-                                                     constant: 0),
+                                            constant: 0),
             label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
-                                                    constant: 0)
+                                           constant: 0)
         ])
     }
 }
 //MARK: - Actions
-//TODO: Вынести всю эту залупу во viewModel
 extension EnterViewController {
     
     @objc
     private func enterEnterButtonAction(_ sender: UIButton) {
-        coordinator?.enterButton()
+        enter?()
     }
     
     @objc
     private func guestButtonAction(_ sender: UIButton){
-        coordinator?.enterButton()
+        enter?()
     }
     
     @objc
     private func registerButtonAction(_ sender: UIButton) {
-        coordinator?.registration()
+        registration?()
     }
     @objc
     private func forgetPasswodButtonAction(_ sender: UIButton) {
-        coordinator?.forgetPassword()
+        forgetPassword?()
     }
 }

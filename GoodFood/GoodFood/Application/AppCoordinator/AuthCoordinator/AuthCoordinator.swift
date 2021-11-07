@@ -8,11 +8,8 @@
 import Foundation
 import UIKit
 
-protocol AuthCoordinatorProtocol {
+protocol CoordinatorProtocol {
     func start()
-    func guestStart()
-    func forgetPassword()
-    func registration()
 }
 
 final class AuthCoordinator {
@@ -26,40 +23,52 @@ final class AuthCoordinator {
         self.tabBarController = tabBarController
     }
     
-    func start() {
-        let enterVC = EnterViewController()
-        enterVC.coordinator = self
-        navigationController?.setViewControllers([enterVC], animated: true)
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
-    }
-
-    func forgetPassword() {
-        let restorePaswordViewController = RestorePasswordViewController()
-        restorePaswordViewController.coordinator = self
-        let navVC = UINavigationController(rootViewController: restorePaswordViewController)
-        restorePaswordViewController.title = "Восстановление пароля"
-        navigationController?.present(navVC, animated: true, completion: nil)
-    }
-    
-    func registration() {
-        let registerViewController = RegisterViewController()
-        registerViewController.coordinator = self
-        navigationController?.pushViewController(registerViewController, animated: true)
-    }
-    
-    func enterButton() {
-        tabBarController = GoodFoodCoordinator(window: window)
-        tabBarController?.start()
-    }
-    
     func pop(animated: Bool) {
-        self.navigationController?.popViewController(animated: animated)
+        navigationController?.popViewController(animated: animated)
     }
     
     func dismiss(animated: Bool, completion: (() -> Void)?) {
-        self.navigationController?.dismiss(animated: animated, completion: completion)
+        navigationController?.dismiss(animated: animated, completion: completion)
     }
     
 }
 
+extension AuthCoordinator: CoordinatorProtocol {
+    func start() {
+        let enterViewModel = EnterViewModel()
+        let enterVC = EnterViewController(viewModel: enterViewModel, coordinator: self)
+        enterVC.enter = { [weak self] in
+            self?.tabBarController = GoodFoodCoordinator(window: self?.window ?? UIWindow())
+            self?.tabBarController?.start()
+        }
+        
+        enterVC.forgetPassword = { [weak self] in
+            let restorePasswordViewModel = RestorePasswordViewModel()
+            let restorePaswordViewController = RestorePasswordViewController(viewModel: restorePasswordViewModel, coordinator: self!)
+            restorePaswordViewController.back = {[weak self] in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            restorePaswordViewController.enter = enterVC.enter
+            
+            let navVC = UINavigationController(rootViewController: restorePaswordViewController)
+            self?.navigationController?.present(navVC, animated: true, completion: nil)
+        }
+        
+        enterVC.registration = { [weak self] in
+            let regisrterViewModel = RegisterViewModel()
+            let registerViewController = RegisterViewController(viewModel: regisrterViewModel, coordinator: self!)
+            registerViewController.enter = {[weak self] in
+                self?.tabBarController = GoodFoodCoordinator(window: self?.window ?? UIWindow())
+                self?.tabBarController?.start()
+            }
+            registerViewController.back = { [weak self] in
+                self?.pop(animated: true)
+            }
+            self?.navigationController?.pushViewController(registerViewController, animated: true)
+        }
+        
+        navigationController?.setViewControllers([enterVC], animated: true)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+}
