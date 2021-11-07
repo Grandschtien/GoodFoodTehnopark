@@ -37,6 +37,7 @@ extension AuthCoordinator: CoordinatorProtocol {
     func start() {
         let enterViewModel = EnterViewModel()
         let enterVC = EnterViewController(viewModel: enterViewModel, coordinator: self)
+        
         enterVC.enter = { [weak self] in
             self?.tabBarController = GoodFoodCoordinator(window: self?.window ?? UIWindow())
             self?.tabBarController?.start()

@@ -33,6 +33,8 @@
 		60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61827380BD1006B479A /* RegisterViewModel.swift */; };
 		60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */; };
 		60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61C2738122F006B479A /* MenuViewModel.swift */; };
+		60ECE61F273817BA006B479A /* LikedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61E273817BA006B479A /* LikedViewModel.swift */; };
+		60ECE621273817CA006B479A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE620273817CA006B479A /* ProfileViewModel.swift */; };
 		60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */; };
 		8D6341B7D8665E4E99FF939A /* Pods_GoodFood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +90,8 @@
 		60ECE61827380BD1006B479A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewModel.swift; sourceTree = "<group>"; };
 		60ECE61C2738122F006B479A /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		60ECE61E273817BA006B479A /* LikedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedViewModel.swift; sourceTree = "<group>"; };
+		60ECE620273817CA006B479A /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewModel.swift; path = GoodFood/LikedScreen/ViewModel/ProfileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		610DC6D0127F8147AA3DF746 /* Pods-GoodFood-GoodFoodUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.release.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.release.xcconfig"; sourceTree = "<group>"; };
 		802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFoodTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,6 +261,7 @@
 		60ECE5F0272EAC4F006B479A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				60ECE61E273817BA006B479A /* LikedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 		60ECE5F1272EAC60006B479A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				60ECE620273817CA006B479A /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -737,9 +743,11 @@
 				60ECE5DE272D56AB006B479A /* MenuViewController.swift in Sources */,
 				60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */,
 				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
+				60ECE61F273817BA006B479A /* LikedViewModel.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
 				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
 				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
+				60ECE621273817CA006B479A /* ProfileViewModel.swift in Sources */,
 				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */,
