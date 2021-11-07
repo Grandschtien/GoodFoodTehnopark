@@ -23,6 +23,7 @@ class MenuViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()

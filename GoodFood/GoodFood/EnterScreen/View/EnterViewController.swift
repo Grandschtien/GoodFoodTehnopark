@@ -32,9 +32,9 @@ class EnterViewController: UIViewController, RegistrationProtocol {
     private(set) var viewModel: EnterViewModel?
     private var coordinator: CoordinatorProtocol?
     
-    var enter: (()->Void)?
-    var registration: (()->Void)?
-    var forgetPassword: (()->Void)?
+    var enter: (() -> Void)?
+    var registration: (() -> Void)?
+    var forgetPassword: (() -> Void)?
  
     init(viewModel: EnterViewModel, coordinator: CoordinatorProtocol) {
         self.viewModel = viewModel

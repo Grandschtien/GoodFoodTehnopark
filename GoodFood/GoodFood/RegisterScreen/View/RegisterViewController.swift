@@ -39,8 +39,8 @@ class RegisterViewController: UIViewController, RegistrationProtocol {
     
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: RegisterViewModel?
-    var enter: (()->Void)?
-    var back: (()->Void)?
+    var enter: (() -> Void)?
+    var back: (() -> Void)?
     
     
     init(viewModel: RegisterViewModel, coordinator: CoordinatorProtocol) {
