@@ -1,0 +1,63 @@
+//
+//  RegistrationProtocol.swift
+//  GoodFood
+//
+//  Created by Егор Шкарин on 30.10.2021.
+//
+
+import Foundation
+import UIKit
+///Протокол с дефолтными функциями для верстки полей, теков и тд в регистрации.
+protocol RegistrationProtocol {
+    func setupButton(_ button: UIButton, text: String, alignment: UIControl.ContentHorizontalAlignment)
+    func setupTF(_ tf: UITextField, superView: UIView)
+    func setupTextLabels(_ label: UILabel, text: String)
+    func setupStackViews(_ stack: UIStackView, spacing: CGFloat, aligment: UIStackView.Alignment)
+    func setupMainLabel(_ label: UILabel, text: String)
+    func setupMainButtons(_ button: UIButton, text: String)
+}
+
+extension RegistrationProtocol {
+    /// Настройка кнопки для экранов регистрации
+    func setupButton(_ button: UIButton, text: String, alignment: UIControl.ContentHorizontalAlignment) {
+        button.setTitle(text, for: .normal)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(15)
+        button.setTitleColor(UIColor(named: "LaunchScreenLabelColor"), for: .normal)
+        button.contentHorizontalAlignment = alignment
+    }
+    /// Настройка основных кнопок (фиолетовых)
+    func setupMainButtons(_ button: UIButton, text: String) {
+        button.setTitle(text, for: .normal)
+        button.titleLabel?.font = button.titleLabel?.font.withSize(17)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(named: "mainColor")
+        button.layer.cornerRadius = 15
+    }
+    /// Настройка текстовых полей
+    func setupTF(_ tf: UITextField, superView: UIView) {
+        tf.font = UIFont(name: "system", size: 17)
+        tf.font = tf.font?.withSize(17)
+        tf.setUnderLine(superView: superView)
+    }
+    /// Настройка лейблов над тектовым полем
+    func setupTextLabels(_ label: UILabel, text: String) {
+        label.text = text
+        label.font = UIFont(name: "system", size: 15)
+        label.font = label.font.withSize(15)
+        label.textColor = UIColor(named: "LaunchScreenLabelColor")
+    }
+    /// Настройка стеков
+    func setupStackViews(_ stack: UIStackView, spacing: CGFloat, aligment: UIStackView.Alignment) {
+        stack.axis = .vertical
+        stack.spacing = spacing
+        stack.distribution = .fill
+        stack.contentMode = .scaleToFill
+        stack.alignment = aligment
+    }
+    /// Настройка заглавных лейблов в регистрации
+    func setupMainLabel(_ label: UILabel, text: String) {
+        label.text = text
+        label.font = label.font.withSize(30)
+        label.sizeToFit()
+    }
+}

@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44CDC43D377AB341DFF46091 /* Pods_GoodFoodTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */; };
+		56D92FB4B8A98A95FFC7B4A5 /* Pods_GoodFood_GoodFoodUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */; };
 		601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6A271F12EE00935800 /* AppDelegate.swift */; };
 		601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6C271F12EE00935800 /* SceneDelegate.swift */; };
-		601DAD6F271F12EE00935800 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6E271F12EE00935800 /* ViewController.swift */; };
+		601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6E271F12EE00935800 /* EnterViewController.swift */; };
 		601DAD72271F12EE00935800 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 601DAD70271F12EE00935800 /* Main.storyboard */; };
 		601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD73271F12EE00935800 /* GoodFood.xcdatamodeld */; };
 		601DAD77271F12F300935800 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601DAD76271F12F300935800 /* Assets.xcassets */; };
@@ -17,6 +19,22 @@
 		601DAD85271F12F400935800 /* GoodFoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD84271F12F400935800 /* GoodFoodTests.swift */; };
 		601DAD8F271F12F400935800 /* GoodFoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD8E271F12F400935800 /* GoodFoodUITests.swift */; };
 		601DAD91271F12F400935800 /* GoodFoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */; };
+		60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D3272AB672006B479A /* RegisterViewController.swift */; };
+		60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */; };
+		60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */; };
+		60ECE5DE272D56AB006B479A /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5DD272D56AB006B479A /* MenuViewController.swift */; };
+		60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5E2272E9999006B479A /* MenuCell.swift */; };
+		60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60ECE5E3272E9999006B479A /* MenuCell.xib */; };
+		60ECE5F5272EAC87006B479A /* LikedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5F4272EAC87006B479A /* LikedViewController.swift */; };
+		60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5F6272EAC94006B479A /* ProfileViewController.swift */; };
+		60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5FF273067C0006B479A /* GoodFoodCoordinator.swift */; };
+		60ECE602273067CC006B479A /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE601273067CC006B479A /* AuthCoordinator.swift */; };
+		60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE608273178B8006B479A /* EnterViewModel.swift */; };
+		60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61827380BD1006B479A /* RegisterViewModel.swift */; };
+		60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */; };
+		60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE61C2738122F006B479A /* MenuViewModel.swift */; };
+		60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */; };
+		8D6341B7D8665E4E99FF939A /* Pods_GoodFood.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,13 +55,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0827AA00CEABF4FBC524D32F /* Pods-GoodFoodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFoodTests.debug.xcconfig"; path = "Target Support Files/Pods-GoodFoodTests/Pods-GoodFoodTests.debug.xcconfig"; sourceTree = "<group>"; };
+		15A55B9550DDADA630F366D6 /* Pods-GoodFood.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood/Pods-GoodFood.debug.xcconfig"; sourceTree = "<group>"; };
+		1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood_GoodFoodUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B1A3DC8EBB69219AF715281 /* Pods-GoodFood-GoodFoodUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD67271F12EE00935800 /* GoodFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD6A271F12EE00935800 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		601DAD6C271F12EE00935800 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		601DAD6E271F12EE00935800 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		601DAD6E271F12EE00935800 /* EnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterViewController.swift; sourceTree = "<group>"; };
 		601DAD71271F12EE00935800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		601DAD74271F12EE00935800 /* GoodFood.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GoodFood.xcdatamodel; sourceTree = "<group>"; };
-		601DAD76271F12F300935800 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		601DAD76271F12F300935800 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = GoodFood/Application/SupportingFiles/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		601DAD79271F12F300935800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		601DAD7B271F12F300935800 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		601DAD80271F12F300935800 /* GoodFoodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodFoodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +74,25 @@
 		601DAD8A271F12F400935800 /* GoodFoodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodFoodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD8E271F12F400935800 /* GoodFoodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodUITests.swift; sourceTree = "<group>"; };
 		601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		60ECE5D3272AB672006B479A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewController.swift; sourceTree = "<group>"; };
+		60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProtocol.swift; sourceTree = "<group>"; };
+		60ECE5DD272D56AB006B479A /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		60ECE5E2272E9999006B479A /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		60ECE5E3272E9999006B479A /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		60ECE5F4272EAC87006B479A /* LikedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedViewController.swift; sourceTree = "<group>"; };
+		60ECE5F6272EAC94006B479A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		60ECE5FF273067C0006B479A /* GoodFoodCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodCoordinator.swift; sourceTree = "<group>"; };
+		60ECE601273067CC006B479A /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		60ECE608273178B8006B479A /* EnterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterViewModel.swift; sourceTree = "<group>"; };
+		60ECE61827380BD1006B479A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewModel.swift; sourceTree = "<group>"; };
+		60ECE61C2738122F006B479A /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		610DC6D0127F8147AA3DF746 /* Pods-GoodFood-GoodFoodUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.release.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.release.xcconfig"; sourceTree = "<group>"; };
+		802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFoodTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4A891CAAC62AC12BB23BDAD /* Pods-GoodFoodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFoodTests.release.xcconfig"; path = "Target Support Files/Pods-GoodFoodTests/Pods-GoodFoodTests.release.xcconfig"; sourceTree = "<group>"; };
+		ED876487BD6097F93B95FB7B /* Pods-GoodFood.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood.release.xcconfig"; path = "Target Support Files/Pods-GoodFood/Pods-GoodFood.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D6341B7D8665E4E99FF939A /* Pods_GoodFood.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44CDC43D377AB341DFF46091 /* Pods_GoodFoodTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56D92FB4B8A98A95FFC7B4A5 /* Pods_GoodFood_GoodFoodUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +130,8 @@
 				601DAD83271F12F400935800 /* GoodFoodTests */,
 				601DAD8D271F12F400935800 /* GoodFoodUITests */,
 				601DAD68271F12EE00935800 /* Products */,
+				C971FBBD07AB4181440F4829 /* Pods */,
+				8F20D762DAA6B9BF7B278D95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,14 +148,13 @@
 		601DAD69271F12EE00935800 /* GoodFood */ = {
 			isa = PBXGroup;
 			children = (
-				601DAD6A271F12EE00935800 /* AppDelegate.swift */,
-				601DAD6C271F12EE00935800 /* SceneDelegate.swift */,
-				601DAD6E271F12EE00935800 /* ViewController.swift */,
-				601DAD70271F12EE00935800 /* Main.storyboard */,
-				601DAD76271F12F300935800 /* Assets.xcassets */,
-				601DAD78271F12F300935800 /* LaunchScreen.storyboard */,
-				601DAD7B271F12F300935800 /* Info.plist */,
-				601DAD73271F12EE00935800 /* GoodFood.xcdatamodeld */,
+				60F6034B272858C000B69B4D /* Application */,
+				60F6034C272858CA00B69B4D /* EnterScreen */,
+				60F6034D272858D200B69B4D /* RegisterScreen */,
+				60F6034E272858DD00B69B4D /* RestorePasswordScreen */,
+				60ECE5D9272D567B006B479A /* MenuScreen */,
+				60ECE5ED272EAC0A006B479A /* LikedScreen */,
+				60ECE5EC272EABFF006B479A /* ProfileScreen */,
 			);
 			path = GoodFood;
 			sourceTree = "<group>";
@@ -130,6 +176,317 @@
 			path = GoodFoodUITests;
 			sourceTree = "<group>";
 		};
+		60ECE5D9272D567B006B479A /* MenuScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5DC272D5696006B479A /* Model */,
+				60ECE5DB272D5690006B479A /* View */,
+				60ECE5DA272D568A006B479A /* ViewModel */,
+			);
+			path = MenuScreen;
+			sourceTree = "<group>";
+		};
+		60ECE5DA272D568A006B479A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE61C2738122F006B479A /* MenuViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60ECE5DB272D5690006B479A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5E1272E9970006B479A /* Cell */,
+				60ECE5DD272D56AB006B479A /* MenuViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60ECE5DC272D5696006B479A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60ECE5E1272E9970006B479A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5E2272E9999006B479A /* MenuCell.swift */,
+				60ECE5E3272E9999006B479A /* MenuCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		60ECE5EC272EABFF006B479A /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5F3272EAC6A006B479A /* Model */,
+				60ECE5F2272EAC65006B479A /* View */,
+				60ECE5F1272EAC60006B479A /* ViewModel */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		60ECE5ED272EAC0A006B479A /* LikedScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5EE272EAC3A006B479A /* Model */,
+				60ECE5EF272EAC3E006B479A /* View */,
+				60ECE5F0272EAC4F006B479A /* ViewModel */,
+			);
+			path = LikedScreen;
+			sourceTree = "<group>";
+		};
+		60ECE5EE272EAC3A006B479A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60ECE5EF272EAC3E006B479A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5F4272EAC87006B479A /* LikedViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60ECE5F0272EAC4F006B479A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60ECE5F1272EAC60006B479A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60ECE5F2272EAC65006B479A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5F6272EAC94006B479A /* ProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60ECE5F3272EAC6A006B479A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60ECE5F827306291006B479A /* AppCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5FA273062C2006B479A /* GoodFoodCoordinator */,
+				60ECE5F9273062B8006B479A /* AuthCoordinator */,
+			);
+			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
+		60ECE5F9273062B8006B479A /* AuthCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE601273067CC006B479A /* AuthCoordinator.swift */,
+			);
+			path = AuthCoordinator;
+			sourceTree = "<group>";
+		};
+		60ECE5FA273062C2006B479A /* GoodFoodCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5FF273067C0006B479A /* GoodFoodCoordinator.swift */,
+			);
+			path = GoodFoodCoordinator;
+			sourceTree = "<group>";
+		};
+		60F6034B272858C000B69B4D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5F827306291006B479A /* AppCoordinator */,
+				60F6035C2729493800B69B4D /* Extensions */,
+				60F603522728599100B69B4D /* Delegates */,
+				60F603512728598700B69B4D /* CoreData */,
+				60F603502728597900B69B4D /* Storyboards */,
+				60F6034F2728596F00B69B4D /* SupportingFiles */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		60F6034C272858CA00B69B4D /* EnterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035527285A0C00B69B4D /* Model */,
+				60F6035427285A0600B69B4D /* View */,
+				60F60353272859FF00B69B4D /* ViewModel */,
+			);
+			path = EnterScreen;
+			sourceTree = "<group>";
+		};
+		60F6034D272858D200B69B4D /* RegisterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035827285A3300B69B4D /* Model */,
+				60F6035727285A2A00B69B4D /* View */,
+				60F6035627285A2100B69B4D /* ViewModel */,
+			);
+			path = RegisterScreen;
+			sourceTree = "<group>";
+		};
+		60F6034E272858DD00B69B4D /* RestorePasswordScreen */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035B27285A4900B69B4D /* Model */,
+				60F6035A27285A4400B69B4D /* View */,
+				60F6035927285A3D00B69B4D /* ViewModel */,
+			);
+			path = RestorePasswordScreen;
+			sourceTree = "<group>";
+		};
+		60F6034F2728596F00B69B4D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD76271F12F300935800 /* Assets.xcassets */,
+				601DAD7B271F12F300935800 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		60F603502728597900B69B4D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD70271F12EE00935800 /* Main.storyboard */,
+				601DAD78271F12F300935800 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		60F603512728598700B69B4D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD73271F12EE00935800 /* GoodFood.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		60F603522728599100B69B4D /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD6A271F12EE00935800 /* AppDelegate.swift */,
+				601DAD6C271F12EE00935800 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		60F60353272859FF00B69B4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE608273178B8006B479A /* EnterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60F6035427285A0600B69B4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				601DAD6E271F12EE00935800 /* EnterViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60F6035527285A0C00B69B4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60F6035627285A2100B69B4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE61827380BD1006B479A /* RegisterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60F6035727285A2A00B69B4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5D3272AB672006B479A /* RegisterViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60F6035827285A3300B69B4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60F6035927285A3D00B69B4D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE61A27380E54006B479A /* RestorePasswordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		60F6035A27285A4400B69B4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		60F6035B27285A4900B69B4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60F6035C2729493800B69B4D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */,
+				60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8F20D762DAA6B9BF7B278D95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */,
+				1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */,
+				802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C971FBBD07AB4181440F4829 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				15A55B9550DDADA630F366D6 /* Pods-GoodFood.debug.xcconfig */,
+				ED876487BD6097F93B95FB7B /* Pods-GoodFood.release.xcconfig */,
+				2B1A3DC8EBB69219AF715281 /* Pods-GoodFood-GoodFoodUITests.debug.xcconfig */,
+				610DC6D0127F8147AA3DF746 /* Pods-GoodFood-GoodFoodUITests.release.xcconfig */,
+				0827AA00CEABF4FBC524D32F /* Pods-GoodFoodTests.debug.xcconfig */,
+				C4A891CAAC62AC12BB23BDAD /* Pods-GoodFoodTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,9 +494,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 601DAD94271F12F400935800 /* Build configuration list for PBXNativeTarget "GoodFood" */;
 			buildPhases = (
+				243F2FA22426F29DB1F16C02 /* [CP] Check Pods Manifest.lock */,
 				601DAD63271F12EE00935800 /* Sources */,
 				601DAD64271F12EE00935800 /* Frameworks */,
 				601DAD65271F12EE00935800 /* Resources */,
+				7E65625AFCDB5E00AE74FB4A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,6 +513,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 601DAD97271F12F400935800 /* Build configuration list for PBXNativeTarget "GoodFoodTests" */;
 			buildPhases = (
+				F21DC2FB379C3763FFDA03F2 /* [CP] Check Pods Manifest.lock */,
 				601DAD7C271F12F300935800 /* Sources */,
 				601DAD7D271F12F300935800 /* Frameworks */,
 				601DAD7E271F12F300935800 /* Resources */,
@@ -172,9 +532,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 601DAD9A271F12F400935800 /* Build configuration list for PBXNativeTarget "GoodFoodUITests" */;
 			buildPhases = (
+				5C7A0E45366AD464EE815B8E /* [CP] Check Pods Manifest.lock */,
 				601DAD86271F12F400935800 /* Sources */,
 				601DAD87271F12F400935800 /* Frameworks */,
 				601DAD88271F12F400935800 /* Resources */,
+				919245FCE003C4B3C5653909 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -210,7 +572,7 @@
 				};
 			};
 			buildConfigurationList = 601DAD62271F12EE00935800 /* Build configuration list for PBXProject "GoodFood" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -236,6 +598,7 @@
 			files = (
 				601DAD7A271F12F300935800 /* LaunchScreen.storyboard in Resources */,
 				601DAD77271F12F300935800 /* Assets.xcassets in Resources */,
+				60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */,
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,14 +619,131 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		243F2FA22426F29DB1F16C02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoodFood-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C7A0E45366AD464EE815B8E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoodFood-GoodFoodUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E65625AFCDB5E00AE74FB4A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodFood/Pods-GoodFood-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodFood/Pods-GoodFood-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodFood/Pods-GoodFood-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		919245FCE003C4B3C5653909 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F21DC2FB379C3763FFDA03F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoodFoodTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		601DAD63271F12EE00935800 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				601DAD6F271F12EE00935800 /* ViewController.swift in Sources */,
+				60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */,
+				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
+				60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */,
+				60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
+				60ECE602273067CC006B479A /* AuthCoordinator.swift in Sources */,
+				60ECE5DE272D56AB006B479A /* MenuViewController.swift in Sources */,
+				60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */,
+				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
+				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
+				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
+				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
+				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
+				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
+				60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */,
+				60ECE5F5272EAC87006B479A /* LikedViewController.swift in Sources */,
 				601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,6 +918,7 @@
 		};
 		601DAD95271F12F400935800 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15A55B9550DDADA630F366D6 /* Pods-GoodFood.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -445,7 +926,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GoodFood/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -466,6 +947,7 @@
 		};
 		601DAD96271F12F400935800 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED876487BD6097F93B95FB7B /* Pods-GoodFood.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -473,7 +955,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = GoodFood/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -494,6 +976,7 @@
 		};
 		601DAD98271F12F400935800 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0827AA00CEABF4FBC524D32F /* Pods-GoodFoodTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -519,6 +1002,7 @@
 		};
 		601DAD99271F12F400935800 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4A891CAAC62AC12BB23BDAD /* Pods-GoodFoodTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -544,6 +1028,7 @@
 		};
 		601DAD9B271F12F400935800 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B1A3DC8EBB69219AF715281 /* Pods-GoodFood-GoodFoodUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -567,6 +1052,7 @@
 		};
 		601DAD9C271F12F400935800 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 610DC6D0127F8147AA3DF746 /* Pods-GoodFood-GoodFoodUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
