@@ -12,7 +12,6 @@ import UIKit
 final class GoodFoodCoordinator {
     private var window: UIWindow
     private(set) var tabBarController: UITabBarController = UITabBarController()
-  
     
     init(window: UIWindow) {
         self.window = window
@@ -27,7 +26,11 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         
         menuViewController.tabBarItem = UITabBarItem(title: "Меню", image:  UIImage(named: "menu"), selectedImage:  UIImage(named: "menu"))
         
-        let profileVC = ProfileViewController()
+        let profileViewModel = ProfileViewModel()
+        let profileVC = ProfileViewController(coordinator: self, viewModel: profileViewModel)
+        profileVC.exit = { [weak self] in
+           
+        }
         profileVC.tabBarItem = UITabBarItem(title: "Профиль", image:  UIImage(named: "Profile"), selectedImage:  UIImage(named: "Profile"))
         
         let likedVC = LikedViewController()

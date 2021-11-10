@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.overrideUserInterfaceStyle = .light
-        let tabBarCoordinator = GoodFoodCoordinator(window: window!)
         let navVC = UINavigationController()
+        let tabBarCoordinator = GoodFoodCoordinator(window: window!)
         let authCoordinator = AuthCoordinator(window: window!, navigationController: navVC, tabBarController: tabBarCoordinator)
         
         if isFlag {
