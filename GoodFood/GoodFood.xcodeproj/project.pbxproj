@@ -19,6 +19,18 @@
 		601DAD85271F12F400935800 /* GoodFoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD84271F12F400935800 /* GoodFoodTests.swift */; };
 		601DAD8F271F12F400935800 /* GoodFoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD8E271F12F400935800 /* GoodFoodUITests.swift */; };
 		601DAD91271F12F400935800 /* GoodFoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */; };
+		6055D73E273D3CAC00BE4EFB /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D73D273D3CAC00BE4EFB /* SortViewController.swift */; };
+		6055D740273D3D0700BE4EFB /* PanelTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D73F273D3D0700BE4EFB /* PanelTransition.swift */; };
+		6055D742273D40A600BE4EFB /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D741273D40A600BE4EFB /* PresentationController.swift */; };
+		6055D74A273DAEE200BE4EFB /* SortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D748273DAEE200BE4EFB /* SortCell.swift */; };
+		6055D74B273DAEE200BE4EFB /* SortCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6055D749273DAEE200BE4EFB /* SortCell.xib */; };
+		6055D74D273DB2E400BE4EFB /* SortViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D74C273DB2E400BE4EFB /* SortViewModel.swift */; };
+		6055D74F273DB3E700BE4EFB /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D74E273DB3E700BE4EFB /* ProfileModel.swift */; };
+		6055D751273DB3F100BE4EFB /* LikedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D750273DB3F100BE4EFB /* LikedModel.swift */; };
+		6055D753273DB40D00BE4EFB /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D752273DB40D00BE4EFB /* Menu.swift */; };
+		6055D755273DB42300BE4EFB /* RestorePasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D754273DB42300BE4EFB /* RestorePasswordModel.swift */; };
+		6055D757273DB43A00BE4EFB /* RegistrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D756273DB43A00BE4EFB /* RegistrationModel.swift */; };
+		6055D759273DB44A00BE4EFB /* EnterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D758273DB44A00BE4EFB /* EnterModel.swift */; };
 		60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D3272AB672006B479A /* RegisterViewController.swift */; };
 		60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */; };
 		60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */; };
@@ -76,6 +88,18 @@
 		601DAD8A271F12F400935800 /* GoodFoodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodFoodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD8E271F12F400935800 /* GoodFoodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodUITests.swift; sourceTree = "<group>"; };
 		601DAD90271F12F400935800 /* GoodFoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodFoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6055D73D273D3CAC00BE4EFB /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
+		6055D73F273D3D0700BE4EFB /* PanelTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelTransition.swift; sourceTree = "<group>"; };
+		6055D741273D40A600BE4EFB /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		6055D748273DAEE200BE4EFB /* SortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCell.swift; sourceTree = "<group>"; };
+		6055D749273DAEE200BE4EFB /* SortCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortCell.xib; sourceTree = "<group>"; };
+		6055D74C273DB2E400BE4EFB /* SortViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewModel.swift; sourceTree = "<group>"; };
+		6055D74E273DB3E700BE4EFB /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileModel.swift; path = GoodFood/MenuScreen/ViewModel/ProfileModel.swift; sourceTree = SOURCE_ROOT; };
+		6055D750273DB3F100BE4EFB /* LikedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LikedModel.swift; path = GoodFood/MenuScreen/ViewModel/LikedModel.swift; sourceTree = SOURCE_ROOT; };
+		6055D752273DB40D00BE4EFB /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = GoodFood/MenuScreen/ViewModel/Menu.swift; sourceTree = SOURCE_ROOT; };
+		6055D754273DB42300BE4EFB /* RestorePasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RestorePasswordModel.swift; path = GoodFood/MenuScreen/ViewModel/RestorePasswordModel.swift; sourceTree = SOURCE_ROOT; };
+		6055D756273DB43A00BE4EFB /* RegistrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegistrationModel.swift; path = GoodFood/MenuScreen/ViewModel/RegistrationModel.swift; sourceTree = SOURCE_ROOT; };
+		6055D758273DB44A00BE4EFB /* EnterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnterModel.swift; path = GoodFood/MenuScreen/ViewModel/EnterModel.swift; sourceTree = SOURCE_ROOT; };
 		60ECE5D3272AB672006B479A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewController.swift; sourceTree = "<group>"; };
 		60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProtocol.swift; sourceTree = "<group>"; };
@@ -180,6 +204,24 @@
 			path = GoodFoodUITests;
 			sourceTree = "<group>";
 		};
+		6055D73C273D3C8600BE4EFB /* Animating */ = {
+			isa = PBXGroup;
+			children = (
+				6055D73F273D3D0700BE4EFB /* PanelTransition.swift */,
+				6055D741273D40A600BE4EFB /* PresentationController.swift */,
+			);
+			path = Animating;
+			sourceTree = "<group>";
+		};
+		6055D743273DAD8E00BE4EFB /* SortCell */ = {
+			isa = PBXGroup;
+			children = (
+				6055D748273DAEE200BE4EFB /* SortCell.swift */,
+				6055D749273DAEE200BE4EFB /* SortCell.xib */,
+			);
+			path = SortCell;
+			sourceTree = "<group>";
+		};
 		60ECE5D9272D567B006B479A /* MenuScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				60ECE61C2738122F006B479A /* MenuViewModel.swift */,
+				6055D74C273DB2E400BE4EFB /* SortViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -201,8 +244,11 @@
 		60ECE5DB272D5690006B479A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				60ECE5E1272E9970006B479A /* Cell */,
+				6055D743273DAD8E00BE4EFB /* SortCell */,
+				6055D73C273D3C8600BE4EFB /* Animating */,
+				60ECE5E1272E9970006B479A /* MenuCell */,
 				60ECE5DD272D56AB006B479A /* MenuViewController.swift */,
+				6055D73D273D3CAC00BE4EFB /* SortViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,17 +256,18 @@
 		60ECE5DC272D5696006B479A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6055D752273DB40D00BE4EFB /* Menu.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		60ECE5E1272E9970006B479A /* Cell */ = {
+		60ECE5E1272E9970006B479A /* MenuCell */ = {
 			isa = PBXGroup;
 			children = (
 				60ECE5E2272E9999006B479A /* MenuCell.swift */,
 				60ECE5E3272E9999006B479A /* MenuCell.xib */,
 			);
-			path = Cell;
+			path = MenuCell;
 			sourceTree = "<group>";
 		};
 		60ECE5EC272EABFF006B479A /* ProfileScreen */ = {
@@ -246,6 +293,7 @@
 		60ECE5EE272EAC3A006B479A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6055D750273DB3F100BE4EFB /* LikedModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -285,6 +333,7 @@
 		60ECE5F3272EAC6A006B479A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6055D74E273DB3E700BE4EFB /* ProfileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -411,6 +460,7 @@
 		60F6035527285A0C00B69B4D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6055D758273DB44A00BE4EFB /* EnterModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -434,6 +484,7 @@
 		60F6035827285A3300B69B4D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6055D756273DB43A00BE4EFB /* RegistrationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -457,6 +508,7 @@
 		60F6035B27285A4900B69B4D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6055D754273DB42300BE4EFB /* RestorePasswordModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -605,6 +657,7 @@
 				601DAD7A271F12F300935800 /* LaunchScreen.storyboard in Resources */,
 				601DAD77271F12F300935800 /* Assets.xcassets in Resources */,
 				60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */,
+				6055D74B273DAEE200BE4EFB /* SortCell.xib in Resources */,
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -734,8 +787,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */,
+				6055D74A273DAEE200BE4EFB /* SortCell.swift in Sources */,
+				6055D753273DB40D00BE4EFB /* Menu.swift in Sources */,
+				6055D759273DB44A00BE4EFB /* EnterModel.swift in Sources */,
 				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
 				60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */,
+				6055D740273D3D0700BE4EFB /* PanelTransition.swift in Sources */,
 				60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
@@ -744,13 +801,20 @@
 				60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */,
 				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
 				60ECE61F273817BA006B479A /* LikedViewModel.swift in Sources */,
+				6055D757273DB43A00BE4EFB /* RegistrationModel.swift in Sources */,
+				6055D74F273DB3E700BE4EFB /* ProfileModel.swift in Sources */,
+				6055D73E273D3CAC00BE4EFB /* SortViewController.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
 				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
 				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
+				6055D755273DB42300BE4EFB /* RestorePasswordModel.swift in Sources */,
 				60ECE621273817CA006B479A /* ProfileViewModel.swift in Sources */,
+				6055D74D273DB2E400BE4EFB /* SortViewModel.swift in Sources */,
 				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */,
+				6055D751273DB3F100BE4EFB /* LikedModel.swift in Sources */,
+				6055D742273D40A600BE4EFB /* PresentationController.swift in Sources */,
 				60ECE5F5272EAC87006B479A /* LikedViewController.swift in Sources */,
 				601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */,
 			);
