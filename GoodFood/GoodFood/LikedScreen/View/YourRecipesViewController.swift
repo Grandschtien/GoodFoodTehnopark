@@ -1,21 +1,21 @@
 //
-//  LikedViewController.swift
+//  YourRecipesViewController.swift
 //  GoodFood
 //
-//  Created by Егор Шкарин on 31.10.2021.
+//  Created by Егор Шкарин on 12.11.2021.
 //
 
 import UIKit
 
-class LikedViewController: UIViewController {
-    
+class YourRecipesViewController: UIViewController {
+
     private let tableView: UITableView = UITableView()
     
     private var coordinator: CoordinatorProtocol?
-    private(set) var viewModel: LikedViewModel?
+    private(set) var viewModel: YourRecipesViewModel?
     
     
-    init(viewModel: LikedViewModel, coordinator: CoordinatorProtocol) {
+    init(viewModel: YourRecipesViewModel, coordinator: CoordinatorProtocol) {
         self.viewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -32,7 +32,7 @@ class LikedViewController: UIViewController {
     }
 }
 
-extension LikedViewController {
+extension YourRecipesViewController {
     private func setupConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -66,10 +66,10 @@ extension LikedViewController {
     
 }
 
-extension LikedViewController: UITableViewDataSource {
+extension YourRecipesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
     
     func tableView(_ tableView: UITableView,
@@ -87,8 +87,6 @@ extension LikedViewController: UITableViewDataSource {
     
 }
 
-extension LikedViewController: UITableViewDelegate {
+extension YourRecipesViewController: UITableViewDelegate {
    
 }
-
-

@@ -47,10 +47,16 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         profileVC.tabBarItem = UITabBarItem(title: "Профиль", image:  UIImage(named: "Profile"), selectedImage:  UIImage(named: "Profile"))
         
         let likedViewModel = LikedViewModel()
+        let yourRecipesViewModel = YourRecipesViewModel()
+        let histroyViewModel = HistoryViewModel()
+        let yourRecipeVC = YourRecipesViewController(viewModel: yourRecipesViewModel, coordinator: self)
+        let historyVC = HistoryViewController(viewModel: histroyViewModel, coordinator: self)
         let likedVC = LikedViewController(viewModel: likedViewModel, coordinator: self)
-        likedVC.tabBarItem = UITabBarItem(title: "Избранное", image:  UIImage(named: "liked"), selectedImage:  UIImage(named: "liked"))
         
-        let controllers = [menuViewController, likedVC, profileVC]
+        let containerVC = ContainerViewController(subViewControllers: [likedVC, yourRecipeVC, historyVC])
+        containerVC.tabBarItem = UITabBarItem(title: "Избранное", image:  UIImage(named: "liked"), selectedImage:  UIImage(named: "liked"))
+        
+        let controllers = [menuViewController, containerVC, profileVC]
         tabBarController.viewControllers = controllers.map({ controller in
             UINavigationController(rootViewController: controller)
         })
