@@ -13,6 +13,9 @@ class MenuViewController: UIViewController {
     private var tableView: UITableView = UITableView()
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: MenuViewModel?
+    let transition = PanelTransition() 
+    
+    var sort: (() -> Void)?
     
     init(viewModel: MenuViewModel, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
@@ -94,7 +97,7 @@ extension MenuViewController {
     }
     @objc
     private func menuSortButtonAction() {
-        
+        sort?()
     }
     @objc
     private func menuAddButtonAction() {

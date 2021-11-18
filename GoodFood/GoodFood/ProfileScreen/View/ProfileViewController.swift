@@ -193,6 +193,6 @@ extension ProfileViewController {
 extension ProfileViewController {
     @objc
     private func exitAction() {
-        
+        exit?()
     }
 }

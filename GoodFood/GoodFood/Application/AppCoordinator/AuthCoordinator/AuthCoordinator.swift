@@ -39,33 +39,42 @@ extension AuthCoordinator: CoordinatorProtocol {
         let enterVC = EnterViewController(viewModel: enterViewModel, coordinator: self)
         
         enterVC.enter = { [weak self] in
-            self?.tabBarController = GoodFoodCoordinator(window: self?.window ?? UIWindow())
-            self?.tabBarController?.start()
+            guard let `self` = self else { return }
+            self.tabBarController = GoodFoodCoordinator(window: self.window)
+            self.tabBarController?.start()
         }
         
         enterVC.forgetPassword = { [weak self] in
+            guard let `self` = self else { return }
             let restorePasswordViewModel = RestorePasswordViewModel()
-            let restorePaswordViewController = RestorePasswordViewController(viewModel: restorePasswordViewModel, coordinator: self!)
+            let restorePaswordViewController = RestorePasswordViewController(viewModel: restorePasswordViewModel, coordinator: self)
+            
             restorePaswordViewController.back = {[weak self] in
-                self?.dismiss(animated: true, completion: nil)
+                guard let `self` = self else { return }
+                self.dismiss(animated: true, completion: nil)
             }
             restorePaswordViewController.enter = enterVC.enter
             
             let navVC = UINavigationController(rootViewController: restorePaswordViewController)
-            self?.navigationController?.present(navVC, animated: true, completion: nil)
+            self.navigationController?.present(navVC, animated: true, completion: nil)
         }
         
         enterVC.registration = { [weak self] in
+            guard let `self` = self else { return }
+            
             let regisrterViewModel = RegisterViewModel()
-            let registerViewController = RegisterViewController(viewModel: regisrterViewModel, coordinator: self!)
+            let registerViewController = RegisterViewController(viewModel: regisrterViewModel, coordinator: self)
             registerViewController.enter = {[weak self] in
-                self?.tabBarController = GoodFoodCoordinator(window: self?.window ?? UIWindow())
-                self?.tabBarController?.start()
+                guard let `self` = self else { return }
+                self.tabBarController = GoodFoodCoordinator(window: self.window)
+                self.tabBarController?.start()
             }
             registerViewController.back = { [weak self] in
-                self?.pop(animated: true)
+                
+                guard let `self` = self else { return }
+                self.pop(animated: true)
             }
-            self?.navigationController?.pushViewController(registerViewController, animated: true)
+            self.navigationController?.pushViewController(registerViewController, animated: true)
         }
         
         navigationController?.setViewControllers([enterVC], animated: true)
