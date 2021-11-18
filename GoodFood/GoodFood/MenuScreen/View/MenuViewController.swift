@@ -98,7 +98,9 @@ extension MenuViewController {
     }
     @objc
     private func menuAddButtonAction() {
-        
+        let addVC = AddViewController()
+        let addNavController = UINavigationController(rootViewController: addVC)
+        navigationController?.present(addNavController, animated: true, completion: nil)
     }
 }
 //MARK: - UISearchResultsUpdating

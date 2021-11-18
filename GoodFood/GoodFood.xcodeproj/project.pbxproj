@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C85CFA227429AE600F26074 /* AddModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA127429AE600F26074 /* AddModel.swift */; };
+		2C85CFA427429B1300F26074 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA327429B1300F26074 /* AddViewModel.swift */; };
+		2C85CFA627429B5800F26074 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA527429B5800F26074 /* AddViewController.swift */; };
+		2C85CFB02742E06F00F26074 /* NameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFAE2742E06F00F26074 /* NameCell.swift */; };
+		2C85CFB12742E06F00F26074 /* NameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85CFAF2742E06F00F26074 /* NameCell.xib */; };
+		2C85CFBC2745EA8C00F26074 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFBA2745EA8C00F26074 /* PhotoCell.swift */; };
+		2C85CFBD2745EA8C00F26074 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85CFBB2745EA8C00F26074 /* PhotoCell.xib */; };
+		2C85CFC12745FB4F00F26074 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFBF2745FB4E00F26074 /* TimeCell.swift */; };
+		2C85CFC22745FB4F00F26074 /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85CFC02745FB4E00F26074 /* TimeCell.xib */; };
+		2C85CFCB27460B2800F26074 /* ConfirmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFC927460B2800F26074 /* ConfirmCell.swift */; };
+		2C85CFCC27460B2800F26074 /* ConfirmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85CFCA27460B2800F26074 /* ConfirmCell.xib */; };
 		44CDC43D377AB341DFF46091 /* Pods_GoodFoodTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */; };
 		56D92FB4B8A98A95FFC7B4A5 /* Pods_GoodFood_GoodFoodUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */; };
 		601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6A271F12EE00935800 /* AppDelegate.swift */; };
@@ -61,6 +72,17 @@
 		15A55B9550DDADA630F366D6 /* Pods-GoodFood.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood/Pods-GoodFood.debug.xcconfig"; sourceTree = "<group>"; };
 		1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood_GoodFoodUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B1A3DC8EBB69219AF715281 /* Pods-GoodFood-GoodFoodUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2C85CFA127429AE600F26074 /* AddModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddModel.swift; sourceTree = "<group>"; };
+		2C85CFA327429B1300F26074 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
+		2C85CFA527429B5800F26074 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		2C85CFAE2742E06F00F26074 /* NameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCell.swift; sourceTree = "<group>"; };
+		2C85CFAF2742E06F00F26074 /* NameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NameCell.xib; sourceTree = "<group>"; };
+		2C85CFBA2745EA8C00F26074 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		2C85CFBB2745EA8C00F26074 /* PhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
+		2C85CFBF2745FB4E00F26074 /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
+		2C85CFC02745FB4E00F26074 /* TimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
+		2C85CFC927460B2800F26074 /* ConfirmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCell.swift; sourceTree = "<group>"; };
+		2C85CFCA27460B2800F26074 /* ConfirmCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmCell.xib; sourceTree = "<group>"; };
 		4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD67271F12EE00935800 /* GoodFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD6A271F12EE00935800 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +149,96 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C85CF9D27429A6300F26074 /* AddScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFA027429ABF00F26074 /* Model */,
+				2C85CF9F27429AB900F26074 /* View */,
+				2C85CF9E27429AAF00F26074 /* ViewModel */,
+			);
+			path = AddScreen;
+			sourceTree = "<group>";
+		};
+		2C85CF9E27429AAF00F26074 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFA327429B1300F26074 /* AddViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2C85CF9F27429AB900F26074 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFA527429B5800F26074 /* AddViewController.swift */,
+				2C85CFA72742DFCF00F26074 /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2C85CFA027429ABF00F26074 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFA127429AE600F26074 /* AddModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2C85CFA72742DFCF00F26074 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFAD2742E05100F26074 /* NameCell */,
+				2C85CFB52745EA2200F26074 /* PhotoCell */,
+				2C85CFBE2745FB3800F26074 /* TimeCell */,
+				2C85CFCD27469DB100F26074 /* IngredientCell */,
+				2C85CFC827460B1000F26074 /* ConfirmCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2C85CFAD2742E05100F26074 /* NameCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFAE2742E06F00F26074 /* NameCell.swift */,
+				2C85CFAF2742E06F00F26074 /* NameCell.xib */,
+			);
+			path = NameCell;
+			sourceTree = "<group>";
+		};
+		2C85CFB52745EA2200F26074 /* PhotoCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFBA2745EA8C00F26074 /* PhotoCell.swift */,
+				2C85CFBB2745EA8C00F26074 /* PhotoCell.xib */,
+			);
+			path = PhotoCell;
+			sourceTree = "<group>";
+		};
+		2C85CFBE2745FB3800F26074 /* TimeCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFBF2745FB4E00F26074 /* TimeCell.swift */,
+				2C85CFC02745FB4E00F26074 /* TimeCell.xib */,
+			);
+			path = TimeCell;
+			sourceTree = "<group>";
+		};
+		2C85CFC827460B1000F26074 /* ConfirmCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C85CFC927460B2800F26074 /* ConfirmCell.swift */,
+				2C85CFCA27460B2800F26074 /* ConfirmCell.xib */,
+			);
+			path = ConfirmCell;
+			sourceTree = "<group>";
+		};
+		2C85CFCD27469DB100F26074 /* IngredientCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IngredientCell;
+			sourceTree = "<group>";
+		};
 		601DAD5E271F12EE00935800 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +271,7 @@
 				60ECE5D9272D567B006B479A /* MenuScreen */,
 				60ECE5ED272EAC0A006B479A /* LikedScreen */,
 				60ECE5EC272EABFF006B479A /* ProfileScreen */,
+				2C85CF9D27429A6300F26074 /* AddScreen */,
 			);
 			path = GoodFood;
 			sourceTree = "<group>";
@@ -605,7 +718,11 @@
 				601DAD7A271F12F300935800 /* LaunchScreen.storyboard in Resources */,
 				601DAD77271F12F300935800 /* Assets.xcassets in Resources */,
 				60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */,
+				2C85CFC22745FB4F00F26074 /* TimeCell.xib in Resources */,
+				2C85CFB12742E06F00F26074 /* NameCell.xib in Resources */,
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
+				2C85CFCC27460B2800F26074 /* ConfirmCell.xib in Resources */,
+				2C85CFBD2745EA8C00F26074 /* PhotoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,18 +850,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C85CFA427429B1300F26074 /* AddViewModel.swift in Sources */,
+				2C85CFCB27460B2800F26074 /* ConfirmCell.swift in Sources */,
 				60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */,
 				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
+				2C85CFC12745FB4F00F26074 /* TimeCell.swift in Sources */,
+				2C85CFB02742E06F00F26074 /* NameCell.swift in Sources */,
 				60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */,
 				60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */,
+				2C85CFBC2745EA8C00F26074 /* PhotoCell.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
 				60ECE602273067CC006B479A /* AuthCoordinator.swift in Sources */,
 				60ECE5DE272D56AB006B479A /* MenuViewController.swift in Sources */,
 				60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */,
 				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
+				2C85CFA627429B5800F26074 /* AddViewController.swift in Sources */,
 				60ECE61F273817BA006B479A /* LikedViewModel.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
+				2C85CFA227429AE600F26074 /* AddModel.swift in Sources */,
 				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
 				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
 				60ECE621273817CA006B479A /* ProfileViewModel.swift in Sources */,
@@ -932,9 +1056,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PLUM5QCSG5;
+				DEVELOPMENT_TEAM = 497TQANRBD;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/Technopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/ivan/Documents/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -945,7 +1069,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Grandschtien.GoodFood;
+				PRODUCT_BUNDLE_IDENTIFIER = fatevector.GoodFood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -961,9 +1085,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PLUM5QCSG5;
+				DEVELOPMENT_TEAM = 497TQANRBD;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/Technopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/ivan/Documents/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -974,7 +1098,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Grandschtien.GoodFood;
+				PRODUCT_BUNDLE_IDENTIFIER = fatevector.GoodFood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
