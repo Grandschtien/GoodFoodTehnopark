@@ -103,16 +103,7 @@ extension SortViewController: UITableViewDataSource {
     {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SortCell.reuseId, for: indexPath) as? SortCell else { return UITableViewCell()}
         
-        switch indexPath.row {
-        case 0:
-            cell.label.text = "По названию"
-        case 1:
-            cell.label.text = "По рейтингу"
-        case 2:
-            cell.label.text = "По времени готовки"
-        default:
-            break
-        }
+        cell.configure(with: indexPath)
         
         return cell
     }

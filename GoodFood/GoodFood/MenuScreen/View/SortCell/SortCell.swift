@@ -18,4 +18,17 @@ class SortCell: UITableViewCell {
         checkMark.isHidden = true
     }
     
+    func configure(with indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            label.text = "По названию"
+        case 1:
+            label.text = "По рейтингу"
+        case 2:
+            label.text = "По времени готовки"
+        default:
+            break
+        }
+    }
+    
 }
