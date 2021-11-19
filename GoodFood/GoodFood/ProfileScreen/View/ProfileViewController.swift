@@ -10,24 +10,24 @@ import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
-    private let profileImageView: UIImageView = UIImageView(frame:
-                                                                CGRect(x: 0,
-                                                                       y: 0,
-                                                                       width: 200,
-                                                                       height: 200))
-    private let mainNameLabel: UILabel = UILabel()
-    private let phoneLabel: UILabel = UILabel()
-    private let phoneTF: UITextField = UITextField()
-    private let phoneStackView: UIStackView = UIStackView()
-    private let mailLabel: UILabel = UILabel()
-    private let mailTF: UITextField = UITextField()
-    private let mailStackView: UIStackView = UIStackView()
-    private let tFStackView: UIStackView = UIStackView()
+    private let profileImageView = UIImageView(frame: CGRect(x: 0,
+                                                             y: 0,
+                                                             width: 200,
+                                                             height: 200))
+    private let mainNameLabel = UILabel()
+    private let phoneLabel = UILabel()
+    private let phoneTF = UITextField()
+    private let phoneStackView = UIStackView()
+    private let mailLabel = UILabel()
+    private let mailTF = UITextField()
+    private let mailStackView = UIStackView()
+    private let tFStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: ProfileViewModel?
     
     var exit: (() -> Void)?
+    var imagePicker: (() -> Void)?
     
     init(coordinator: CoordinatorProtocol, viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -41,6 +41,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewsWithNetwork()
         setupConstraints()
         setupUI()
     }
@@ -90,17 +91,17 @@ extension ProfileViewController {
         //constraints
         NSLayoutConstraint.activate([
             phoneTF.trailingAnchor.constraint(equalTo: phoneStackView.trailingAnchor,
-                                             constant: 0),
+                                              constant: 0),
             phoneTF.leadingAnchor.constraint(equalTo: phoneStackView.leadingAnchor,
-                                            constant: 0),
+                                             constant: 0),
             phoneLabel.trailingAnchor.constraint(equalTo: phoneStackView.trailingAnchor,
-                                                constant: 0),
+                                                 constant: 0),
             phoneLabel.leadingAnchor.constraint(equalTo: phoneStackView.leadingAnchor,
-                                               constant: 0),
+                                                constant: 0),
             phoneStackView.leadingAnchor.constraint(equalTo: tFStackView.leadingAnchor,
-                                                   constant: 0),
+                                                    constant: 0),
             phoneStackView.trailingAnchor.constraint(equalTo: tFStackView.trailingAnchor,
-                                                    constant: 0)
+                                                     constant: 0)
         ])
         
         //MARK: - mailStackView
@@ -140,6 +141,11 @@ extension ProfileViewController {
         
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.image = UIImage(named: "profile")
+        profileImageView.contentMode = .scaleToFill
+        profileImageView.backgroundColor = .red
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        profileImageView.addGestureRecognizer(tapGR)
+        profileImageView.isUserInteractionEnabled = true
         
         mainNameLabel.text  = "Ваше имя"
         mainNameLabel.font = mainNameLabel.font.withSize(30)
@@ -166,7 +172,7 @@ extension ProfileViewController {
         phoneTF.font = UIFont(name: "system", size: 17)
         phoneTF.font = phoneTF.font?.withSize(17)
         phoneTF.setUnderLine(superView: view)
-        phoneTF.text = "8(999)111-11-11"
+        phoneTF.text = "*Будет позже*"
         phoneTF.isUserInteractionEnabled = false
         
         //Поля для поля почты
@@ -189,11 +195,39 @@ extension ProfileViewController {
         
         
     }
+    func setupViewsWithNetwork() {
+        viewModel?.fetchProfile(completion: {[weak self] result in
+            switch result {
+            case .success(let profile):
+                DispatchQueue.main.async {
+                    self?.mainNameLabel.text = profile.name
+                    self?.mailTF.text = profile.email
+                    self?.profileImageView.image = UIImage(data: profile.image) ?? UIImage(named: "profile")
+                }
+            case .failure(_):
+                break
+            }
+        })
+    }
 }
 
 extension ProfileViewController {
     @objc
     private func exitAction() {
         exit?()
+    }
+    @objc
+    private func imageTapped() {
+        imagePicker?()
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage {
+            profileImageView.image = pickedImage
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
 }

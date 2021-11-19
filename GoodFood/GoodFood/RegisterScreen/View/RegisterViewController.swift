@@ -9,33 +9,33 @@ import UIKit
 
 class RegisterViewController: UIViewController, RegistrationProtocol {
     // Label регистрация
-    private let registerLabel: UILabel = UILabel()
+    private let registerLabel = UILabel()
     
     // Текстовое поле имени
-    private let nameLabel: UILabel = UILabel()
-    private let nameTF: UITextField = UITextField()
-    private let nameStackView: UIStackView = UIStackView()
+    private let nameLabel = UILabel()
+    private let nameTF = UITextField()
+    private let nameStackView = UIStackView()
     
     // Текстовое поле почты
-    private let mailLabel: UILabel = UILabel()
-    private let mailTF: UITextField = UITextField()
-    private let mailStackView: UIStackView = UIStackView()
+    private let mailLabel = UILabel()
+    private let mailTF = UITextField()
+    private let mailStackView = UIStackView()
     
     // Текстовое поле пароля
-    private let passwordLabel: UILabel = UILabel()
-    private let passwordTF: UITextField = UITextField()
-    private let passwordStackView: UIStackView = UIStackView()
+    private let passwordLabel = UILabel()
+    private let passwordTF = UITextField()
+    private let passwordStackView = UIStackView()
     
     // Текстовое поле повторения пароля
-    private let checkPasswordLabel: UILabel = UILabel()
-    private let checkPasswordTF: UITextField = UITextField()
-    private let checkPasswordStackView: UIStackView = UIStackView()
+    private let checkPasswordLabel = UILabel()
+    private let checkPasswordTF = UITextField()
+    private let checkPasswordStackView = UIStackView()
     
     // Главный стек
-    private let mainStackView: UIStackView = UIStackView()
-    private let registerButton: MainButton = MainButton(color: UIColor(named: "mainColor"), title: "Зарегистрироваться")
-    private let userAgreementLabel: UILabel = UILabel()
-    private let buttonStackView: UIStackView = UIStackView()
+    private let mainStackView = UIStackView()
+    private let registerButton = MainButton(color: UIColor(named: "mainColor"), title: "Зарегистрироваться")
+    private let userAgreementLabel = UILabel()
+    private let buttonStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: RegisterViewModel?

@@ -9,8 +9,8 @@ import UIKit
 
 class MenuViewController: UIViewController {
 
-    private var searchController: UISearchController = UISearchController(searchResultsController: nil)
-    private var tableView: UITableView = UITableView()
+    private var searchController = UISearchController(searchResultsController: nil)
+    private var tableView = UITableView()
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: MenuViewModel?
     let transition = PanelTransition() 
@@ -29,6 +29,9 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppNetworkManager.fetchProfileData { _ in
+            
+        }
         setupViews()
     }
     

@@ -12,27 +12,27 @@ import UIKit
 class EnterViewController: UIViewController {
     
     //UI
-    private let enterLabel: UILabel = UILabel()
+    private let enterLabel = UILabel()
     
-    private let mailTF: UITextField = UITextField()
-    private let mailLabel: UILabel = UILabel()
-    private let passwordTF:  UITextField = UITextField()
-    private let passwordLabel: UILabel = UILabel()
-    private let forgetPasswordButton: HelperButton = HelperButton(color: .white,
-                                                                  title: "Забыли пароль? Нажмите сюда",
-                                                                  aligment: .leading)
-    private let passwordStackView: UIStackView = UIStackView()
-    private let mailStackView: UIStackView = UIStackView()
-    private let textFieldsStackView: UIStackView = UIStackView()
+    private let mailTF = UITextField()
+    private let mailLabel = UILabel()
+    private let passwordTF = UITextField()
+    private let passwordLabel = UILabel()
+    private let forgetPasswordButton = HelperButton(color: .white,
+                                                    title: "Забыли пароль? Нажмите сюда",
+                                                    aligment: .leading)
+    private let passwordStackView = UIStackView()
+    private let mailStackView = UIStackView()
+    private let textFieldsStackView = UIStackView()
     
-    private let enterButton: MainButton = MainButton(color: UIColor(named: "mainColor"), title: "Войти")
-    private let noAccountButton: HelperButton = HelperButton(color: .white,
-                                                             title: "Нет аккаунта? Нажмите сюда",
-                                                             aligment: .center)
-    private let guestButton: HelperButton = HelperButton(color: .white,
-                                                         title: "Или войдите как гость",
-                                                         aligment: .center)
-    private let buttonStackView: UIStackView = UIStackView()
+    private let enterButton = MainButton(color: UIColor(named: "mainColor"), title: "Войти")
+    private let noAccountButton = HelperButton(color: .white,
+                                               title: "Нет аккаунта? Нажмите сюда",
+                                               aligment: .center)
+    private let guestButton = HelperButton(color: .white,
+                                           title: "Или войдите как гость",
+                                           aligment: .center)
+    private let buttonStackView = UIStackView()
     //properties
     
     private(set) var viewModel: EnterViewModel?

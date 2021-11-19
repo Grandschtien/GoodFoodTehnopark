@@ -9,7 +9,7 @@ import UIKit
 
 class YourRecipesViewController: UIViewController {
 
-    private let tableView: UITableView = UITableView()
+    private let tableView = UITableView()
     
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: YourRecipesViewModel?

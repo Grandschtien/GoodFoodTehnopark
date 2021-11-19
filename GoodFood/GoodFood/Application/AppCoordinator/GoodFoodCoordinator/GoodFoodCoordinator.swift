@@ -16,7 +16,7 @@ final class GoodFoodCoordinator {
     init(window: UIWindow) {
         self.window = window
     }
-
+    
 }
 
 extension GoodFoodCoordinator: CoordinatorProtocol {    
@@ -24,7 +24,9 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         let menuViewModel = MenuViewModel()
         let menuViewController = MenuViewController(viewModel: menuViewModel, coordinatror: self)
         
-        menuViewController.tabBarItem = UITabBarItem(title: "Меню", image:  UIImage(named: "menu"), selectedImage:  UIImage(named: "menu"))
+        menuViewController.tabBarItem = UITabBarItem(title: "Меню",
+                                                     image:  UIImage(named: "menu"),
+                                                     selectedImage:  UIImage(named: "menu"))
         
         menuViewController.sort = {
             let sortVC = SortViewController()
@@ -43,13 +45,35 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
             do {
                 try Auth.auth().signOut()
             } catch {
-                print(error)
+                print(error.localizedDescription)
             }
             let navController = UINavigationController()
-            let authCoordinator = AuthCoordinator(window: self.window, navigationController: navController, tabBarController: self)
+            let authCoordinator = AuthCoordinator(window: self.window,
+                                                  navigationController: navController,
+                                                  tabBarController: self)
             authCoordinator.start()
         }
-        profileVC.tabBarItem = UITabBarItem(title: "Профиль", image:  UIImage(named: "Profile"), selectedImage:  UIImage(named: "Profile"))
+        
+        profileVC.imagePicker = {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = profileVC 
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+                profileVC.present(imagePicker, animated: true, completion: nil)
+            }
+            else
+            {
+                let alert  = UIAlertController(title: "Предупреждение",
+                                               message: "Разрешите использование приложением камеры.",
+                                               preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                profileVC.present(alert, animated: true, completion: nil)
+            }
+        }
+        profileVC.tabBarItem = UITabBarItem(title: "Профиль",
+                                            image:  UIImage(named: "Profile"),
+                                            selectedImage:  UIImage(named: "Profile"))
         
         let likedViewModel = LikedViewModel()
         let yourRecipesViewModel = YourRecipesViewModel()
@@ -59,7 +83,9 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         let likedVC = LikedViewController(viewModel: likedViewModel, coordinator: self)
         
         let containerVC = ContainerViewController(subViewControllers: [likedVC, yourRecipeVC, historyVC])
-        containerVC.tabBarItem = UITabBarItem(title: "Избранное", image:  UIImage(named: "liked"), selectedImage:  UIImage(named: "liked"))
+        containerVC.tabBarItem = UITabBarItem(title: "Избранное",
+                                              image:  UIImage(named: "liked"),
+                                              selectedImage:  UIImage(named: "liked"))
         
         let controllers = [menuViewController, containerVC, profileVC]
         tabBarController.viewControllers = controllers.map({ controller in

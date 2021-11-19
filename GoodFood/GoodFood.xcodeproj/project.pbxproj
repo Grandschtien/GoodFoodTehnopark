@@ -44,6 +44,7 @@
 		60D334192747D464007C2462 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334182747D464007C2462 /* MainButton.swift */; };
 		60D3341B2747D701007C2462 /* HelperButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D3341A2747D701007C2462 /* HelperButton.swift */; };
 		60D3341D2747E4B7007C2462 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D3341C2747E4B7007C2462 /* UIViewController + Extension.swift */; };
+		60D3341F27483C5D007C2462 /* UIImage + init?.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D3341E27483C5D007C2462 /* UIImage + init?.swift */; };
 		60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D3272AB672006B479A /* RegisterViewController.swift */; };
 		60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */; };
 		60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */; };
@@ -126,6 +127,7 @@
 		60D334182747D464007C2462 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		60D3341A2747D701007C2462 /* HelperButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperButton.swift; sourceTree = "<group>"; };
 		60D3341C2747E4B7007C2462 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
+		60D3341E27483C5D007C2462 /* UIImage + init?.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + init?.swift"; sourceTree = "<group>"; };
 		60ECE5D3272AB672006B479A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewController.swift; sourceTree = "<group>"; };
 		60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProtocol.swift; sourceTree = "<group>"; };
@@ -581,6 +583,7 @@
 				60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */,
 				60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */,
 				60D3341C2747E4B7007C2462 /* UIViewController + Extension.swift */,
+				60D3341E27483C5D007C2462 /* UIImage + init?.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				6055D74D273DB2E400BE4EFB /* SortViewModel.swift in Sources */,
 				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
 				60D334192747D464007C2462 /* MainButton.swift in Sources */,
+				60D3341F27483C5D007C2462 /* UIImage + init?.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				6055D75D273E700300BE4EFB /* HistoryViewController.swift in Sources */,
 				6055D7A3273E9EF600BE4EFB /* ContainerViewController.swift in Sources */,
