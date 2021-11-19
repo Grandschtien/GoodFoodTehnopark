@@ -33,12 +33,13 @@ class RegisterViewController: UIViewController, RegistrationProtocol {
     
     // Главный стек
     private let mainStackView: UIStackView = UIStackView()
-    private let registerButton: UIButton = UIButton()
+    private let registerButton: MainButton = MainButton(color: UIColor(named: "mainColor"), title: "Зарегистрироваться")
     private let userAgreementLabel: UILabel = UILabel()
     private let buttonStackView: UIStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: RegisterViewModel?
+    
     var enter: (() -> Void)?
     var back: (() -> Void)?
     
@@ -92,13 +93,13 @@ extension RegisterViewController {
         view.addSubview(mainStackView)
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                        constant: 30),
+                                                   constant: 30),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                         constant: -30),
+                                                    constant: -30),
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor,
-                                                        constant: 0),
+                                                   constant: 0),
             mainStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor,
-                                                        constant: -130)
+                                                   constant: -130)
         ])
         setupRegisterTextStackViews(nameTF,
                                     label: nameLabel,
@@ -109,8 +110,8 @@ extension RegisterViewController {
                                     stackView: mailStackView,
                                     labelText: "Почта")
         setupRegisterTextStackViews(passwordTF, label:
-                                    passwordLabel, stackView:
-                                    passwordStackView,
+                                        passwordLabel, stackView:
+                                        passwordStackView,
                                     labelText: "Пароль")
         setupRegisterTextStackViews(checkPasswordTF,
                                     label: checkPasswordLabel,
@@ -124,11 +125,11 @@ extension RegisterViewController {
         view.addSubview(buttonStackView)
         NSLayoutConstraint.activate([
             buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                          constant: 56),
+                                                     constant: 56),
             buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                           constant: -56),
+                                                      constant: -56),
             buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                         constant: -28)
+                                                    constant: -28)
         ])
         
         buttonStackView.addArrangedSubview(registerButton)
@@ -136,9 +137,9 @@ extension RegisterViewController {
         
         NSLayoutConstraint.activate([
             registerButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor,
-                                                         constant: 0),
+                                                    constant: 0),
             registerButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor,
-                                                          constant: 0),
+                                                     constant: 0),
             registerButton.heightAnchor.constraint(equalToConstant: 70)
         ])
         
@@ -146,13 +147,17 @@ extension RegisterViewController {
     
     private func setupUI() {
         registerLabel.text = "Регистрация"
+        nameTF.delegate = self
+        mailTF.delegate = self
+        passwordTF.delegate = self
+        checkPasswordTF.delegate = self
         registerLabel.font = registerLabel.font.withSize(30)
         registerLabel.sizeToFit()
         passwordTF.isSecureTextEntry = true
-        passwordTF.isSecureTextEntry = true
+        checkPasswordTF.isSecureTextEntry = true
         setupStackViews(mainStackView, spacing: 8, aligment: .leading)
         setupStackViews(buttonStackView, spacing: 8, aligment:  .center)
-        setupMainButtons(registerButton, text: "Зарегистрироваться")
+        //setupMainButtons(registerButton, text: "Зарегистрироваться")
         setupAgreementLabel()
         registerButton.addTarget(self, action: #selector(registerButtonAction(_:)), for: .touchUpInside)
     }
@@ -203,6 +208,31 @@ extension RegisterViewController {
 extension RegisterViewController {
     @objc
     private func registerButtonAction(_ sender: UIButton) {
-        enter?()
+        if let name = nameTF.text, !name.isEmpty,
+           let mail = mailTF.text, !mail.isEmpty,
+           let password = passwordTF.text, !password.isEmpty,
+           let restorePassword = checkPasswordTF.text, !restorePassword.isEmpty,
+           password == restorePassword {
+            
+            viewModel?.registration(name: name, email: mail, password: password) { error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        self.makeAlert(error)
+                    } else {
+                        self.enter?()
+                    }
+                }
+            }
+        } else {
+            makeAlert("Пожалуйста, заполните все поля или проверьте совпадают ли пароли.")
+        }
+    
+    }
+}
+
+extension RegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
     }
 }

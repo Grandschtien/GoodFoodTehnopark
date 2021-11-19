@@ -9,7 +9,7 @@ import UIKit
 
 
 
-class EnterViewController: UIViewController, RegistrationProtocol {
+class EnterViewController: UIViewController {
     
     //UI
     private let enterLabel: UILabel = UILabel()
@@ -18,14 +18,20 @@ class EnterViewController: UIViewController, RegistrationProtocol {
     private let mailLabel: UILabel = UILabel()
     private let passwordTF:  UITextField = UITextField()
     private let passwordLabel: UILabel = UILabel()
-    private let forgetPasswordButton: UIButton = UIButton()
+    private let forgetPasswordButton: HelperButton = HelperButton(color: .white,
+                                                                  title: "Забыли пароль? Нажмите сюда",
+                                                                  aligment: .leading)
     private let passwordStackView: UIStackView = UIStackView()
     private let mailStackView: UIStackView = UIStackView()
     private let textFieldsStackView: UIStackView = UIStackView()
     
-    private let enterButton: UIButton = UIButton()
-    private let noAccountButton: UIButton = UIButton()
-    private let guestButton: UIButton = UIButton()
+    private let enterButton: MainButton = MainButton(color: UIColor(named: "mainColor"), title: "Войти")
+    private let noAccountButton: HelperButton = HelperButton(color: .white,
+                                                             title: "Нет аккаунта? Нажмите сюда",
+                                                             aligment: .center)
+    private let guestButton: HelperButton = HelperButton(color: .white,
+                                                         title: "Или войдите как гость",
+                                                         aligment: .center)
     private let buttonStackView: UIStackView = UIStackView()
     //properties
     
@@ -35,7 +41,7 @@ class EnterViewController: UIViewController, RegistrationProtocol {
     var enter: (() -> Void)?
     var registration: (() -> Void)?
     var forgetPassword: (() -> Void)?
- 
+    
     init(viewModel: EnterViewModel, coordinator: CoordinatorProtocol) {
         self.viewModel = viewModel
         self.coordinator = coordinator
@@ -88,9 +94,9 @@ extension EnterViewController {
         forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             forgetPasswordButton.trailingAnchor.constraint(equalTo: textFieldsStackView.trailingAnchor,
-                                                                constant: 0),
+                                                           constant: 0),
             forgetPasswordButton.leadingAnchor.constraint(equalTo: textFieldsStackView.leadingAnchor,
-                                                               constant: 0)
+                                                          constant: 0)
         ])
         
         view.addSubview(textFieldsStackView)
@@ -98,9 +104,9 @@ extension EnterViewController {
         NSLayoutConstraint.activate([
             textFieldsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -70),
             textFieldsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                              constant: 30),
+                                                         constant: 30),
             textFieldsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                               constant: -30)
+                                                          constant: -30)
         ])
         
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -109,9 +115,9 @@ extension EnterViewController {
         NSLayoutConstraint.activate([
             enterButton.heightAnchor.constraint(equalToConstant: 70),
             enterButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor,
-                                                      constant: 0),
+                                                 constant: 0),
             enterButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor,
-                                                       constant: 0)
+                                                  constant: 0)
         ])
         
         buttonStackView.addArrangedSubview(noAccountButton)
@@ -124,36 +130,67 @@ extension EnterViewController {
         
         NSLayoutConstraint.activate([
             buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                          constant: 56),
+                                                     constant: 56),
             buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                           constant: -56),
+                                                      constant: -56),
             buttonStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                                         constant: -40)
+                                                    constant: -40)
         ])
         view.addSubview(buttonStackView)
         
     }
     
     private func setupUI() {
-        setupStackViews(textFieldsStackView, spacing: 8, aligment: .leading)
+        mailTF.delegate = self
+        passwordTF.delegate = self
+        
+        textFieldsStackView.axis = .vertical
+        textFieldsStackView.spacing = 8
+        textFieldsStackView.distribution = .fill
+        textFieldsStackView.contentMode = .scaleToFill
+        textFieldsStackView.alignment = .leading
         // Настройка mailStackView
-        setupStackViews(mailStackView, spacing: 8, aligment: .leading)
+        mailStackView.axis = .vertical
+        mailStackView.spacing = 5
+        mailStackView.distribution = .fill
+        mailStackView.contentMode = .scaleToFill
+        mailStackView.alignment = .leading
         //Настройка passwordStackView
-        setupStackViews(passwordStackView, spacing: 5, aligment: .leading)
-        setupStackViews(buttonStackView, spacing: 4, aligment: .center)
-        setupMainLabel(enterLabel, text: "Вход")
-        setupTextLabels(mailLabel, text: "Почта")
-        setupTF(mailTF, superView: view)
-        setupTextLabels(passwordLabel, text: "Пароль")
-        setupTF(passwordTF, superView: view)
+        passwordStackView.axis = .vertical
+        passwordStackView.spacing = 5
+        passwordStackView.distribution = .fill
+        passwordStackView.contentMode = .scaleToFill
+        passwordStackView.alignment = .leading
+        buttonStackView.axis = .vertical
+        buttonStackView.spacing = 4
+        buttonStackView.distribution = .fill
+        buttonStackView.contentMode = .scaleToFill
+        buttonStackView.alignment = .center
+        
+        enterLabel.text = "Вход"
+        enterLabel.font = enterLabel.font.withSize(30)
+        enterLabel.sizeToFit()
+        
+        mailLabel.text = "Почта"
+        mailLabel.font = UIFont(name: "system", size: 15)
+        mailLabel.font = mailLabel.font.withSize(15)
+        mailLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        mailTF.font = UIFont(name: "system", size: 17)
+        mailTF.font = mailTF.font?.withSize(17)
+        mailTF.setUnderLine(superView: view)
+        
+        passwordLabel.text = "Пароль"
+        passwordLabel.font = UIFont(name: "system", size: 15)
+        passwordLabel.font = passwordLabel.font.withSize(15)
+        passwordLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        passwordTF.font = UIFont(name: "system", size: 17)
+        passwordTF.font = passwordTF.font?.withSize(17)
+        passwordTF.setUnderLine(superView: view)
         passwordTF.isSecureTextEntry = true
-        setupButton(forgetPasswordButton, text: "Забыли пароль? Нажмите сюда", alignment: .leading)
+        
         forgetPasswordButton.addTarget(self, action: #selector(forgetPasswodButtonAction(_:)), for: .touchUpInside)
-        setupMainButtons(enterButton, text: "Войти")
         enterButton.addTarget(self, action: #selector(enterEnterButtonAction(_:)), for: .touchUpInside)
-        setupButton(noAccountButton, text: "Нет аккаунта? Нажмите сюда", alignment: .center)
         noAccountButton.addTarget(self, action: #selector(registerButtonAction(_:)), for: .touchUpInside)
-        setupButton(guestButton, text: "Или войдите как гость", alignment: .center)
         guestButton.addTarget(self, action: #selector(guestButtonAction(_:)), for: .touchUpInside)
     }
     
@@ -187,13 +224,27 @@ extension EnterViewController {
                                            constant: 0)
         ])
     }
+    
 }
 //MARK: - Actions
 extension EnterViewController {
-    
     @objc
     private func enterEnterButtonAction(_ sender: UIButton) {
-        enter?()
+        if let mail = mailTF.text, !mail.isEmpty,
+           let password = passwordTF.text, !password.isEmpty {
+            
+            viewModel?.checkLogIn(email: mailTF.text ?? "", password: passwordTF.text ?? "") { error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        self.makeAlert(error)
+                    } else {
+                        self.enter?()
+                    }
+                }
+            }
+        } else {
+            makeAlert("Заполните поля логина и пароля")
+        }
     }
     
     @objc
@@ -208,5 +259,12 @@ extension EnterViewController {
     @objc
     private func forgetPasswodButtonAction(_ sender: UIButton) {
         forgetPassword?()
+    }
+}
+
+extension EnterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
     }
 }

@@ -16,7 +16,7 @@ class RestorePasswordViewController: UIViewController, RegistrationProtocol {
     private var helpLabel: UILabel = UILabel()
     private var mailStackView: UIStackView = UIStackView()
     
-    private var sendButton: UIButton = UIButton()
+    private var sendButton: MainButton = MainButton(color: UIColor(named: "mainColor"), title: "Отправить")
     
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: RestorePasswordViewModel?
@@ -124,17 +124,18 @@ extension RestorePasswordViewController {
     
     private func setupUI() {
         title = "Восстановление пароля"
+        mailTF.delegate = self
         setupMainLabel(mainLabel, text: "Введите адрес электронной почты")
         mainLabel.numberOfLines = 0
         mainLabel.textAlignment = .center
         setupStackViews(mailStackView, spacing: 0, aligment: .leading)
         setupTextLabels(mailLabel, text: "Почта")
         setupTF(mailTF, superView: view)
-        setupMainButtons(sendButton, text: "Отправить")
         setupTextLabels(helpLabel, text: "Вам придет письмо с дальнейшими указаниями")
         sendButton.addTarget(self, action: #selector(sendAction), for: .touchUpInside)
         
     }
+    
 }
 
 
@@ -145,6 +146,23 @@ extension RestorePasswordViewController {
     }
     @objc
     private func sendAction() {
-        enter?()
+        if let mail = mailTF.text, !mail.isEmpty {
+            viewModel?.restore(email: mail, completion: { error in
+                if let error = error {
+                    self.makeAlert(error)
+                } else {
+                    self.back?()
+                }
+            })
+        } else {
+            makeAlert("Введите почту.")
+        }
+    }
+}
+
+extension RestorePasswordViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
     }
 }

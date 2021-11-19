@@ -6,31 +6,40 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var isFlag: Bool = false
-    //Presentable protocol для всех координаторов
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        FirebaseApp.configure()
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        
         window = UIWindow(windowScene: windowScene)
+        
         guard let window = window else {
             return
         }
+        
         window.windowScene = windowScene
         window.overrideUserInterfaceStyle = .light
+        
         let navVC = UINavigationController()
+        
         let tabBarCoordinator = GoodFoodCoordinator(window: window)
         let authCoordinator = AuthCoordinator(window: window, navigationController: navVC, tabBarController: tabBarCoordinator)
         
-        if isFlag {
-            tabBarCoordinator.start()
-        } else {
-            authCoordinator.start()
-        }
         
+        Auth.auth().addStateDidChangeListener{ (auth, user) in
+            if Auth.auth().currentUser != nil{
+                tabBarCoordinator.start()
+            }
+            else{
+               authCoordinator.start()
+            }
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
