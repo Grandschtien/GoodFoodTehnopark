@@ -142,7 +142,7 @@ extension ProfileViewController {
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.image = UIImage(named: "profile")
         profileImageView.contentMode = .scaleToFill
-        profileImageView.backgroundColor = .red
+        
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImageView.addGestureRecognizer(tapGR)
         profileImageView.isUserInteractionEnabled = true

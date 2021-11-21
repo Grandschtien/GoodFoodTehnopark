@@ -209,6 +209,8 @@
 				60F6034D272858D200B69B4D /* RegisterScreen */,
 				60F6034E272858DD00B69B4D /* RestorePasswordScreen */,
 				60ECE5D9272D567B006B479A /* MenuScreen */,
+				6062D4FD274A60590014E9D4 /* PrepareScreen */,
+				6062D4FC274A601D0014E9D4 /* DishScreen */,
 				60ECE5ED272EAC0A006B479A /* LikedScreen */,
 				60ECE5EC272EABFF006B479A /* ProfileScreen */,
 			);
@@ -248,6 +250,20 @@
 				6055D749273DAEE200BE4EFB /* SortCell.xib */,
 			);
 			path = SortCell;
+			sourceTree = "<group>";
+		};
+		6062D4FC274A601D0014E9D4 /* DishScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DishScreen;
+			sourceTree = "<group>";
+		};
+		6062D4FD274A60590014E9D4 /* PrepareScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PrepareScreen;
 			sourceTree = "<group>";
 		};
 		607A75DA274692FC007EFD4D /* NetworkManagers */ = {

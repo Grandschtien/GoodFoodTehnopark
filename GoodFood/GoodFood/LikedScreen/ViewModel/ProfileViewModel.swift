@@ -8,7 +8,6 @@
 import Foundation
 
 class ProfileViewModel {
-    
     func fetchProfile(completion: @escaping (Result<Profile, Error>) -> ()) {
         AppNetworkManager.fetchProfileData { result in
             switch result {
