@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="94" id="KGk-i7-Jjw" customClass="RatingCell" customModule="GoodFood" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqa-pZ-WJH">
+                        <rect key="frame" x="10" y="10" width="300" height="97"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Оцените рецепт:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJY-Vy-ZIv">
+                                <rect key="frame" x="12" y="10" width="276" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tvo-AH-OEl" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="80" y="49" width="140" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                        <color key="value" red="0.99942404029999998" green="0.90759029830000004" blue="0.124948792" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                        <color key="value" name="borderRatingStarColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                        <real key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="tvo-AH-OEl" secondAttribute="bottom" constant="8" id="2ZH-xi-bes"/>
+                            <constraint firstItem="tvo-AH-OEl" firstAttribute="leading" secondItem="mqa-pZ-WJH" secondAttribute="leading" constant="80" id="DIG-ME-IIx"/>
+                            <constraint firstItem="tvo-AH-OEl" firstAttribute="top" secondItem="AJY-Vy-ZIv" secondAttribute="bottom" constant="18" id="G9I-s9-xHv"/>
+                            <constraint firstItem="AJY-Vy-ZIv" firstAttribute="top" secondItem="mqa-pZ-WJH" secondAttribute="top" constant="10" id="Maj-SI-oOL"/>
+                            <constraint firstAttribute="trailing" secondItem="AJY-Vy-ZIv" secondAttribute="trailing" constant="12" id="RLV-bA-qVJ"/>
+                            <constraint firstItem="AJY-Vy-ZIv" firstAttribute="leading" secondItem="mqa-pZ-WJH" secondAttribute="leading" constant="12" id="VjD-4k-zhe"/>
+                            <constraint firstItem="AJY-Vy-ZIv" firstAttribute="centerX" secondItem="mqa-pZ-WJH" secondAttribute="centerX" id="orZ-Yb-gZZ"/>
+                            <constraint firstAttribute="trailing" secondItem="tvo-AH-OEl" secondAttribute="trailing" constant="80" id="vlI-If-qip"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" name="BackgroundColor"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="mqa-pZ-WJH" secondAttribute="bottom" constant="10" id="Rcb-uV-wiu"/>
+                    <constraint firstAttribute="trailing" secondItem="mqa-pZ-WJH" secondAttribute="trailing" constant="10" id="kUa-Mr-xjc"/>
+                    <constraint firstItem="mqa-pZ-WJH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="qVZ-9C-c1a"/>
+                    <constraint firstItem="mqa-pZ-WJH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="sCq-Ds-Xg9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="containerView" destination="mqa-pZ-WJH" id="m5d-1q-0ff"/>
+                <outlet property="label" destination="AJY-Vy-ZIv" id="Yhd-k6-fV1"/>
+                <outlet property="ratingView" destination="tvo-AH-OEl" id="NBT-dQ-Dcg"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="65.290178571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="BackgroundColor">
+            <color red="0.92199999094009399" green="0.9179999828338623" blue="0.94099998474121094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="borderRatingStarColor">
+            <color red="0.85500001907348633" green="0.85500001907348633" blue="0.85500001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
