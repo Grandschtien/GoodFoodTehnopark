@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import Firebase
 
 class ProfileViewModel {
     func fetchProfile(completion: @escaping (Result<Profile, Error>) -> ()) {
@@ -19,6 +21,20 @@ class ProfileViewModel {
                 completion(.success(profile))
             case .failure(let error):
                 completion(.failure(error))
+            }
+        }
+    }
+    func uploadProfileImage(image: UIImage) {
+        if let user = Auth.auth().currentUser {
+            guard let imageData = image.jpegData(compressionQuality: 0.4) else { return }
+            AppNetworkManager.uploadProfileImage(currentUserId: user.uid, imageData: imageData) { result in
+                switch result {
+                case .success(let url):
+                    let ref = Database.database().reference().child("users")
+                    ref.child(user.uid).updateChildValues(["avatar": url.absoluteString])
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
             }
         }
     }

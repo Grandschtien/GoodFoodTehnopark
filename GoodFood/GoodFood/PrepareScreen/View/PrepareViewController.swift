@@ -17,7 +17,7 @@ class PrepareViewController: UIViewController {
     private var viewModel: PrepareViewModel?
     
     var back: (() -> Void)?
-    var exit: (() ->Void)?
+    var exit: (() -> Void)?
     
     init(viewModel: PrepareViewModel, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror

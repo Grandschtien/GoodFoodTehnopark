@@ -12,10 +12,10 @@ struct Profile {
     let email: String
     let image: Data?
     
-    init?(dictionary: NSDictionary) {
+    init?(dictionary: [String: Any]) {
         guard let name = dictionary["name"] as? String, let email = dictionary["email"] as? String else { return nil }
         self.name = name
         self.email = email
-        self.image = dictionary["image"] as? Data
+        self.image = dictionary["avatar"] as? Data
     }
 }

@@ -141,7 +141,8 @@ extension ProfileViewController {
         
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.image = UIImage(named: "profile")
-        profileImageView.contentMode = .scaleToFill
+        profileImageView.contentMode = .scaleAspectFill
+        profileImageView.clipsToBounds = true
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImageView.addGestureRecognizer(tapGR)
@@ -227,6 +228,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationC
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             profileImageView.image = pickedImage
+            viewModel?.uploadProfileImage(image: pickedImage)
         }
         picker.dismiss(animated: true, completion: nil)
     }
