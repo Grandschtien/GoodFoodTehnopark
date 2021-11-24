@@ -16,20 +16,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ot-TH-cJf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
-                    </pickerView>
+                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="iXc-LP-C4o">
+                        <rect key="frame" x="32" y="0.0" width="256" height="162"/>
+                    </datePicker>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="7Ot-TH-cJf" secondAttribute="trailing" id="OLX-nC-wi2"/>
-                    <constraint firstItem="7Ot-TH-cJf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ZHL-UB-uEb"/>
-                    <constraint firstItem="7Ot-TH-cJf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="aK1-G7-mY3"/>
-                    <constraint firstAttribute="bottom" secondItem="7Ot-TH-cJf" secondAttribute="bottom" id="rYr-T3-gNU"/>
+                    <constraint firstItem="iXc-LP-C4o" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IJh-sv-5wL"/>
+                    <constraint firstAttribute="trailing" secondItem="iXc-LP-C4o" secondAttribute="trailing" constant="32" id="Ueg-Qs-olz"/>
+                    <constraint firstItem="iXc-LP-C4o" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="32" id="hed-yz-5BL"/>
+                    <constraint firstAttribute="bottom" secondItem="iXc-LP-C4o" secondAttribute="bottom" id="uxb-If-UHg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="timePicker" destination="7Ot-TH-cJf" id="7qs-36-w3U"/>
+                <outlet property="timePicker" destination="iXc-LP-C4o" id="cQu-6k-xfZ"/>
             </connections>
             <point key="canvasLocation" x="-39.130434782608695" y="28.125"/>
         </tableViewCell>

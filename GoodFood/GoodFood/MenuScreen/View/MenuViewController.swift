@@ -13,6 +13,7 @@ class MenuViewController: UIViewController {
     private var tableView: UITableView = UITableView()
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: MenuViewModel?
+    var add: (() -> Void)?
     
     init(viewModel: MenuViewModel, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
@@ -98,9 +99,7 @@ extension MenuViewController {
     }
     @objc
     private func menuAddButtonAction() {
-        let addVC = AddViewController()
-        let addNavController = UINavigationController(rootViewController: addVC)
-        navigationController?.present(addNavController, animated: true, completion: nil)
+        add?()
     }
 }
 //MARK: - UISearchResultsUpdating

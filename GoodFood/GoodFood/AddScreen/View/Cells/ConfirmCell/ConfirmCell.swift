@@ -6,12 +6,16 @@
 //
 
 import UIKit
+protocol ConfirmCellDelegate: AnyObject {
+    func confirmRecipe()
+}
 
 class ConfirmCell: UITableViewCell {
 
     @IBOutlet weak var confirmRecipeButton: UIButton!
     
     static let reuseId = "ConfirmCell"
+    weak var delegate: ConfirmCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +27,9 @@ class ConfirmCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    @IBAction func confirmAction(_ sender: UIButton) {
+        delegate?.confirmRecipe()
+    }
+    
     
 }

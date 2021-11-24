@@ -9,7 +9,6 @@ import UIKit
 
 class NameCell: UITableViewCell {
     
-    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var nameTextField: UITextField!
     static let reuseId = "NameCell"
     
@@ -24,6 +23,9 @@ class NameCell: UITableViewCell {
 //
     override func awakeFromNib() {
         super.awakeFromNib()
+        nameTextField.font = .systemFont(ofSize: 17)
+        selectionStyle = .none
+//        adjustUITextViewHeight(arg: nameTextField)
         
 //        nameTextField = UITextField(frame: CGRect(x: 0, y: 0, width: contentView.frame.width - 32, height: contentView.frame.height - 10))
 //        nameTextField.setUnderLine(superView: self)
@@ -32,11 +34,12 @@ class NameCell: UITableViewCell {
 //        self.containerView.layer.masksToBounds = true
 //        nameTextField.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    
+//    func adjustUITextViewHeight(arg : UITextView)
+//    {
+//        arg.translatesAutoresizingMaskIntoConstraints = true
+//        arg.sizeToFit()
+//        arg.isScrollEnabled = false
+//    }
     
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C18976F274DB1E00041BF29 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18976D274DB1E00041BF29 /* IngredientCell.swift */; };
+		2C189770274DB1E00041BF29 /* IngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C18976E274DB1E00041BF29 /* IngredientCell.xib */; };
 		2C85CFA227429AE600F26074 /* AddModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA127429AE600F26074 /* AddModel.swift */; };
 		2C85CFA427429B1300F26074 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA327429B1300F26074 /* AddViewModel.swift */; };
 		2C85CFA627429B5800F26074 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA527429B5800F26074 /* AddViewController.swift */; };
@@ -72,6 +74,8 @@
 		15A55B9550DDADA630F366D6 /* Pods-GoodFood.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood/Pods-GoodFood.debug.xcconfig"; sourceTree = "<group>"; };
 		1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood_GoodFoodUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B1A3DC8EBB69219AF715281 /* Pods-GoodFood-GoodFoodUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2C18976D274DB1E00041BF29 /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
+		2C18976E274DB1E00041BF29 /* IngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientCell.xib; sourceTree = "<group>"; };
 		2C85CFA127429AE600F26074 /* AddModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddModel.swift; sourceTree = "<group>"; };
 		2C85CFA327429B1300F26074 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		2C85CFA527429B5800F26074 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +153,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C18976C274DB1C40041BF29 /* IngredientCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C18976D274DB1E00041BF29 /* IngredientCell.swift */,
+				2C18976E274DB1E00041BF29 /* IngredientCell.xib */,
+			);
+			path = IngredientCell;
+			sourceTree = "<group>";
+		};
 		2C85CF9D27429A6300F26074 /* AddScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,10 +200,10 @@
 		2C85CFA72742DFCF00F26074 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				2C18976C274DB1C40041BF29 /* IngredientCell */,
 				2C85CFAD2742E05100F26074 /* NameCell */,
 				2C85CFB52745EA2200F26074 /* PhotoCell */,
 				2C85CFBE2745FB3800F26074 /* TimeCell */,
-				2C85CFCD27469DB100F26074 /* IngredientCell */,
 				2C85CFC827460B1000F26074 /* ConfirmCell */,
 			);
 			path = Cells;
@@ -230,13 +243,6 @@
 				2C85CFCA27460B2800F26074 /* ConfirmCell.xib */,
 			);
 			path = ConfirmCell;
-			sourceTree = "<group>";
-		};
-		2C85CFCD27469DB100F26074 /* IngredientCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = IngredientCell;
 			sourceTree = "<group>";
 		};
 		601DAD5E271F12EE00935800 = {
@@ -722,6 +728,7 @@
 				2C85CFB12742E06F00F26074 /* NameCell.xib in Resources */,
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
 				2C85CFCC27460B2800F26074 /* ConfirmCell.xib in Resources */,
+				2C189770274DB1E00041BF29 /* IngredientCell.xib in Resources */,
 				2C85CFBD2745EA8C00F26074 /* PhotoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -870,6 +877,7 @@
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
 				2C85CFA227429AE600F26074 /* AddModel.swift in Sources */,
 				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
+				2C18976F274DB1E00041BF29 /* IngredientCell.swift in Sources */,
 				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
 				60ECE621273817CA006B479A /* ProfileViewModel.swift in Sources */,
 				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,

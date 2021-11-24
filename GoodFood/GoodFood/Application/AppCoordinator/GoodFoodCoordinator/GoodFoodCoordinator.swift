@@ -25,6 +25,14 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         let menuViewController = MenuViewController(viewModel: menuViewModel, coordinatror: self)
         
         menuViewController.tabBarItem = UITabBarItem(title: "Меню", image:  UIImage(named: "menu"), selectedImage:  UIImage(named: "menu"))
+        menuViewController.add = {
+            let addVC = AddViewController()
+            addVC.back = {
+                addVC.dismiss(animated: true, completion: nil)
+            }
+            let addNavController = UINavigationController(rootViewController: addVC)
+            menuViewController.present(addNavController, animated: true, completion: nil)
+        }
         
         let profileViewModel = ProfileViewModel()
         let profileVC = ProfileViewController(coordinator: self, viewModel: profileViewModel)

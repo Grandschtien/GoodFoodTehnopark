@@ -15,7 +15,7 @@ class AddViewController: UIViewController {
     private var navBar = UINavigationBar()
     private var tableView = UITableView()
     weak var delegate: AddViewControllerDelegate?
-    private var back: (() -> Void)?
+    var back: (() -> Void)?
     
 //    private let nameCellIdentifier = "NameCell"
 //    private let photoCellIdentifier = "PhotoCell"
@@ -39,7 +39,7 @@ class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
-        setupViews()
+        setupUI()
         
     }
     
@@ -49,7 +49,23 @@ class AddViewController: UIViewController {
 }
 
 extension AddViewController {
-    private func setupViews() {
+    
+    private func setupConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                                constant: 0),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                    constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                    constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                   constant: 0)
+        ])
+    }
+    
+    private func setupUI() {
         view.backgroundColor = .white
         title = "Новый рецепт"
         setupNavigationBar()
@@ -57,33 +73,22 @@ extension AddViewController {
     }
     
     private func setupTableView() {
-        self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), style: .plain)
+//        self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), style: .plain)
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
-//        self.tableView.sectionFooterHeight = 100
         tableView.register(UINib(nibName: NameCell.reuseId, bundle: nil), forCellReuseIdentifier: NameCell.reuseId)
         tableView.register(UINib(nibName: PhotoCell.reuseId, bundle: nil), forCellReuseIdentifier: PhotoCell.reuseId)
         tableView.register(UINib(nibName: TimeCell.reuseId, bundle: nil), forCellReuseIdentifier: TimeCell.reuseId)
         tableView.register(UINib(nibName: ConfirmCell.reuseId, bundle: nil), forCellReuseIdentifier: ConfirmCell.reuseId)
+        
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        view.addSubview(tableView)
-    }
-    
-    private func setupConstraints() {
-//        NSLayoutConstraint.activate([
-//            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-//                                                constant: 0),
-//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-//                                                    constant: 0),
-//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-//                                                    constant: 0),
-//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-//                                                   constant: 0)
-//        ])
+//        view.addSubview(tableView)
     }
     
     private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBarButton"), style: .plain, target: self, action: #selector(backAction))
+        
     }
     
     @objc
@@ -94,15 +99,17 @@ extension AddViewController {
 //        tableView.endUpdates()
         
         ingredientsArray.append("")
+        tableView.insertRows(at: [IndexPath(row: ingredientsArray.count - 1, section: 3)], with: .bottom)
 //        tableView.reloadSections(IndexSet(integer: 3), with: .none)
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
     }
     
     @objc
     private func addStage() {
 //        stagesCount += 1
         stagesArray.append("")
-        self.tableView.reloadData()
+        tableView.insertRows(at: [IndexPath(row: stagesArray.count - 1, section: 4)], with: .bottom)
+//        self.tableView.reloadData()
     }
     
     @objc
@@ -137,17 +144,17 @@ extension AddViewController: UITableViewDataSource {
         case 5:
             return 1
         default:
-            break
+            return 0
         }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath)
+        
         
         switch indexPath.section {
         case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath) as? NameCell else {return UITableViewCell()}
             return cell
         case 1:
             guard let photoCell = tableView.dequeueReusableCell(withIdentifier: PhotoCell.reuseId, for: indexPath) as? PhotoCell else {
@@ -157,17 +164,22 @@ extension AddViewController: UITableViewDataSource {
             delegate = photoCell
             return photoCell
         case 2:
-            let timeCell = tableView.dequeueReusableCell(withIdentifier: TimeCell.reuseId, for: indexPath)
+            guard let timeCell = tableView.dequeueReusableCell(withIdentifier: TimeCell.reuseId, for: indexPath) as? TimeCell else {return UITableViewCell()}
             return timeCell
         case 3:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath) as? NameCell else {return UITableViewCell()}
+            return cell
+        case 4:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath) as? NameCell else {return UITableViewCell()}
             return cell
         case 5:
-            let confirmCell = tableView.dequeueReusableCell(withIdentifier: ConfirmCell.reuseId, for: indexPath)
+            guard let confirmCell = tableView.dequeueReusableCell(withIdentifier: ConfirmCell.reuseId, for: indexPath) as? ConfirmCell else {return UITableViewCell()}
+            confirmCell.delegate = self
             return confirmCell
         default:
-            break
+            return UITableViewCell()
         }
-        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -179,27 +191,28 @@ extension AddViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
-        let addIngredientButton = UIButton()
-        addIngredientButton.setTitle("+ Ингредиент", for: .normal)
-        addIngredientButton.titleLabel?.font = .systemFont(ofSize: 20)
-        addIngredientButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
-        addIngredientButton.addTarget(self, action: #selector(addIngredient), for: .touchUpInside)
         
-        let addStageButton = UIButton()
-        addStageButton.setTitle("+ Этап", for: .normal)
-        addStageButton.titleLabel?.font = .systemFont(ofSize: 20)
-        addStageButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
-        addStageButton.addTarget(self, action: #selector(addStage), for: .touchUpInside)
+        
+        
         
         switch section {
         case 3:
+            let addIngredientButton = UIButton()
+            addIngredientButton.setTitle("+ Ингредиент", for: .normal)
+            addIngredientButton.titleLabel?.font = .systemFont(ofSize: 20)
+            addIngredientButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+            addIngredientButton.addTarget(self, action: #selector(addIngredient), for: .touchUpInside)
             return addIngredientButton
         case 4:
+            let addStageButton = UIButton()
+            addStageButton.setTitle("+ Этап", for: .normal)
+            addStageButton.titleLabel?.font = .systemFont(ofSize: 20)
+            addStageButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+            addStageButton.addTarget(self, action: #selector(addStage), for: .touchUpInside)
             return addStageButton
         default:
-            break
+            return nil
         }
-        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -208,12 +221,9 @@ extension AddViewController: UITableViewDataSource {
             return 60
         case 4:
             return 60
-        case 5:
-            return 70
         default:
-            break
+            return 0
         }
-        return 0
     }
 }
 
@@ -265,18 +275,23 @@ extension AddViewController: PhotoCellDelegate, UIImagePickerControllerDelegate 
         picker.dismiss(animated: true, completion: nil)
         
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.section {
-//        case 1:
-//            return 100
-//        case 2:
-//            return 100
-//        case 5:
-//            return 70
-//        default:
-//            break
-//        }
-//        return 44
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 1:
+            return 241
+        case 2:
+            return 162
+        case 5:
+            return 70
+        default:
+            return 44
+        }
+    }
     
+}
+
+extension AddViewController: ConfirmCellDelegate {
+    func confirmRecipe() {
+        back?()
+    }
 }
