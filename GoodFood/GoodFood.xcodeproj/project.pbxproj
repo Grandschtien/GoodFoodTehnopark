@@ -37,6 +37,13 @@
 		6055D7A5273E9F0400BE4EFB /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A4273E9F0400BE4EFB /* PageViewController.swift */; };
 		6055D7A7273EAC1B00BE4EFB /* YourRecipesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */; };
 		6055D7A9273EAC3D00BE4EFB /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */; };
+		607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 607A75D827468F37007EFD4D /* GoogleService-Info.plist */; };
+		607A75DE27469330007EFD4D /* AppNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DD27469330007EFD4D /* AppNetworkManager.swift */; };
+		607A75E027469364007EFD4D /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DF27469364007EFD4D /* AuthNetworkManager.swift */; };
+		60D334172747CF69007C2462 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */; };
+		60D334192747D464007C2462 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334182747D464007C2462 /* MainButton.swift */; };
+		60D3341B2747D701007C2462 /* HelperButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D3341A2747D701007C2462 /* HelperButton.swift */; };
+		60D3341D2747E4B7007C2462 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D3341C2747E4B7007C2462 /* UIViewController + Extension.swift */; };
 		60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D3272AB672006B479A /* RegisterViewController.swift */; };
 		60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */; };
 		60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */; };
@@ -112,6 +119,13 @@
 		6055D7A4273E9F0400BE4EFB /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourRecipesViewModel.swift; sourceTree = "<group>"; };
 		6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		607A75D827468F37007EFD4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		607A75DD27469330007EFD4D /* AppNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNetworkManager.swift; sourceTree = "<group>"; };
+		607A75DF27469364007EFD4D /* AuthNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
+		60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
+		60D334182747D464007C2462 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		60D3341A2747D701007C2462 /* HelperButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperButton.swift; sourceTree = "<group>"; };
+		60D3341C2747E4B7007C2462 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		60ECE5D3272AB672006B479A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		60ECE5D5272C18D0006B479A /* RestorePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewController.swift; sourceTree = "<group>"; };
 		60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationProtocol.swift; sourceTree = "<group>"; };
@@ -232,6 +246,31 @@
 				6055D749273DAEE200BE4EFB /* SortCell.xib */,
 			);
 			path = SortCell;
+			sourceTree = "<group>";
+		};
+		607A75DA274692FC007EFD4D /* NetworkManagers */ = {
+			isa = PBXGroup;
+			children = (
+				607A75DC2746931D007EFD4D /* AppNetworkManager */,
+				607A75DB27469312007EFD4D /* AuthNetworkManager */,
+			);
+			path = NetworkManagers;
+			sourceTree = "<group>";
+		};
+		607A75DB27469312007EFD4D /* AuthNetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				607A75DF27469364007EFD4D /* AuthNetworkManager.swift */,
+			);
+			path = AuthNetworkManager;
+			sourceTree = "<group>";
+		};
+		607A75DC2746931D007EFD4D /* AppNetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				607A75DD27469330007EFD4D /* AppNetworkManager.swift */,
+			);
+			path = AppNetworkManager;
 			sourceTree = "<group>";
 		};
 		60ECE5D9272D567B006B479A /* MenuScreen */ = {
@@ -384,6 +423,7 @@
 		60F6034B272858C000B69B4D /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				607A75DA274692FC007EFD4D /* NetworkManagers */,
 				60ECE5F827306291006B479A /* AppCoordinator */,
 				60F6035C2729493800B69B4D /* Extensions */,
 				60F603522728599100B69B4D /* Delegates */,
@@ -428,6 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				601DAD76271F12F300935800 /* Assets.xcassets */,
+				607A75D827468F37007EFD4D /* GoogleService-Info.plist */,
 				601DAD7B271F12F300935800 /* Info.plist */,
 			);
 			path = SupportingFiles;
@@ -471,6 +512,8 @@
 			isa = PBXGroup;
 			children = (
 				601DAD6E271F12EE00935800 /* EnterViewController.swift */,
+				60D334182747D464007C2462 /* MainButton.swift */,
+				60D3341A2747D701007C2462 /* HelperButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -536,6 +579,8 @@
 			children = (
 				60F6035D27294BDB00B69B4D /* UITextField+Extension.swift */,
 				60ECE5D7272D5486006B479A /* RegistrationProtocol.swift */,
+				60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */,
+				60D3341C2747E4B7007C2462 /* UIViewController + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -677,6 +722,7 @@
 				60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */,
 				6055D74B273DAEE200BE4EFB /* SortCell.xib in Resources */,
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
+				607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,6 +851,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */,
+				607A75E027469364007EFD4D /* AuthNetworkManager.swift in Sources */,
 				6055D7A5273E9F0400BE4EFB /* PageViewController.swift in Sources */,
 				6055D74A273DAEE200BE4EFB /* SortCell.swift in Sources */,
 				6055D753273DB40D00BE4EFB /* Menu.swift in Sources */,
@@ -826,13 +873,18 @@
 				6055D7A7273EAC1B00BE4EFB /* YourRecipesViewModel.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
 				6055D75B273E6FF800BE4EFB /* YourRecipesViewController.swift in Sources */,
+				60D3341D2747E4B7007C2462 /* UIViewController + Extension.swift in Sources */,
+				60D334172747CF69007C2462 /* AuthErrorCode+Extension.swift in Sources */,
+				607A75DE27469330007EFD4D /* AppNetworkManager.swift in Sources */,
 				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
 				60ECE5E4272E9999006B479A /* MenuCell.swift in Sources */,
 				6055D7A9273EAC3D00BE4EFB /* HistoryViewModel.swift in Sources */,
 				6055D755273DB42300BE4EFB /* RestorePasswordModel.swift in Sources */,
+				60D3341B2747D701007C2462 /* HelperButton.swift in Sources */,
 				60ECE621273817CA006B479A /* ProfileViewModel.swift in Sources */,
 				6055D74D273DB2E400BE4EFB /* SortViewModel.swift in Sources */,
 				60ECE5D6272C18D0006B479A /* RestorePasswordViewController.swift in Sources */,
+				60D334192747D464007C2462 /* MainButton.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				6055D75D273E700300BE4EFB /* HistoryViewController.swift in Sources */,
 				6055D7A3273E9EF600BE4EFB /* ContainerViewController.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import FirebaseAuth
 
 final class GoodFoodCoordinator {
     private var window: UIWindow
@@ -40,6 +40,11 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         let profileVC = ProfileViewController(coordinator: self, viewModel: profileViewModel)
         profileVC.exit = { [weak self] in
             guard let `self` = self else { return }
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                print(error)
+            }
             let navController = UINavigationController()
             let authCoordinator = AuthCoordinator(window: self.window, navigationController: navController, tabBarController: self)
             authCoordinator.start()
