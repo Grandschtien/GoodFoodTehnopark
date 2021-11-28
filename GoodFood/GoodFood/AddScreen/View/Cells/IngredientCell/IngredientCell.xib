@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,21 +17,42 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bw0-7W-7yP">
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bw0-7W-7yP">
                         <rect key="frame" x="16" y="5" width="288" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="Cjn-Yb-irT"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="o3C-gl-0nQ"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAB-Gk-sGK">
+                        <rect key="frame" x="16" y="42" width="288" height="1"/>
+                        <color key="backgroundColor" systemColor="systemGray2Color"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="d1K-e7-yg1"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="bw0-7W-7yP" secondAttribute="trailing" constant="16" id="CJ9-pV-MKW"/>
-                    <constraint firstAttribute="bottom" secondItem="bw0-7W-7yP" secondAttribute="bottom" constant="5" id="HmR-YT-MVf"/>
-                    <constraint firstItem="bw0-7W-7yP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="WBn-bm-zIK"/>
-                    <constraint firstItem="bw0-7W-7yP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="m13-Gw-ZkT"/>
+                    <constraint firstItem="bw0-7W-7yP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="835-bs-ibw"/>
+                    <constraint firstAttribute="trailing" secondItem="YAB-Gk-sGK" secondAttribute="trailing" constant="16" id="8Fa-Yg-e6H"/>
+                    <constraint firstAttribute="trailing" secondItem="bw0-7W-7yP" secondAttribute="trailing" constant="16" id="PNG-Aj-wfE"/>
+                    <constraint firstItem="YAB-Gk-sGK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Pwq-Gg-FwI"/>
+                    <constraint firstItem="bw0-7W-7yP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="SUq-zv-KKk"/>
+                    <constraint firstItem="YAB-Gk-sGK" firstAttribute="top" secondItem="bw0-7W-7yP" secondAttribute="bottom" constant="3" id="jXt-HW-fc9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="133" y="42"/>
+            <connections>
+                <outlet property="ingredientTextField" destination="bw0-7W-7yP" id="mma-tr-gh6"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="41.517857142857139"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

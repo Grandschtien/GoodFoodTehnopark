@@ -9,17 +9,17 @@ import UIKit
 
 class IngredientCell: UITableViewCell {
 
+    @IBOutlet weak var ingredientTextField: UITextField!
     static let reuseId = "IngredientCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        ingredientTextField.font = .systemFont(ofSize: 17)
+        selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

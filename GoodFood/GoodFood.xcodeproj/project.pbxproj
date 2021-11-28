@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2C18976F274DB1E00041BF29 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C18976D274DB1E00041BF29 /* IngredientCell.swift */; };
 		2C189770274DB1E00041BF29 /* IngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C18976E274DB1E00041BF29 /* IngredientCell.xib */; };
+		2C189774274FB5D80041BF29 /* StageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C189772274FB5D80041BF29 /* StageCell.swift */; };
+		2C189775274FB5D80041BF29 /* StageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C189773274FB5D80041BF29 /* StageCell.xib */; };
+		2C189779275029F10041BF29 /* AddIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C189777275029F10041BF29 /* AddIngredientCell.swift */; };
+		2C18977A275029F10041BF29 /* AddIngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C189778275029F10041BF29 /* AddIngredientCell.xib */; };
 		2C85CFA227429AE600F26074 /* AddModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA127429AE600F26074 /* AddModel.swift */; };
 		2C85CFA427429B1300F26074 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA327429B1300F26074 /* AddViewModel.swift */; };
 		2C85CFA627429B5800F26074 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFA527429B5800F26074 /* AddViewController.swift */; };
@@ -20,6 +24,8 @@
 		2C85CFC22745FB4F00F26074 /* TimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85CFC02745FB4E00F26074 /* TimeCell.xib */; };
 		2C85CFCB27460B2800F26074 /* ConfirmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C85CFC927460B2800F26074 /* ConfirmCell.swift */; };
 		2C85CFCC27460B2800F26074 /* ConfirmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C85CFCA27460B2800F26074 /* ConfirmCell.xib */; };
+		2C8C9BDC275160B800453013 /* AddStageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C9BDA275160B800453013 /* AddStageCell.swift */; };
+		2C8C9BDD275160B800453013 /* AddStageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C8C9BDB275160B800453013 /* AddStageCell.xib */; };
 		44CDC43D377AB341DFF46091 /* Pods_GoodFoodTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */; };
 		56D92FB4B8A98A95FFC7B4A5 /* Pods_GoodFood_GoodFoodUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */; };
 		601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6A271F12EE00935800 /* AppDelegate.swift */; };
@@ -76,6 +82,10 @@
 		2B1A3DC8EBB69219AF715281 /* Pods-GoodFood-GoodFoodUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C18976D274DB1E00041BF29 /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		2C18976E274DB1E00041BF29 /* IngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientCell.xib; sourceTree = "<group>"; };
+		2C189772274FB5D80041BF29 /* StageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageCell.swift; sourceTree = "<group>"; };
+		2C189773274FB5D80041BF29 /* StageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StageCell.xib; sourceTree = "<group>"; };
+		2C189777275029F10041BF29 /* AddIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientCell.swift; sourceTree = "<group>"; };
+		2C189778275029F10041BF29 /* AddIngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddIngredientCell.xib; sourceTree = "<group>"; };
 		2C85CFA127429AE600F26074 /* AddModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddModel.swift; sourceTree = "<group>"; };
 		2C85CFA327429B1300F26074 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		2C85CFA527429B5800F26074 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +97,8 @@
 		2C85CFC02745FB4E00F26074 /* TimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeCell.xib; sourceTree = "<group>"; };
 		2C85CFC927460B2800F26074 /* ConfirmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCell.swift; sourceTree = "<group>"; };
 		2C85CFCA27460B2800F26074 /* ConfirmCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmCell.xib; sourceTree = "<group>"; };
+		2C8C9BDA275160B800453013 /* AddStageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStageCell.swift; sourceTree = "<group>"; };
+		2C8C9BDB275160B800453013 /* AddStageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddStageCell.xib; sourceTree = "<group>"; };
 		4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD67271F12EE00935800 /* GoodFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD6A271F12EE00935800 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +174,24 @@
 			path = IngredientCell;
 			sourceTree = "<group>";
 		};
+		2C189771274FB59E0041BF29 /* StageCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C189772274FB5D80041BF29 /* StageCell.swift */,
+				2C189773274FB5D80041BF29 /* StageCell.xib */,
+			);
+			path = StageCell;
+			sourceTree = "<group>";
+		};
+		2C189776275029D30041BF29 /* AddIngredientCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C189777275029F10041BF29 /* AddIngredientCell.swift */,
+				2C189778275029F10041BF29 /* AddIngredientCell.xib */,
+			);
+			path = AddIngredientCell;
+			sourceTree = "<group>";
+		};
 		2C85CF9D27429A6300F26074 /* AddScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +230,9 @@
 		2C85CFA72742DFCF00F26074 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				2C8C9BD92751609800453013 /* AddStageCell */,
+				2C189776275029D30041BF29 /* AddIngredientCell */,
+				2C189771274FB59E0041BF29 /* StageCell */,
 				2C18976C274DB1C40041BF29 /* IngredientCell */,
 				2C85CFAD2742E05100F26074 /* NameCell */,
 				2C85CFB52745EA2200F26074 /* PhotoCell */,
@@ -243,6 +276,15 @@
 				2C85CFCA27460B2800F26074 /* ConfirmCell.xib */,
 			);
 			path = ConfirmCell;
+			sourceTree = "<group>";
+		};
+		2C8C9BD92751609800453013 /* AddStageCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C8C9BDA275160B800453013 /* AddStageCell.swift */,
+				2C8C9BDB275160B800453013 /* AddStageCell.xib */,
+			);
+			path = AddStageCell;
 			sourceTree = "<group>";
 		};
 		601DAD5E271F12EE00935800 = {
@@ -725,10 +767,13 @@
 				601DAD77271F12F300935800 /* Assets.xcassets in Resources */,
 				60ECE5E5272E9999006B479A /* MenuCell.xib in Resources */,
 				2C85CFC22745FB4F00F26074 /* TimeCell.xib in Resources */,
+				2C189775274FB5D80041BF29 /* StageCell.xib in Resources */,
 				2C85CFB12742E06F00F26074 /* NameCell.xib in Resources */,
+				2C18977A275029F10041BF29 /* AddIngredientCell.xib in Resources */,
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
 				2C85CFCC27460B2800F26074 /* ConfirmCell.xib in Resources */,
 				2C189770274DB1E00041BF29 /* IngredientCell.xib in Resources */,
+				2C8C9BDD275160B800453013 /* AddStageCell.xib in Resources */,
 				2C85CFBD2745EA8C00F26074 /* PhotoCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,6 +906,7 @@
 				2C85CFCB27460B2800F26074 /* ConfirmCell.swift in Sources */,
 				60ECE5D8272D5486006B479A /* RegistrationProtocol.swift in Sources */,
 				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
+				2C189779275029F10041BF29 /* AddIngredientCell.swift in Sources */,
 				2C85CFC12745FB4F00F26074 /* TimeCell.swift in Sources */,
 				2C85CFB02742E06F00F26074 /* NameCell.swift in Sources */,
 				60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */,
@@ -874,6 +920,7 @@
 				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
 				2C85CFA627429B5800F26074 /* AddViewController.swift in Sources */,
 				60ECE61F273817BA006B479A /* LikedViewModel.swift in Sources */,
+				2C8C9BDC275160B800453013 /* AddStageCell.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
 				2C85CFA227429AE600F26074 /* AddModel.swift in Sources */,
 				60ECE5F7272EAC94006B479A /* ProfileViewController.swift in Sources */,
@@ -885,6 +932,7 @@
 				60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */,
 				60ECE5F5272EAC87006B479A /* LikedViewController.swift in Sources */,
 				601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */,
+				2C189774274FB5D80041BF29 /* StageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
