@@ -10,13 +10,13 @@ import UIKit
 class RestorePasswordViewController: UIViewController, RegistrationProtocol {
     
     
-    private var mainLabel: UILabel = UILabel()
-    private var mailLabel: UILabel = UILabel()
-    private var mailTF: UITextField = UITextField()
-    private var helpLabel: UILabel = UILabel()
-    private var mailStackView: UIStackView = UIStackView()
+    private var mainLabel = UILabel()
+    private var mailLabel = UILabel()
+    private var mailTF = UITextField()
+    private var helpLabel = UILabel()
+    private var mailStackView = UIStackView()
     
-    private var sendButton: MainButton = MainButton(color: UIColor(named: "mainColor"), title: "Отправить")
+    private var sendButton = MainButton(color: UIColor(named: "mainColor"), title: "Отправить")
     
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: RestorePasswordViewModel?

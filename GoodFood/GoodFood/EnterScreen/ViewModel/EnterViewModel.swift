@@ -11,16 +11,15 @@ import FirebaseAuth
 final class EnterViewModel {
     
     func checkLogIn(email: String, password: String, completion: @escaping (String?) -> ()) {
-        AuthNetworkManager.logIn(email: email, password: password) { authDataResult, error in
-            if error == nil {
-                if let _ = authDataResult {
-                    completion(nil)
-                }
-            } else {
-                if let authError = AuthErrorCode(rawValue: error!._code) {
-                    completion(authError.errorMessage)
-                }
+        AuthNetworkManager.logIn(email: email, password: password) { _ , error in
+            guard let error = error else {
+                completion(nil)
+                return
+            }
+            if let authError = AuthErrorCode(rawValue: error._code) {
+                completion(authError.errorMessage)
             }
         }
     }
 }
+

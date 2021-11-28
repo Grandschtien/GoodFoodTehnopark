@@ -9,9 +9,9 @@ import UIKit
 
 class SortViewController: UIViewController {
     
-    private let exitButton: UIButton = UIButton()
-    private let applyButton: UIButton = UIButton()
-    private let tableView: UITableView = UITableView()
+    private let exitButton = UIButton()
+    private let applyButton = UIButton()
+    private let tableView = UITableView()
     
     var close: (() -> Void)?
     

@@ -13,7 +13,7 @@ class ContainerViewController: UIViewController, UIPageViewControllerDelegate {
                                                             "Ваши рецепты",
                                                             "История"])
     
-    private var pageVC: PageViewController = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    private var pageVC = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
     private var subViewControllers: [UIViewController]?
     

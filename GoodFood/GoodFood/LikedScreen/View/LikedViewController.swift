@@ -9,7 +9,7 @@ import UIKit
 
 class LikedViewController: UIViewController {
     
-    private let tableView: UITableView = UITableView()
+    private let tableView = UITableView()
     
     private var coordinator: CoordinatorProtocol?
     private(set) var viewModel: LikedViewModel?

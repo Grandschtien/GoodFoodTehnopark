@@ -70,7 +70,6 @@ class HelperButton: UIButton {
     func touchDown() {
         stopTimer()
         setTitleColor(color.withAlphaComponent(touchDownAlpha), for: .normal)
-        //layer.backgroundColor = color.withAlphaComponent(touchDownAlpha).cgColor
     }
     
     func touchUp() {
@@ -86,10 +85,10 @@ class HelperButton: UIButton {
     }
     
     
-    @objc func animation() {
+    @objc
+    func animation() {
         guard let backgroundAlpha = layer.backgroundColor?.alpha else {
             stopTimer()
-            
             return
         }
         
