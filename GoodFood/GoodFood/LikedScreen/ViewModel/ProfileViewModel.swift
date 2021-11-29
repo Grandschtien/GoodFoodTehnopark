@@ -15,7 +15,7 @@ class ProfileViewModel {
             switch result {
             case .success(let dictionary):
                 guard let profile = Profile(dictionary: dictionary) else {
-                    completion(.failure(AppErrors.incorrectProfileData))
+                    completion(.failure(AppErrors.incorrectData))
                     return
                 }
                 completion(.success(profile))
@@ -38,4 +38,11 @@ class ProfileViewModel {
             }
         }
     }
+    func removeUserInfo() {
+        if UserDefaults.standard.value(forKey: UserDefaultsManager.UserInfo.email.rawValue) != nil,
+           UserDefaults.standard.value(forKey: UserDefaultsManager.UserInfo.name.rawValue) != nil {
+            UserDefaultsManager.removeUserInfo()
+        }
+    }
+    
 }

@@ -8,11 +8,14 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import UIKit
 
 enum AppErrors: Error {
     case clientInGuestMode
     case cannotFetchProfileData
-    case incorrectProfileData
+    case incorrectData
+    case cannotCastToDictionary
+    case invalidUrl
 }
 
 final class AppNetworkManager {
@@ -23,7 +26,7 @@ final class AppNetworkManager {
             let userID = user.uid
             queryRef.child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 guard var snapshot = snapshot.value as? [String: Any] else {
-                    completion(.failure(AppErrors.cannotFetchProfileData))
+                    completion(.failure(AppErrors.incorrectData))
                     return
                 }
                 if let imageUrl = snapshot["avatar"] as? String {
@@ -64,4 +67,46 @@ final class AppNetworkManager {
         }
         
     }
+    
+    static func fetchDishesData(completion: @escaping (Result<Data, Error>) -> ()) {
+        let queryRef =  Database.database().reference().child("Dishes")
+        
+        queryRef.observeSingleEvent(of: .value) { snapshot in
+            guard let data = snapshot.data else {
+                completion(.failure(AppErrors.cannotCastToDictionary))
+                return
+            }
+            completion(.success(data))
+            
+        }
+    }
+    
+    static func fetchDishesImageData(url: String, completion: @escaping (Data?) -> Void) {
+        guard let url = URL(string: url) else {
+            completion(nil)
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                DispatchQueue.main.async {
+                    completion(data)
+                }
+            } else {
+                if let error = error {
+                    completion(nil)
+                }
+            }
+        }.resume()
+    }
+}
+
+extension DataSnapshot {
+    var data: Data? {
+        guard let value = value, !(value is NSNull) else { return nil }
+        return try? JSONSerialization.data(withJSONObject: value)
+    }
+    var json: String? { data?.string }
+}
+extension Data {
+    var string: String? { String(data: self, encoding: .utf8) }
 }

@@ -12,7 +12,7 @@ class MenuViewController: UIViewController {
     private var searchController = UISearchController(searchResultsController: nil)
     private var tableView = UITableView()
     private var coordinator: CoordinatorProtocol?
-    private(set) var viewModel: MenuViewModel?
+    private var viewModel: MenuViewModel?
     let transition = PanelTransition() 
     
     var sort: (() -> Void)?
@@ -22,6 +22,17 @@ class MenuViewController: UIViewController {
         self.coordinator = coordinatror
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.viewModel?.fetchDishes(completion: { error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.tableView.isHidden = true
+                    print(error.localizedDescription)
+                }
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        })
     }
     
     required init?(coder: NSCoder) {
@@ -72,14 +83,10 @@ extension MenuViewController {
     private func setupConstraints() {
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                                constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                    constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                    constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                                   constant: 0)
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -92,6 +99,14 @@ extension MenuViewController {
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: MenuCell.reuseId, bundle: nil), forCellReuseIdentifier: MenuCell.reuseId)
+    }
+    
+    private func setupWaitingIndicator() {
+        
+    }
+    
+    private func setupNoConnectionLabel() {
+        
     }
 }
 //MARK: - Actions
@@ -119,11 +134,13 @@ extension MenuViewController: UISearchResultsUpdating {
 //MARK: - UITableViewDataSource
 extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel?.dishes?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseId, for: indexPath) as? MenuCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseId, for: indexPath) as? MenuCell else { return UITableViewCell()
+        }
+        cell.configure(with: viewModel?.dishes?[indexPath.row])
         return cell
     }
 

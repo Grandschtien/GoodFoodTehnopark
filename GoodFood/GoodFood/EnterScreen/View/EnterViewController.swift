@@ -35,7 +35,7 @@ class EnterViewController: UIViewController {
     private let buttonStackView = UIStackView()
     //properties
     
-    private(set) var viewModel: EnterViewModel?
+    private var viewModel: EnterViewModel?
     private var coordinator: CoordinatorProtocol?
     
     var enter: (() -> Void)?
@@ -93,10 +93,8 @@ extension EnterViewController {
         textFieldsStackView.addArrangedSubview(forgetPasswordButton)
         forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            forgetPasswordButton.trailingAnchor.constraint(equalTo: textFieldsStackView.trailingAnchor,
-                                                           constant: 0),
-            forgetPasswordButton.leadingAnchor.constraint(equalTo: textFieldsStackView.leadingAnchor,
-                                                          constant: 0)
+            forgetPasswordButton.trailingAnchor.constraint(equalTo: textFieldsStackView.trailingAnchor),
+            forgetPasswordButton.leadingAnchor.constraint(equalTo: textFieldsStackView.leadingAnchor)
         ])
         
         view.addSubview(textFieldsStackView)
@@ -114,10 +112,8 @@ extension EnterViewController {
         enterButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             enterButton.heightAnchor.constraint(equalToConstant: 70),
-            enterButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor,
-                                                 constant: 0),
-            enterButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor,
-                                                  constant: 0)
+            enterButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor),
+            enterButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor)
         ])
         
         buttonStackView.addArrangedSubview(noAccountButton)
@@ -197,10 +193,8 @@ extension EnterViewController {
     private func setupEnterScreenStackViews(_ stackView: UIStackView) {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: textFieldsStackView.leadingAnchor,
-                                               constant: 0),
-            stackView.trailingAnchor.constraint(equalTo: textFieldsStackView.trailingAnchor,
-                                                constant: 0)
+            stackView.leadingAnchor.constraint(equalTo: textFieldsStackView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: textFieldsStackView.trailingAnchor)
         ])
     }
     
@@ -214,14 +208,10 @@ extension EnterViewController {
         stackView.addArrangedSubview(tf)
         //constraints
         NSLayoutConstraint.activate([
-            tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
-                                         constant: 0),
-            tf.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
-                                        constant: 0),
-            label.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
-                                            constant: 0),
-            label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
-                                           constant: 0)
+            tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            tf.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor)
         ])
     }
     
