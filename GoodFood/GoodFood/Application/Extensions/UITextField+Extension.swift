@@ -17,16 +17,4 @@ extension UITextField {
         self.layer.addSublayer(bottomLine)
         self.layer.masksToBounds = true
     }
-//    func setUnderLineWithoutFrame() {
-//        let border = CALayer()
-//        let width = CGFloat(2.0)
-//        border.borderColor = UIColor(named: "LaunchScreenLabelColor")?.cgColor
-//        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: 1)
-//
-//        border.borderWidth = width
-//        self.backgroundColor = UIColor.clear
-//        self.layer.addSublayer(border)
-//        self.layer.masksToBounds = true
-//    }
-
 }

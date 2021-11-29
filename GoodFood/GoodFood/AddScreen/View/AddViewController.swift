@@ -17,7 +17,7 @@ class AddViewController: UIViewController {
     weak var delegate: AddViewControllerDelegate?
     var back: (() -> Void)?
     
-    let imagePicker = UIImagePickerController()
+    private let imagePicker = UIImagePickerController()
     
     private let sectionsArray = ["Название блюда", "Фото", "Время приготовления", "Ингредиенты", "Приготовление", ""]
     
@@ -57,8 +57,8 @@ extension AddViewController {
     }
     
     private func setupTableView() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.isEditing = true
         tableView.register(UINib(nibName: NameCell.reuseId, bundle: nil), forCellReuseIdentifier: NameCell.reuseId)
         tableView.register(UINib(nibName: PhotoCell.reuseId, bundle: nil), forCellReuseIdentifier: PhotoCell.reuseId)
@@ -69,7 +69,7 @@ extension AddViewController {
         tableView.register(UINib(nibName: AddIngredientCell.reuseId, bundle: nil), forCellReuseIdentifier: AddIngredientCell.reuseId)
         tableView.register(UINib(nibName: AddStageCell.reuseId, bundle: nil), forCellReuseIdentifier: AddStageCell.reuseId)
         
-        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
     private func setupNavigationBar() {
@@ -89,20 +89,16 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return 1
         case 3:
             return ingredientsArray.count + 1
         case 4:
             return stagesArray.count + 1
-        case 5:
-            return 1
         default:
-            return 0
+            if section <= 5 {
+                return 1
+            } else {
+                return 0
+            }
         }
     }
     
@@ -232,17 +228,9 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
         case 3:
-            if indexPath.row < ingredientsArray.count {
-                return true
-            } else {
-                return false
-            }
+            return indexPath.row < ingredientsArray.count ? true: false
         case 4:
-            if indexPath.row < stagesArray.count {
-                return true
-            } else {
-                return false
-            }
+            return indexPath.row < stagesArray.count ? true: false
         default:
             return false
         }
