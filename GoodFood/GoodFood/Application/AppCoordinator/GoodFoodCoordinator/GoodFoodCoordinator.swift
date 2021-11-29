@@ -38,6 +38,27 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
             menuViewController.present(sortVC, animated: true)
         }
         
+        menuViewController.dish = {
+            let dishViewModel = DishViewModel()
+            let dishVC = DishViewController(viewModel: dishViewModel, coordinatror: self)
+            dishVC.back = {
+                dishVC.navigationController?.popViewController(animated: true)
+            }
+            dishVC.nextAction = { [weak self] in
+                guard let `self` = self else { return }
+                let prepareViewModel = PrepareViewModel()
+                let prepareViewController = PrepareViewController(viewModel: prepareViewModel, coordinatror: self)
+                prepareViewController.back = {
+                    dishVC.navigationController?.popViewController(animated: true)
+                }
+                prepareViewController.exit = {
+                   
+                }
+                dishVC.navigationController?.pushViewController(prepareViewController, animated: true)
+            }
+            menuViewController.navigationController?.pushViewController(dishVC, animated: true)
+        }
+        
         let profileViewModel = ProfileViewModel()
         let profileVC = ProfileViewController(coordinator: self, viewModel: profileViewModel)
         profileVC.exit = { [weak self] in
@@ -55,15 +76,14 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         }
         
         profileVC.imagePicker = {
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = profileVC 
                 imagePicker.allowsEditing = true
                 imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
                 profileVC.present(imagePicker, animated: true, completion: nil)
             }
-            else
-            {
+            else {
                 let alert  = UIAlertController(title: "Предупреждение",
                                                message: "Разрешите использование приложением камеры.",
                                                preferredStyle: .alert)

@@ -16,6 +16,7 @@ class MenuViewController: UIViewController {
     let transition = PanelTransition() 
     
     var sort: (() -> Void)?
+    var dish: (() -> Void)?
     
     init(viewModel: MenuViewModel, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
@@ -29,10 +30,11 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AppNetworkManager.fetchProfileData { _ in
-            
-        }
         setupViews()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
 }
@@ -132,5 +134,7 @@ extension MenuViewController: UITableViewDataSource {
 }
 //MARK: - UITableViewDelegate
 extension MenuViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dish?()
+    }
 }
