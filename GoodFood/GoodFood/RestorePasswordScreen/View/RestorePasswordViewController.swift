@@ -19,7 +19,7 @@ class RestorePasswordViewController: UIViewController, RegistrationProtocol {
     private var sendButton = MainButton(color: UIColor(named: "mainColor"), title: "Отправить")
     
     private var coordinator: CoordinatorProtocol?
-    private(set) var viewModel: RestorePasswordViewModel?
+    private var viewModel: RestorePasswordViewModel?
     var enter:(() -> Void)?
     var back: (() -> Void)?
     
@@ -84,19 +84,15 @@ extension RestorePasswordViewController {
         
         mailLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mailLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
-                                               constant: 0),
-            mailLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
-                                                constant: 0)
+            mailLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor),
+            mailLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor)
         ])
         
         
         mailTF.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mailTF.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
-                                            constant: 0),
-            mailTF.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
-                                             constant: 0)
+            mailTF.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor),
+            mailTF.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor)
         ])
         
         sendButton.translatesAutoresizingMaskIntoConstraints = false
@@ -114,10 +110,8 @@ extension RestorePasswordViewController {
         
         helpLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            helpLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
-                                               constant: 0),
-            helpLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
-                                                constant: 0)
+            helpLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor),
+            helpLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor)
         ])
         
     }

@@ -90,18 +90,12 @@ extension ProfileViewController {
         phoneStackView.addArrangedSubview(phoneTF)
         //constraints
         NSLayoutConstraint.activate([
-            phoneTF.trailingAnchor.constraint(equalTo: phoneStackView.trailingAnchor,
-                                              constant: 0),
-            phoneTF.leadingAnchor.constraint(equalTo: phoneStackView.leadingAnchor,
-                                             constant: 0),
-            phoneLabel.trailingAnchor.constraint(equalTo: phoneStackView.trailingAnchor,
-                                                 constant: 0),
-            phoneLabel.leadingAnchor.constraint(equalTo: phoneStackView.leadingAnchor,
-                                                constant: 0),
-            phoneStackView.leadingAnchor.constraint(equalTo: tFStackView.leadingAnchor,
-                                                    constant: 0),
-            phoneStackView.trailingAnchor.constraint(equalTo: tFStackView.trailingAnchor,
-                                                     constant: 0)
+            phoneTF.trailingAnchor.constraint(equalTo: phoneStackView.trailingAnchor),
+            phoneTF.leadingAnchor.constraint(equalTo: phoneStackView.leadingAnchor),
+            phoneLabel.trailingAnchor.constraint(equalTo: phoneStackView.trailingAnchor),
+            phoneLabel.leadingAnchor.constraint(equalTo: phoneStackView.leadingAnchor),
+            phoneStackView.leadingAnchor.constraint(equalTo: tFStackView.leadingAnchor),
+            phoneStackView.trailingAnchor.constraint(equalTo: tFStackView.trailingAnchor)
         ])
         
         //MARK: - mailStackView
@@ -111,18 +105,12 @@ extension ProfileViewController {
         mailStackView.addArrangedSubview(mailTF)
         //constraints
         NSLayoutConstraint.activate([
-            mailTF.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
-                                             constant: 0),
-            mailTF.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
-                                            constant: 0),
-            mailLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor,
-                                                constant: 0),
-            mailLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor,
-                                               constant: 0),
-            mailStackView.leadingAnchor.constraint(equalTo: tFStackView.leadingAnchor,
-                                                   constant: 0),
-            mailStackView.trailingAnchor.constraint(equalTo: tFStackView.trailingAnchor,
-                                                    constant: 0)
+            mailTF.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor),
+            mailTF.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor),
+            mailLabel.trailingAnchor.constraint(equalTo: mailStackView.trailingAnchor),
+            mailLabel.leadingAnchor.constraint(equalTo: mailStackView.leadingAnchor),
+            mailStackView.leadingAnchor.constraint(equalTo: tFStackView.leadingAnchor),
+            mailStackView.trailingAnchor.constraint(equalTo: tFStackView.trailingAnchor)
         ])
         
         
@@ -141,7 +129,8 @@ extension ProfileViewController {
         
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.image = UIImage(named: "profile")
-        profileImageView.contentMode = .scaleToFill
+        profileImageView.contentMode = .scaleAspectFill
+        profileImageView.clipsToBounds = true
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         profileImageView.addGestureRecognizer(tapGR)
@@ -214,6 +203,7 @@ extension ProfileViewController {
 extension ProfileViewController {
     @objc
     private func exitAction() {
+        viewModel?.removeUserInfo()
         exit?()
     }
     @objc
@@ -227,6 +217,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationC
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             profileImageView.image = pickedImage
+            viewModel?.uploadProfileImage(image: pickedImage)
         }
         picker.dismiss(animated: true, completion: nil)
     }

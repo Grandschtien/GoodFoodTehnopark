@@ -24,7 +24,7 @@ class DishViewController: UIViewController {
     
     var back: (() -> Void)?
     var nextAction: (() -> Void)?
-    var isLiked = false
+    private var isLiked = false
     
     init(viewModel: DishViewModel, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
@@ -102,14 +102,10 @@ extension DishViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor,
-                                           constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                               constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                              constant: 0)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     

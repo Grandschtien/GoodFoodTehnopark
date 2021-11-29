@@ -7,23 +7,36 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
+import UIKit
 
 enum AppErrors: Error {
     case clientInGuestMode
     case cannotFetchProfileData
-    case incorrectProfileData
+    case incorrectData
+    case cannotCastToDictionary
+    case invalidUrl
 }
 
 final class AppNetworkManager {
     
-    static func fetchProfileData(completion: @escaping (Result<NSDictionary, Error>) -> ()) {
+    static func fetchProfileData(completion: @escaping (Result<[String: Any], Error>) -> ()) {
         if let user = Auth.auth().currentUser {
             let queryRef =  Database.database().reference().child("users")
             let userID = user.uid
             queryRef.child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                guard let snapshot = snapshot.value as? NSDictionary else {
-                    completion(.failure(AppErrors.cannotFetchProfileData))
+                guard var snapshot = snapshot.value as? [String: Any] else {
+                    completion(.failure(AppErrors.incorrectData))
                     return
+                }
+                if let imageUrl = snapshot["avatar"] as? String {
+                    let imageRef = Storage.storage().reference(forURL: imageUrl)
+                    let megaByte = Int64(1 * 1024 * 1024)
+                    imageRef.getData(maxSize: megaByte) { (data, error) in
+                        guard let imageData = data else { return }
+                        snapshot.updateValue(imageData, forKey: "avatar")
+                        completion(.success(snapshot))
+                    }
                 }
                 completion(.success(snapshot))
             })
@@ -32,4 +45,68 @@ final class AppNetworkManager {
             completion(.failure(AppErrors.clientInGuestMode))
         }
     }
+    
+    static func uploadProfileImage(currentUserId: String, imageData: Data, completion: @escaping (Result<URL, Error>) -> Void) {
+        let ref = Storage.storage().reference().child("avatars").child(currentUserId)
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        ref.putData(imageData, metadata: metadata) { (metadata, error) in
+            guard let _ = metadata else {
+                completion(.failure(error!))
+                return
+            }
+            ref.downloadURL { (url, error) in
+                guard let url = url else {
+                    completion(.failure(error!))
+                    return
+                }
+                completion(.success(url))
+            }
+        }
+        
+    }
+    
+    static func fetchDishesData(completion: @escaping (Result<Data, Error>) -> ()) {
+        let queryRef =  Database.database().reference().child("Dishes")
+        
+        queryRef.observeSingleEvent(of: .value) { snapshot in
+            guard let data = snapshot.data else {
+                completion(.failure(AppErrors.cannotCastToDictionary))
+                return
+            }
+            completion(.success(data))
+            
+        }
+    }
+    
+    static func fetchDishesImageData(url: String, completion: @escaping (Data?) -> Void) {
+        guard let url = URL(string: url) else {
+            completion(nil)
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                DispatchQueue.main.async {
+                    completion(data)
+                }
+            } else {
+                if let error = error {
+                    completion(nil)
+                }
+            }
+        }.resume()
+    }
+}
+
+extension DataSnapshot {
+    var data: Data? {
+        guard let value = value, !(value is NSNull) else { return nil }
+        return try? JSONSerialization.data(withJSONObject: value)
+    }
+    var json: String? { data?.string }
+}
+extension Data {
+    var string: String? { String(data: self, encoding: .utf8) }
 }

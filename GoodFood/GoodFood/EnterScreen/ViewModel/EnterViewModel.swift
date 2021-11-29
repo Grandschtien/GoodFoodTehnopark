@@ -11,7 +11,7 @@ import FirebaseAuth
 final class EnterViewModel {
     
     func checkLogIn(email: String, password: String, completion: @escaping (String?) -> ()) {
-        AuthNetworkManager.logIn(email: email, password: password) { _ , error in
+        AuthNetworkManager.logIn(email: email, password: password) { authDataResult , error in
             guard let error = error else {
                 completion(nil)
                 return

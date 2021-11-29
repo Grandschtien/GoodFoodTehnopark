@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController, RegistrationProtocol {
     private let buttonStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
-    private(set) var viewModel: RegisterViewModel?
+    private var viewModel: RegisterViewModel?
     
     var enter: (() -> Void)?
     var back: (() -> Void)?
@@ -136,10 +136,8 @@ extension RegisterViewController {
         buttonStackView.addArrangedSubview(userAgreementLabel)
         
         NSLayoutConstraint.activate([
-            registerButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor,
-                                                    constant: 0),
-            registerButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor,
-                                                     constant: 0),
+            registerButton.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor),
+            registerButton.trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor),
             registerButton.heightAnchor.constraint(equalToConstant: 70)
         ])
         
@@ -176,18 +174,14 @@ extension RegisterViewController {
         stackView.addArrangedSubview(tf)
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,
-                                           constant: 0),
-            tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,
-                                         constant: 0)
+            label.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+            tf.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
         ])
         
         mainStackView.addArrangedSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor,
-                                               constant: 0),
-            stackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor,
-                                                constant: 0)
+            stackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor)
         ])
         
         

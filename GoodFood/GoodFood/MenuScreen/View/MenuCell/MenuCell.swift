@@ -24,7 +24,17 @@ class MenuCell: UITableViewCell {
         self.timeLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
     }
     
-    func configure() {
+    func configure(with dish: MenuModel?) {
+        guard let dish = dish else {
+            return
+        }
         
+        if dish.name.isEmpty == true || dish.cookTime.isEmpty == true{
+            return
+        }
+        nameLabel.text = dish.name
+        timeLabel.text = dish.cookTime
+        dishImage.image = UIImage(named: "DishPlaceHolder")
+        ratingView.rating = 5
     }
 }

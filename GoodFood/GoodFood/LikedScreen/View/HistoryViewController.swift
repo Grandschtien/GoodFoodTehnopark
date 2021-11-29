@@ -12,7 +12,7 @@ class HistoryViewController: UIViewController {
     private let tableView = UITableView()
     
     private var coordinator: CoordinatorProtocol?
-    private(set) var viewModel: HistoryViewModel?
+    private var viewModel: HistoryViewModel?
     
     
     init(viewModel: HistoryViewModel, coordinator: CoordinatorProtocol) {
@@ -37,14 +37,10 @@ extension HistoryViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                               constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                constant: 0),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                           constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                              constant: 0)
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

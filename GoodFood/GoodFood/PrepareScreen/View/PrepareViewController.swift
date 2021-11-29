@@ -17,7 +17,7 @@ class PrepareViewController: UIViewController {
     private var viewModel: PrepareViewModel?
     
     var back: (() -> Void)?
-    var exit: (() ->Void)?
+    var exit: (() -> Void)?
     
     init(viewModel: PrepareViewModel, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
@@ -57,14 +57,10 @@ extension PrepareViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor,
-                                           constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                               constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                              constant: 0)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
