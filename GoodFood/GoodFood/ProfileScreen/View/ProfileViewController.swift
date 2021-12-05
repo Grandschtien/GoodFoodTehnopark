@@ -203,7 +203,6 @@ extension ProfileViewController {
 extension ProfileViewController {
     @objc
     private func exitAction() {
-        viewModel?.removeUserInfo()
         exit?()
     }
     @objc

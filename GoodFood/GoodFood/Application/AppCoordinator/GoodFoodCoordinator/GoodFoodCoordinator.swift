@@ -27,7 +27,13 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         menuViewController.tabBarItem = UITabBarItem(title: "Меню",
                                                      image:  UIImage(named: "menu"),
                                                      selectedImage:  UIImage(named: "menu"))
-        
+        menuViewController.add = {
+            let addVC = AddViewController()
+            addVC.back = {
+            }
+            let addNavController = UINavigationController(rootViewController: addVC)
+            menuViewController.present(addNavController, animated: true, completion: nil)
+        }
         menuViewController.sort = {
             let sortVC = SortViewController()
             sortVC.modalPresentationStyle = .custom
@@ -52,7 +58,7 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
                     dishVC.navigationController?.popViewController(animated: true)
                 }
                 prepareViewController.exit = {
-                   
+                    
                 }
                 dishVC.navigationController?.pushViewController(prepareViewController, animated: true)
             }
@@ -78,7 +84,7 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         profileVC.imagePicker = {
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
                 let imagePicker = UIImagePickerController()
-                imagePicker.delegate = profileVC 
+                imagePicker.delegate = profileVC
                 imagePicker.allowsEditing = true
                 imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
                 profileVC.present(imagePicker, animated: true, completion: nil)

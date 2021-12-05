@@ -15,6 +15,7 @@ class MenuViewController: UIViewController {
     private var viewModel: MenuViewModel?
     let transition = PanelTransition() 
     
+    var add: (() -> Void)?
     var sort: (() -> Void)?
     var dish: (() -> Void)?
     
@@ -121,7 +122,7 @@ extension MenuViewController {
     }
     @objc
     private func menuAddButtonAction() {
-        
+        add?()
     }
 }
 //MARK: - UISearchResultsUpdating

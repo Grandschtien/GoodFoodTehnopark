@@ -50,7 +50,7 @@
 		6062D50A274A71560014E9D4 /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D508274A71560014E9D4 /* IngredientCell.swift */; };
 		6062D50B274A71560014E9D4 /* IngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6062D509274A71560014E9D4 /* IngredientCell.xib */; };
 		6062D50E274A7B7D0014E9D4 /* ParalaxTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D50D274A7B7D0014E9D4 /* ParalaxTableView.swift */; };
-		6067BB71274D5E5B00E73B01 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6067BB70274D5E5B00E73B01 /* UserDefaultsManager.swift */; };
+		60682FCA275CBE0C00595019 /* AddScreen in Resources */ = {isa = PBXBuildFile; fileRef = 60682FC9275CBE0C00595019 /* AddScreen */; };
 		607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 607A75D827468F37007EFD4D /* GoogleService-Info.plist */; };
 		607A75DE27469330007EFD4D /* AppNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DD27469330007EFD4D /* AppNetworkManager.swift */; };
 		607A75E027469364007EFD4D /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DF27469364007EFD4D /* AuthNetworkManager.swift */; };
@@ -148,7 +148,7 @@
 		6062D508274A71560014E9D4 /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		6062D509274A71560014E9D4 /* IngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientCell.xib; sourceTree = "<group>"; };
 		6062D50D274A7B7D0014E9D4 /* ParalaxTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParalaxTableView.swift; sourceTree = "<group>"; };
-		6067BB70274D5E5B00E73B01 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsManager.swift; path = ../../../../../../Documents/Projects/FirebaseDataTest/FirebaseDataTest/UserDefaultsManager.swift; sourceTree = "<group>"; };
+		60682FC9275CBE0C00595019 /* AddScreen */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AddScreen; sourceTree = "<group>"; };
 		607A75D827468F37007EFD4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		607A75DD27469330007EFD4D /* AppNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNetworkManager.swift; sourceTree = "<group>"; };
 		607A75DF27469364007EFD4D /* AuthNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
@@ -258,6 +258,7 @@
 				60F6034E272858DD00B69B4D /* RestorePasswordScreen */,
 				60ECE5D9272D567B006B479A /* MenuScreen */,
 				6062D4FC274A601D0014E9D4 /* DishScreen */,
+				60682FC9275CBE0C00595019 /* AddScreen */,
 				6062D4FD274A60590014E9D4 /* PrepareScreen */,
 				60ECE5ED272EAC0A006B479A /* LikedScreen */,
 				60ECE5EC272EABFF006B479A /* ProfileScreen */,
@@ -379,14 +380,6 @@
 				6062D509274A71560014E9D4 /* IngredientCell.xib */,
 			);
 			path = Ingredient;
-			sourceTree = "<group>";
-		};
-		6067BB6F274D5E4600E73B01 /* UseDafaultsManager */ = {
-			isa = PBXGroup;
-			children = (
-				6067BB70274D5E5B00E73B01 /* UserDefaultsManager.swift */,
-			);
-			path = UseDafaultsManager;
 			sourceTree = "<group>";
 		};
 		607A75DA274692FC007EFD4D /* NetworkManagers */ = {
@@ -565,7 +558,6 @@
 		60F6034B272858C000B69B4D /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				6067BB6F274D5E4600E73B01 /* UseDafaultsManager */,
 				607A75DA274692FC007EFD4D /* NetworkManagers */,
 				60ECE5F827306291006B479A /* AppCoordinator */,
 				60F6035C2729493800B69B4D /* Extensions */,
@@ -869,6 +861,7 @@
 				601DAD72271F12EE00935800 /* Main.storyboard in Resources */,
 				6062D50B274A71560014E9D4 /* IngredientCell.xib in Resources */,
 				6004D81F274BD13E00DCD20A /* RatingCell.xib in Resources */,
+				60682FCA275CBE0C00595019 /* AddScreen in Resources */,
 				607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1024,7 +1017,6 @@
 				60C850262750EBCE005766F5 /* MenuModel.swift in Sources */,
 				6004D81E274BD13E00DCD20A /* RatingCell.swift in Sources */,
 				6055D7A7273EAC1B00BE4EFB /* YourRecipesViewModel.swift in Sources */,
-				6067BB71274D5E5B00E73B01 /* UserDefaultsManager.swift in Sources */,
 				60ECE5D4272AB672006B479A /* RegisterViewController.swift in Sources */,
 				6055D75B273E6FF800BE4EFB /* YourRecipesViewController.swift in Sources */,
 				60D3341D2747E4B7007C2462 /* UIViewController + Extension.swift in Sources */,
