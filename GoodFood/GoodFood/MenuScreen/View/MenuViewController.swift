@@ -23,17 +23,17 @@ class MenuViewController: UIViewController {
         self.coordinator = coordinatror
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.viewModel?.fetchDishes(completion: { error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    self.tableView.isHidden = true
-                    print(error.localizedDescription)
-                }
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        })
+//        self.viewModel?.fetchDishes(completion: { error in
+//            if let error = error {
+//                DispatchQueue.main.async {
+//                    self.tableView.isHidden = true
+//                    print(error.localizedDescription)
+//                }
+//            }
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        })
     }
     
     required init?(coder: NSCoder) {

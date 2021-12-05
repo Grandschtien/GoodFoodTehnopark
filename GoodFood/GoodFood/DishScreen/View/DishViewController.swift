@@ -167,22 +167,22 @@ extension DishViewController: UITableViewDataSource {
         guard let viewModel = viewModel else { return UITableViewCell()}
         switch indexPath.row {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: IngredientCell.reuseId,
-                                                           for: indexPath) as? IngredientCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
+                                                           for: indexPath) as? DishIngredientCell else {
                 return UITableViewCell()
             }
             cell.configureForName(viewModel: viewModel)
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: IngredientCell.reuseId,
-                                                           for: indexPath) as? IngredientCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
+                                                           for: indexPath) as? DishIngredientCell else {
                 return UITableViewCell()
             }
             cell.configureForStaticLabel()
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: IngredientCell.reuseId,
-                                                           for: indexPath) as? IngredientCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
+                                                           for: indexPath) as? DishIngredientCell else {
                 return UITableViewCell()
             }
             cell.configureForIngredient(viewModel: viewModel, indexPath: indexPath)

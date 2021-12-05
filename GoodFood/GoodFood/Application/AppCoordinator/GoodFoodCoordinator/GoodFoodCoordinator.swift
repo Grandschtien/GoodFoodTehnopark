@@ -30,6 +30,7 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         menuViewController.add = {
             let addVC = AddViewController()
             addVC.back = {
+                addVC.dismiss(animated: true)
             }
             let addNavController = UINavigationController(rootViewController: addVC)
             menuViewController.present(addNavController, animated: true, completion: nil)

@@ -12,7 +12,7 @@ protocol ConfirmCellDelegate: AnyObject {
 
 class ConfirmCell: UITableViewCell {
 
-    @IBOutlet weak var confirmRecipeButton: UIButton!
+    @IBOutlet weak var confirmRecipeButton: MainButton!
     
     static let reuseId = "ConfirmCell"
     weak var delegate: ConfirmCellDelegate?

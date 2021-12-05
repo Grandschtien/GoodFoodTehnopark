@@ -7,11 +7,11 @@
 
 import UIKit
 
-class IngredientCell: UITableViewCell {
+class DishIngredientCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     
-    static let reuseId = "IngredientCell"
+    static let reuseId = "DishIngredientCell"
     override func awakeFromNib() {
         super.awakeFromNib()
         containerView.layer.cornerRadius = 10

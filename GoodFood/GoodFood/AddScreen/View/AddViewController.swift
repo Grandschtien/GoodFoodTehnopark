@@ -23,7 +23,7 @@ class AddViewController: UIViewController {
     
     private var ingredientsArray = [""]
     private var stagesArray = [""]
-    
+    private var isEditingTableView: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
@@ -59,7 +59,6 @@ extension AddViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isEditing = true
         tableView.register(UINib(nibName: NameCell.reuseId, bundle: nil), forCellReuseIdentifier: NameCell.reuseId)
         tableView.register(UINib(nibName: PhotoCell.reuseId, bundle: nil), forCellReuseIdentifier: PhotoCell.reuseId)
         tableView.register(UINib(nibName: TimeCell.reuseId, bundle: nil), forCellReuseIdentifier: TimeCell.reuseId)
@@ -74,11 +73,23 @@ extension AddViewController {
     
     private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBarButton"), style: .plain, target: self, action: #selector(backAction))
+        let editButton = UIBarButtonItem(image: UIImage(named: "pen"), style: .plain, target: self, action: #selector(startEditing))
+        navigationItem.setRightBarButtonItems([editButton], animated: true)
     }
     
     @objc
     private func backAction() {
         back?()
+    }
+    @objc
+    private func startEditing() {
+        if isEditingTableView {
+            tableView.isEditing = false
+            isEditingTableView = !isEditingTableView
+        } else {
+            tableView.isEditing = true
+            isEditingTableView = !isEditingTableView
+        }
     }
 }
 
