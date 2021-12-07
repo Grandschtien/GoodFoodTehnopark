@@ -17,6 +17,8 @@
 		6004D81A274BCB8900DCD20A /* StepCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6004D818274BCB8900DCD20A /* StepCell.xib */; };
 		6004D81E274BD13E00DCD20A /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004D81C274BD13E00DCD20A /* RatingCell.swift */; };
 		6004D81F274BD13E00DCD20A /* RatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6004D81D274BD13E00DCD20A /* RatingCell.xib */; };
+		6012EA15275F603100AA49BD /* MenuNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012EA14275F603100AA49BD /* MenuNetworkService.swift */; };
+		6012EA16275F780500AA49BD /* DishIngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6062D509274A71560014E9D4 /* DishIngredientCell.xib */; };
 		601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6A271F12EE00935800 /* AppDelegate.swift */; };
 		601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6C271F12EE00935800 /* SceneDelegate.swift */; };
 		601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6E271F12EE00935800 /* EnterViewController.swift */; };
@@ -128,6 +130,7 @@
 		6004D818274BCB8900DCD20A /* StepCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepCell.xib; sourceTree = "<group>"; };
 		6004D81C274BD13E00DCD20A /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
 		6004D81D274BD13E00DCD20A /* RatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingCell.xib; sourceTree = "<group>"; };
+		6012EA14275F603100AA49BD /* MenuNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNetworkService.swift; sourceTree = "<group>"; };
 		601DAD67271F12EE00935800 /* GoodFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD6A271F12EE00935800 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		601DAD6C271F12EE00935800 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,7 +166,7 @@
 		6062D504274A61960014E9D4 /* DishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewController.swift; sourceTree = "<group>"; };
 		6062D506274A61A90014E9D4 /* PrepareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareViewController.swift; sourceTree = "<group>"; };
 		6062D508274A71560014E9D4 /* DishIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishIngredientCell.swift; sourceTree = "<group>"; };
-		6062D509274A71560014E9D4 /* IngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientCell.xib; sourceTree = "<group>"; };
+		6062D509274A71560014E9D4 /* DishIngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DishIngredientCell.xib; sourceTree = "<group>"; };
 		6062D50D274A7B7D0014E9D4 /* ParalaxTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParalaxTableView.swift; sourceTree = "<group>"; };
 		60682FCD275CC32600595019 /* AddViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		60682FCF275CC32600595019 /* AddModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddModel.swift; sourceTree = "<group>"; };
@@ -412,7 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				6062D508274A71560014E9D4 /* DishIngredientCell.swift */,
-				6062D509274A71560014E9D4 /* IngredientCell.xib */,
+				6062D509274A71560014E9D4 /* DishIngredientCell.xib */,
 			);
 			path = Ingredient;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 		60ECE5D9272D567B006B479A /* MenuScreen */ = {
 			isa = PBXGroup;
 			children = (
+				6012EA14275F603100AA49BD /* MenuNetworkService.swift */,
 				60ECE5DC272D5696006B479A /* Model */,
 				60ECE5DB272D5690006B479A /* View */,
 				60ECE5DA272D568A006B479A /* ViewModel */,
@@ -1026,6 +1030,7 @@
 				6004D81F274BD13E00DCD20A /* RatingCell.xib in Resources */,
 				60682FF2275CC32700595019 /* AddStageCell.xib in Resources */,
 				607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */,
+				6012EA16275F780500AA49BD /* DishIngredientCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1211,6 +1216,7 @@
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				6004D813274BC84500DCD20A /* PrepareViewModel.swift in Sources */,
 				6055D75D273E700300BE4EFB /* HistoryViewController.swift in Sources */,
+				6012EA15275F603100AA49BD /* MenuNetworkService.swift in Sources */,
 				6055D7A3273E9EF600BE4EFB /* ContainerViewController.swift in Sources */,
 				60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */,
 				60682FF3275CC32700595019 /* ConfirmCell.swift in Sources */,
@@ -1400,7 +1406,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1429,7 +1435,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

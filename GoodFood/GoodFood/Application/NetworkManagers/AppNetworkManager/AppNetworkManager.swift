@@ -68,45 +68,18 @@ final class AppNetworkManager {
         
     }
     
-    static func fetchDishesData(completion: @escaping (Result<Data, Error>) -> ()) {
-        let queryRef =  Database.database().reference().child("Dishes")
-        
+    static func fetchDishesData(completion: @escaping (Result<[DataSnapshot], Error>) -> ()) {
+        let queryRef =  Database.database().reference().child("dishes")
         queryRef.observeSingleEvent(of: .value) { snapshot in
-            guard let data = snapshot.data else {
-                completion(.failure(AppErrors.cannotCastToDictionary))
+            guard let objects = snapshot.children.allObjects as? [DataSnapshot]
+            else {
+                completion(.failure(AppErrors.incorrectData))
                 return
             }
-            completion(.success(data))
-            
+            print(objects.first)
+            completion(.success(objects))
         }
-    }
-    
-    static func fetchDishesImageData(url: String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: url) else {
-            completion(nil)
-            return
-        }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                DispatchQueue.main.async {
-                    completion(data)
-                }
-            } else {
-                if let error = error {
-                    completion(nil)
-                }
-            }
-        }.resume()
     }
 }
 
-extension DataSnapshot {
-    var data: Data? {
-        guard let value = value, !(value is NSNull) else { return nil }
-        return try? JSONSerialization.data(withJSONObject: value)
-    }
-    var json: String? { data?.string }
-}
-extension Data {
-    var string: String? { String(data: self, encoding: .utf8) }
-}
+

@@ -123,8 +123,8 @@ extension DishViewController {
         navigationItem.setRightBarButtonItems([likedButton], animated: false)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: IngredientCell.reuseId, bundle: nil),
-                           forCellReuseIdentifier: IngredientCell.reuseId)
+        tableView.register(UINib(nibName: DishIngredientCell.reuseId, bundle: nil),
+                           forCellReuseIdentifier: DishIngredientCell.reuseId)
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorStyle = .none
         imageForHeaderView.image = UIImage(named: "test")

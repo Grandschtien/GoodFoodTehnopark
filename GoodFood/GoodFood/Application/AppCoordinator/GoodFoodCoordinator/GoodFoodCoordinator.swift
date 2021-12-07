@@ -21,8 +21,7 @@ final class GoodFoodCoordinator {
 
 extension GoodFoodCoordinator: CoordinatorProtocol {    
     func start() {
-        let menuViewModel = MenuViewModel()
-        let menuViewController = MenuViewController(viewModel: menuViewModel, coordinatror: self)
+        let menuViewController = MenuViewController(coordinatror: self)
         
         menuViewController.tabBarItem = UITabBarItem(title: "Меню",
                                                      image:  UIImage(named: "menu"),

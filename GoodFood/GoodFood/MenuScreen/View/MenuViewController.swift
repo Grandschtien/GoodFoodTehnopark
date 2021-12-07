@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MenuViewController: UIViewController {
 
@@ -19,23 +20,10 @@ class MenuViewController: UIViewController {
     var sort: (() -> Void)?
     var dish: (() -> Void)?
     
-    init(viewModel: MenuViewModel, coordinatror: CoordinatorProtocol) {
+    init(coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
-        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-//        self.viewModel?.fetchDishes(completion: { error in
-//            if let error = error {
-//                DispatchQueue.main.async {
-//                    self.tableView.isHidden = true
-//                    print(error.localizedDescription)
-//                }
-//            }
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        })
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -43,12 +31,12 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        fetchData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
     }
-    
 }
 //MARK: - Настройка views
 extension MenuViewController {
@@ -130,18 +118,35 @@ extension MenuViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
     }
+    
+    fileprivate func fetchData() {
+        MenuNetworkService.fetchDishes{ response in
+            switch response {
+            case .success(let viewModel):
+                DispatchQueue.main.async {
+                    self.viewModel = viewModel
+                    self.tableView.reloadData()
+                }
+            case .failure(_):
+                DispatchQueue.main.async {
+                    print("Нету нихуя")
+                }
+            }
+        }
+    }
 }
 
 //MARK: - UITableViewDataSource
 extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.dishes?.count ?? 0
+        return viewModel?.dishes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseId, for: indexPath) as? MenuCell else { return UITableViewCell()
-        }
-        cell.configure(with: viewModel?.dishes?[indexPath.row])
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseId, for: indexPath) as? MenuCell,
+              let viewModel = viewModel
+        else { return UITableViewCell() }
+        cell.configure(with: viewModel, for: indexPath)
         return cell
     }
 
