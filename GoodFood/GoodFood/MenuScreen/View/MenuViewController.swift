@@ -13,6 +13,9 @@ class MenuViewController: UIViewController {
     private var searchController = UISearchController(searchResultsController: nil)
     private var tableView = UITableView()
     private var activityIndicator = UIActivityIndicatorView()
+    private let noConnectionLabel = UILabel()
+    private let refreshButton = UIButton()
+    
     private var coordinator: CoordinatorProtocol?
     private var viewModel: MenuViewModel?
     let transition = PanelTransition() 
@@ -104,7 +107,26 @@ extension MenuViewController {
     }
     
     private func setupNoConnectionLabel() {
+        let noConnectionStackView = UIStackView()
+        noConnectionStackView.addArrangedSubview(noConnectionLabel)
+        noConnectionStackView.addArrangedSubview(refreshButton)
+        view.addSubview(noConnectionStackView)
+        NSLayoutConstraint.activate([
+            noConnectionStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noConnectionStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            noConnectionLabel.leadingAnchor.constraint(equalTo: noConnectionStackView.leadingAnchor),
+            noConnectionLabel.trailingAnchor.constraint(equalTo: noConnectionStackView.trailingAnchor),
+            refreshButton.leadingAnchor.constraint(equalTo: noConnectionStackView.leadingAnchor),
+            refreshButton.trailingAnchor.constraint(equalTo: noConnectionStackView.trailingAnchor)
+        ])
+        noConnectionStackView.axis = .vertical
+        noConnectionStackView.spacing = 8
+        noConnectionStackView.alignment = .center
         
+        noConnectionLabel.text = "Нет интернет соединения. Пожалуйста, проверьте подключение к сети и нажмите кнопку Обновить"
+        noConnectionLabel.numberOfLines = 0
+        refreshButton.setTitle("Обновить", for: .normal)
+        refreshButton.tintColor = .blue
     }
 }
 //MARK: - Actions
@@ -140,7 +162,9 @@ extension MenuViewController: UISearchResultsUpdating {
                 }
             case .failure(_):
                 DispatchQueue.main.async {
-                    print("no data")
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = true
+                    self?.setupNoConnectionLabel()
                 }
             }
         }

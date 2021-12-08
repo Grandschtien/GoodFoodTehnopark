@@ -19,8 +19,8 @@ final class MenuNetworkService {
                 } else {
                     completion(.failure(AppErrors.incorrectData))
                 }
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                completion(.failure(AppErrors.noInternetConnection))
             }
         }
     }

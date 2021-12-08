@@ -17,6 +17,7 @@ enum AppErrors: Error {
     case incorrectData
     case cannotCastToDictionary
     case invalidUrl
+    case noInternetConnection
 }
 
 final class AppNetworkManager {
@@ -68,7 +69,33 @@ final class AppNetworkManager {
         }
         
     }
+    static func uploadKeyOfLikedDish(key: String) {
+        if let currentUser = Auth.auth().currentUser {
+            let queryRef = Database
+                .database()
+                .reference()
+                .child("users")
+                .child(currentUser.uid)
+                .child("LikedDishes")
+                .child(key)
+            queryRef.setValue("dish\(key)")
+        }
+        UserDefaults.standard.set(true, forKey: key)
+    }
     
+    static func deleteKeyOfLikedImage(key: String) {
+        if let currentUser = Auth.auth().currentUser {
+            let queryRef = Database
+                .database()
+                .reference()
+                .child("users")
+                .child(currentUser.uid)
+                .child("LikedDishes")
+                .child(key)
+            queryRef.setValue(nil)
+            UserDefaults.standard.set(false, forKey: key)
+        }
+    }
     static func fetchDishesData(completion: @escaping (Result<[DataSnapshot], Error>) -> ()) {
         let queryRef =  Database.database().reference().child("dishes")
         queryRef.observeSingleEvent(of: .value) { snapshot in
@@ -90,6 +117,32 @@ final class AppNetworkManager {
                 return
             }
             completion(.success(snapshot))
+        }
+    }
+    static func clearUserDefaults() {
+        if let user = Auth.auth().currentUser {
+            let allLikedDishes = Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            allLikedDishes.observeSingleEvent(of: .value) { snapshot in
+                guard let dict = snapshot.value as? [String: Any] else { return }
+                DispatchQueue.main.async {
+                    for key in dict.keys {
+                        UserDefaults.standard.removeObject(forKey: key)
+                    }
+                }
+            }
+        }
+    }
+    static func setupUserDefaults() {
+        if let user = Auth.auth().currentUser {
+            let allLikedDishes = Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            allLikedDishes.observeSingleEvent(of: .value) { snapshot in
+                guard let dict = snapshot.value as? [String: Any] else { return }
+                DispatchQueue.main.async {
+                    for key in dict.keys {
+                        UserDefaults.standard.set(true, forKey: key)
+                    }
+                }
+            }
         }
     }
 }

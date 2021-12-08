@@ -13,7 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        FirebaseApp.configure()
+        if FirebaseApp.app() == nil {
+               FirebaseApp.configure()
+        }
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         

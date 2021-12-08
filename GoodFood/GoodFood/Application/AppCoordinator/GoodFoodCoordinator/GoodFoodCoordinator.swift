@@ -21,6 +21,7 @@ final class GoodFoodCoordinator {
 
 extension GoodFoodCoordinator: CoordinatorProtocol {    
     func start() {
+        AppNetworkManager.setupUserDefaults() 
         let menuViewController = MenuViewController(coordinatror: self)
         
         menuViewController.tabBarItem = UITabBarItem(title: "Меню",
@@ -45,7 +46,6 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         }
         
         menuViewController.dish = { dishKey in
-//            let dishViewModel = DishViewModel(key: dishKey)
             let dishVC = DishViewController(key: dishKey, coordinatror: self)
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)

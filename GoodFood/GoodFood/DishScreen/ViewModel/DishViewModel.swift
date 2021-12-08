@@ -15,6 +15,13 @@ final class DishViewModel {
         self.dish = dish
     }
     
+    func uploadLikedDish(key: String) {
+        AppNetworkManager.uploadKeyOfLikedDish(key: key)
+    }
+    
+    func deletLikedImage(key: String) {
+        AppNetworkManager.deleteKeyOfLikedImage(key: key)
+    }
     
 }
 func parseJson<T: Decodable>(from data: Data, to type: T.Type) -> T?{

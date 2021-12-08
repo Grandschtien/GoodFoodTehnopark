@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-
+import Kingfisher
 class ProfileViewController: UIViewController {
     
     private let profileImageView = UIImageView(frame: CGRect(x: 0,
@@ -203,6 +203,7 @@ extension ProfileViewController {
 extension ProfileViewController {
     @objc
     private func exitAction() {
+        AppNetworkManager.clearUserDefaults()
         exit?()
     }
     @objc

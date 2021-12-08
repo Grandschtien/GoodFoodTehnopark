@@ -16,6 +16,8 @@ class DishViewController: UIViewController {
     private var footerView: UIView?
     private let imageForHeaderView = UIImageView()
     private let nextButton = MainButton(color: UIColor(named: "mainColor"), title: "Перейти к готовке")
+    private var activityIndicator = UIActivityIndicatorView()
+    private var likedButton: UIBarButtonItem?
     var imageHeightConstraint: NSLayoutConstraint?
     var imageBottomConstraint: NSLayoutConstraint?
     var imageLeadingConstraint: NSLayoutConstraint?
@@ -24,10 +26,8 @@ class DishViewController: UIViewController {
     private var coordinator: CoordinatorProtocol?
     private var viewModel: DishViewModel?
     private let key: String
-    
     var back: (() -> Void)?
     var nextAction: ((String) -> Void)?
-    private var isLiked = false
     
     init(key: String, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
@@ -42,6 +42,8 @@ class DishViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.isHidden = true
+        setupWaitingIndicator()
         setupConstraints()
         fetchDish()
         setupUI()
@@ -121,11 +123,20 @@ extension DishViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(backAction))
-        let likedButton = UIBarButtonItem(image: UIImage(named: "likedOutline"),
-                                          style: .done,
+        let isLiked = UserDefaults.standard.bool(forKey: key)
+        if isLiked {
+            likedButton = UIBarButtonItem(image: UIImage(named: "likedFilled"),
+                                          style: .plain, target: self,
+                                          action: #selector(likedAction))
+            navigationItem.setRightBarButtonItems([likedButton ?? UIBarButtonItem()], animated: false)
+
+        } else {
+            likedButton = UIBarButtonItem(image: UIImage(named: "likedOutline"),
+                                          style: .plain,
                                           target: self,
                                           action: #selector(likedAction))
-        navigationItem.setRightBarButtonItems([likedButton], animated: false)
+            navigationItem.setRightBarButtonItems([likedButton ?? UIBarButtonItem()], animated: false)
+        }
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: DishIngredientCell.reuseId, bundle: nil),
@@ -138,6 +149,17 @@ extension DishViewController {
                              action: #selector(goToStepsAction),
                              for: .touchUpInside)
     }
+    
+    private func setupWaitingIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.startAnimating()
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
 }
 
 //MARK: - Actions
@@ -149,12 +171,12 @@ extension DishViewController {
     
     @objc
     private func likedAction() {
-        if isLiked {
-            navigationItem.rightBarButtonItem?.image = UIImage(named: "likedOutline")
-            isLiked = !isLiked
+        if UserDefaults.standard.bool(forKey: key) {
+            likedButton?.image = UIImage(named: "likedOutline")
+            viewModel?.deletLikedImage(key: key)
         } else {
-            navigationItem.rightBarButtonItem?.image = UIImage(named: "likedFilled")
-            isLiked = !isLiked
+            likedButton?.image = UIImage(named: "likedFilled")
+            viewModel?.uploadLikedDish(key: key)
         }
     }
     
@@ -176,6 +198,9 @@ extension DishViewController {
                     self?.imageForHeaderView.clipsToBounds = true
                     self?.imageForHeaderView.kf.setImage(with: resourceForImage,
                                                          placeholder: UIImage(named: "DishPlaceHolder"))
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = true
+                    self?.tableView.isHidden = false
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
@@ -234,7 +259,7 @@ extension DishViewController: UITableViewDataSource {
         default:
             return 70
         }
-}
+    }
     
 }
 //MARK: - UITableViewDelegate
