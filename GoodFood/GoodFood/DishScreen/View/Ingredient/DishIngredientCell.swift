@@ -19,19 +19,20 @@ class DishIngredientCell: UITableViewCell {
     
     func configureForIngredient(viewModel: DishViewModel, indexPath: IndexPath) {
         nameLabel.font = nameLabel.font.withSize(20)
-        nameLabel.text = "Row: \(indexPath.row)"
+        nameLabel.text = "\(viewModel.dish.ingredients[indexPath.row].name), \(viewModel.dish.ingredients[indexPath.row].amount)"
     }
     
     func configureForName(viewModel: DishViewModel) {
         nameLabel.font = nameLabel.font.withSize(25)
-        // TODO: Сделать через viewModel.dish.name
-        nameLabel.text = "Название"
+        nameLabel.text = viewModel.dish.name
         nameLabel.textAlignment = .center
         containerView.backgroundColor = .none
     }
     
     func configureForStaticLabel() {
         nameLabel.font = nameLabel.font.withSize(17)
+        self.backgroundColor = .none
+        nameLabel.backgroundColor = .none
         nameLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
         nameLabel.text = "Ингредиенты"
         nameLabel.textAlignment = .center

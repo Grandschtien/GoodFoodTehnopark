@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Kingfisher
+
 
 class DishViewController: UIViewController {
     
@@ -21,24 +23,27 @@ class DishViewController: UIViewController {
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: DishViewModel?
+    private let key: String
     
     var back: (() -> Void)?
     var nextAction: (() -> Void)?
     private var isLiked = false
     
-    init(viewModel: DishViewModel, coordinatror: CoordinatorProtocol) {
+    init(key: String, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
-        self.viewModel = viewModel
+        self.key = key
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
+        self.key = ""
         super.init(coder: coder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
+        fetchDish()
         setupUI()
     }
 }
@@ -127,10 +132,11 @@ extension DishViewController {
                            forCellReuseIdentifier: DishIngredientCell.reuseId)
         tableView.backgroundColor = view.backgroundColor
         tableView.separatorStyle = .none
-        imageForHeaderView.image = UIImage(named: "test")
-        imageForHeaderView.contentMode = .scaleAspectFill
+        tableView.allowsSelection = false
         nextButton.titleLabel?.font = nextButton.titleLabel?.font.withSize(18)
-        nextButton.addTarget(self, action: #selector(goToStepsAction), for: .touchUpInside)
+        nextButton.addTarget(self,
+                             action: #selector(goToStepsAction),
+                             for: .touchUpInside)
     }
 }
 
@@ -156,50 +162,79 @@ extension DishViewController {
     private func goToStepsAction() {
         nextAction?()
     }
+    
+    private func fetchDish() {
+        DishWithIngredientsNetworkManager.fetchDishWithIngredients(key: key) {[weak self] result in
+            switch result {
+            case .success(let viewModel):
+                DispatchQueue.main.async {
+                    self?.viewModel = viewModel
+                    guard let imageUrl = URL(string: self?.viewModel?.dish.imageString ?? "") else { return }
+                    let resourceForImage = ImageResource(downloadURL: imageUrl,
+                                                         cacheKey: self?.viewModel?.dish.imageString)
+                    self?.imageForHeaderView.contentMode = .scaleAspectFill
+                    self?.imageForHeaderView.clipsToBounds = true
+                    self?.imageForHeaderView.kf.setImage(with: resourceForImage,
+                                                         placeholder: UIImage(named: "DishPlaceHolder"))
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
 }
 //MARK: - UITableViewDataSource
 extension DishViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 1
+        case 2:
+            return viewModel?.dish.ingredients.count ?? 0
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let viewModel = viewModel else { return UITableViewCell()}
-        switch indexPath.row {
+        guard let viewModel = viewModel else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
+                                                       for: indexPath) as? DishIngredientCell else {
+            return UITableViewCell()
+        }
+        switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
-                                                           for: indexPath) as? DishIngredientCell else {
-                return UITableViewCell()
-            }
             cell.configureForName(viewModel: viewModel)
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
-                                                           for: indexPath) as? DishIngredientCell else {
-                return UITableViewCell()
-            }
             cell.configureForStaticLabel()
             return cell
-        default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
-                                                           for: indexPath) as? DishIngredientCell else {
-                return UITableViewCell()
-            }
+        case 2:
             cell.configureForIngredient(viewModel: viewModel, indexPath: indexPath)
             return cell
+        default:
+            return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            return 45
+            return 60
         case 1:
             return 45
         default:
-            return 50
+            return 70
         }
-    }
+}
     
 }
 //MARK: - UITableViewDelegate

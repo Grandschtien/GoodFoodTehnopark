@@ -12,13 +12,14 @@ class MenuViewController: UIViewController {
 
     private var searchController = UISearchController(searchResultsController: nil)
     private var tableView = UITableView()
+    private var activityIndicator = UIActivityIndicatorView()
     private var coordinator: CoordinatorProtocol?
     private var viewModel: MenuViewModel?
     let transition = PanelTransition() 
     
     var add: (() -> Void)?
     var sort: (() -> Void)?
-    var dish: (() -> Void)?
+    var dish: ((String) -> Void)?
     
     init(coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
@@ -77,6 +78,7 @@ extension MenuViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        setupWaitingIndicator()
     }
     
     private func setupUI() {
@@ -91,7 +93,14 @@ extension MenuViewController {
     }
     
     private func setupWaitingIndicator() {
-        
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.startAnimating()
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func setupNoConnectionLabel() {
@@ -120,16 +129,18 @@ extension MenuViewController: UISearchResultsUpdating {
     }
     
     fileprivate func fetchData() {
-        MenuNetworkService.fetchDishes{ response in
+        MenuNetworkService.fetchDishes{[weak self] response in
             switch response {
             case .success(let viewModel):
                 DispatchQueue.main.async {
-                    self.viewModel = viewModel
-                    self.tableView.reloadData()
+                    self?.viewModel = viewModel
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = true
+                    self?.tableView.reloadData()
                 }
             case .failure(_):
                 DispatchQueue.main.async {
-                    print("Нету нихуя")
+                    print("no data")
                 }
             }
         }
@@ -151,13 +162,14 @@ extension MenuViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 342
     }
 
 }
 //MARK: - UITableViewDelegate
 extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dish?()
+        guard let dishKey = viewModel?.dishes[indexPath.row].key else {return}
+        dish?(dishKey)
     }
 }

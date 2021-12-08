@@ -44,9 +44,9 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
             menuViewController.present(sortVC, animated: true)
         }
         
-        menuViewController.dish = {
-            let dishViewModel = DishViewModel()
-            let dishVC = DishViewController(viewModel: dishViewModel, coordinatror: self)
+        menuViewController.dish = { dishKey in
+//            let dishViewModel = DishViewModel(key: dishKey)
+            let dishVC = DishViewController(key: dishKey, coordinatror: self)
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)
             }

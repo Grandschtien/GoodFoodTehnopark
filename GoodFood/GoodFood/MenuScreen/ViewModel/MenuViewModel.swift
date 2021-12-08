@@ -19,7 +19,7 @@ final class MenuViewModel {
         
         for snapshot in snapshots {
             guard let dict = snapshot.value as? [String: Any],
-                  let dish = MenuModel(dict: dict)
+                  let dish = MenuModel(dict: dict, key: snapshot.key)
             else { continue }
             dishes.append(dish)
         }

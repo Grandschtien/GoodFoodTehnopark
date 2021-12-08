@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseStorage
 import UIKit
+import AVFoundation
 
 enum AppErrors: Error {
     case clientInGuestMode
@@ -76,10 +77,31 @@ final class AppNetworkManager {
                 completion(.failure(AppErrors.incorrectData))
                 return
             }
-            print(objects.first)
             completion(.success(objects))
+        }
+    }
+    
+    static func fetchDish(key: String, completion: @escaping (Result<Data, Error>) -> ()) {
+        let queryRef = Database.database().reference().child("dishes").child(key)
+        
+        queryRef.observeSingleEvent(of: .value) { snapshot in
+            guard let snapshot = snapshot.data else {
+                completion(.failure(AppErrors.incorrectData))
+                return
+            }
+            completion(.success(snapshot))
         }
     }
 }
 
+extension DataSnapshot {
+    var data: Data? {
+        guard let value = value, !(value is NSNull) else { return nil }
+        return try? JSONSerialization.data(withJSONObject: value)
+    }
+    var json: String? { data?.string }
+}
+extension Data {
+    var string: String? { String(data: self, encoding: .utf8) }
+}
 
