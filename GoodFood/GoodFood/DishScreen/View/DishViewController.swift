@@ -26,7 +26,7 @@ class DishViewController: UIViewController {
     private let key: String
     
     var back: (() -> Void)?
-    var nextAction: (() -> Void)?
+    var nextAction: ((String) -> Void)?
     private var isLiked = false
     
     init(key: String, coordinatror: CoordinatorProtocol) {
@@ -160,7 +160,7 @@ extension DishViewController {
     
     @objc
     private func goToStepsAction() {
-        nextAction?()
+        nextAction?(key)
     }
     
     private func fetchDish() {

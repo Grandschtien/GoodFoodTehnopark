@@ -17,7 +17,7 @@ final class DishViewModel {
     
     
 }
-private func parseJson<T: Decodable>(from data: Data, to type: T.Type) -> T?{
+func parseJson<T: Decodable>(from data: Data, to type: T.Type) -> T?{
     let decoder = JSONDecoder()
     let decoded = try! decoder.decode(type, from: data)
     return decoded

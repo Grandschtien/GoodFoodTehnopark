@@ -50,10 +50,9 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)
             }
-            dishVC.nextAction = { [weak self] in
+            dishVC.nextAction = { [weak self] dishKey in
                 guard let `self` = self else { return }
-                let prepareViewModel = PrepareViewModel()
-                let prepareViewController = PrepareViewController(viewModel: prepareViewModel, coordinatror: self)
+                let prepareViewController = PrepareViewController(key: dishKey, coordinatror: self)
                 prepareViewController.back = {
                     dishVC.navigationController?.popViewController(animated: true)
                 }

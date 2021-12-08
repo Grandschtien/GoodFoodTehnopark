@@ -15,24 +15,44 @@ class PrepareViewController: UIViewController {
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: PrepareViewModel?
+    private var key: String
     
     var back: (() -> Void)?
     var exit: (() -> Void)?
     
-    init(viewModel: PrepareViewModel, coordinatror: CoordinatorProtocol) {
+    init(key: String, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
-        self.viewModel = viewModel
+        self.key = key
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
+        self.key = ""
         super.init(coder: coder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
+        fetchSteps()
         setupUI()
+    }
+    
+    private func fetchSteps() {
+        PrepareScreenNetworkManager.fetchDishSteps(key: key) {[weak self] result in
+            switch result {
+            case .success(let viewModel):
+                DispatchQueue.main.async {
+                    self?.viewModel = viewModel
+                    print (viewModel.steps.steps.count)
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
 }
@@ -84,17 +104,28 @@ extension PrepareViewController {
     }
 }
 extension PrepareViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        switch section{
+        case 0:
+            return viewModel?.steps.steps.count ?? 0
+        case 1:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let viewModel = viewModel else { return UITableViewCell() }
         
-        let totalRows = tableView.numberOfRows(inSection: indexPath.section)
+//        let totalRows = tableView.numberOfRows(inSection: indexPath.section)
         
-        switch indexPath.row {
-        case totalRows - 1:
+        switch indexPath.section {
+        case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingCell.reuseId) as? RatingCell else {
                 return UITableViewCell()
             }
@@ -104,8 +135,7 @@ extension PrepareViewController: UITableViewDataSource {
             else {
                 return UITableViewCell()
             }
-            
-            cell.configure(viewModel: viewModel)
+            cell.configure(viewModel: viewModel, indexPath: indexPath)
             return cell
         }
     }
