@@ -162,6 +162,7 @@ extension MenuViewController: UISearchResultsUpdating {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
+                    self?.tableView.backgroundColor = .clear
                     if let error = error as? AppErrors {
                         switch error {
                         case .incorrectData:

@@ -23,7 +23,7 @@ class ProfileViewController: UIViewController {
     private let mailStackView = UIStackView()
     private let tFStackView = UIStackView()
     private let errorLabel = UILabel()
-    private let errorButton = UIButton()
+    private let errorButton = UIButton(type: .roundedRect)
     private let errorStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
@@ -215,7 +215,6 @@ extension ProfileViewController {
         errorButton.layer.cornerRadius = 10
         errorButton.layer.borderWidth = 1
         errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
-        errorButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         errorStackView.axis = .vertical
         errorStackView.spacing = 30
         errorStackView.distribution = .fill
@@ -250,7 +249,7 @@ extension ProfileViewController {
         errorButton.layer.cornerRadius = 10
         errorButton.layer.borderWidth = 1
         errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
-        errorButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
         errorStackView.axis = .vertical
         errorStackView.spacing = 30
         errorStackView.distribution = .fill
@@ -284,7 +283,7 @@ extension ProfileViewController {
         errorButton.layer.cornerRadius = 10
         errorButton.layer.borderWidth = 1
         errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
-        errorButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
         errorStackView.axis = .vertical
         errorStackView.spacing = 30
         errorStackView.distribution = .fill
