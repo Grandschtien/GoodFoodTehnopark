@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 class MenuViewController: UIViewController {
-
+    
     private var searchController = UISearchController(searchResultsController: nil)
     private var tableView = UITableView()
     private var activityIndicator = UIActivityIndicatorView()
@@ -18,7 +18,7 @@ class MenuViewController: UIViewController {
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: MenuViewModel?
-    let transition = PanelTransition() 
+    let transition = PanelTransition()
     
     var add: (() -> Void)?
     var sort: (() -> Void)?
@@ -70,7 +70,7 @@ extension MenuViewController {
         searchController.searchBar.placeholder = "Блюдо или ингредиент"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-       
+        
     }
     
     private func setupConstraints() {
@@ -160,11 +160,18 @@ extension MenuViewController: UISearchResultsUpdating {
                     self?.activityIndicator.isHidden = true
                     self?.tableView.reloadData()
                 }
-            case .failure(_):
+            case .failure(let error):
                 DispatchQueue.main.async {
-                    self?.activityIndicator.stopAnimating()
-                    self?.activityIndicator.isHidden = true
-                    self?.setupNoConnectionLabel()
+                    if let error = error as? AppErrors {
+                        switch error {
+                        case .incorrectData:
+                            self?.view.backgroundColor = .red
+                        case .noInternetConnection:
+                            self?.view.backgroundColor = .blue
+                        default:
+                            self?.view.backgroundColor = .green
+                        }
+                    }
                 }
             }
         }
@@ -176,7 +183,7 @@ extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel?.dishes.count ?? 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseId, for: indexPath) as? MenuCell,
               let viewModel = viewModel
@@ -184,11 +191,11 @@ extension MenuViewController: UITableViewDataSource {
         cell.configure(with: viewModel, for: indexPath)
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 342
     }
-
+    
 }
 //MARK: - UITableViewDelegate
 extension MenuViewController: UITableViewDelegate {

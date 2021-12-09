@@ -35,4 +35,14 @@ class MenuCell: UITableViewCell {
                                      cacheKey: viewModel.dishes[indexPath.row].image)
         self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
     }
+    
+    func configureForLikedScreen(with viewModel: LikedViewModel, for indexPath: IndexPath) {
+        self.nameLabel.text = viewModel.dishes[indexPath.row].name
+        self.timeLabel.text = viewModel.dishes[indexPath.row].cookTime
+        self.ratingView.rating = viewModel.dishes[indexPath.row].rating
+        guard let imageUrl = URL(string: viewModel.dishes[indexPath.row].image) else { return }
+        let resource = ImageResource(downloadURL: imageUrl,
+                                     cacheKey: viewModel.dishes[indexPath.row].image)
+        self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
+    }
 }

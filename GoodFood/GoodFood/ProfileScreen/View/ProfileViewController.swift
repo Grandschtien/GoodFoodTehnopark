@@ -22,6 +22,9 @@ class ProfileViewController: UIViewController {
     private let mailTF = UITextField()
     private let mailStackView = UIStackView()
     private let tFStackView = UIStackView()
+    private let errorLabel = UILabel()
+    private let errorButton = UIButton()
+    private let errorStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: ProfileViewModel?
@@ -184,6 +187,110 @@ extension ProfileViewController {
         
         
     }
+    private func createNoConnectionView() {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = "Нет сети"
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        
+        errorButton.setTitle("Обновить", for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        errorButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        
+    }
+    private func createGuestModeView() {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = "Вы в гостевом режиме"
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        
+        errorButton.setTitle("Войти", for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        errorButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        
+    }
+    private func createUnknownErrorView() {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = "Неизвестная ошибка :("
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        errorButton.setTitle("Обновить", for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        errorButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        
+    }
     func setupViewsWithNetwork() {
         viewModel?.fetchProfile(completion: {[weak self] result in
             switch result {
@@ -193,8 +300,31 @@ extension ProfileViewController {
                     self?.mailTF.text = profile.email
                     self?.profileImageView.image = UIImage(data: profile.image) ?? UIImage(named: "profile")
                 }
-            case .failure(_):
-                break
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    if let error = error as? AppErrors {
+                        switch error {
+                        case .clientInGuestMode:
+                            self?.mailStackView.isHidden = true
+                            self?.phoneStackView.isHidden = true
+                            self?.mainNameLabel.isHidden = true
+                            self?.profileImageView.isHidden = true
+                            self?.createGuestModeView()
+                        case .incorrectData:
+                            self?.mailStackView.isHidden = true
+                            self?.phoneStackView.isHidden = true
+                            self?.mainNameLabel.isHidden = true
+                            self?.profileImageView.isHidden = true
+                            self?.createNoConnectionView()
+                        default :
+                            self?.mailStackView.isHidden = true
+                            self?.phoneStackView.isHidden = true
+                            self?.mainNameLabel.isHidden = true
+                            self?.profileImageView.isHidden = true
+                            self?.createUnknownErrorView()
+                        }
+                    }
+                }
             }
         })
     }

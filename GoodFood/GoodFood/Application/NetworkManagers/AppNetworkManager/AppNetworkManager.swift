@@ -108,6 +108,24 @@ final class AppNetworkManager {
         }
     }
     
+    static func fetchLikedDishesKeys(completion: @escaping (Result<[String], Error>) -> ()) {
+        if let user = Auth.auth().currentUser {
+            let queryRef =  Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            queryRef.observeSingleEvent(of: .value) { snapshot in
+                var keysArray = [String]()
+                guard let snapshot = snapshot.value as? [String: Any]
+                else {
+                    completion(.failure(AppErrors.incorrectData))
+                    return
+                }
+                for key in snapshot.keys {
+                    keysArray.append(String(key))
+                }
+                completion(.success(keysArray))
+            }
+        }
+    }
+    
     static func fetchDish(key: String, completion: @escaping (Result<Data, Error>) -> ()) {
         let queryRef = Database.database().reference().child("dishes").child(key)
         

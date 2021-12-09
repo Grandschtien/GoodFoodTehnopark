@@ -19,8 +19,8 @@ class ProfileViewModel {
                     return
                 }
                 completion(.success(profile))
-            case .failure(let error):
-                completion(.failure(error))
+            case .failure(_):
+                completion(.failure(AppErrors.clientInGuestMode))
             }
         }
     }

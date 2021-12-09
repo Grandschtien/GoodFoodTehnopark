@@ -75,6 +75,7 @@
 		607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 607A75D827468F37007EFD4D /* GoogleService-Info.plist */; };
 		607A75DE27469330007EFD4D /* AppNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DD27469330007EFD4D /* AppNetworkManager.swift */; };
 		607A75E027469364007EFD4D /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DF27469364007EFD4D /* AuthNetworkManager.swift */; };
+		60A1158C27610DE400E06C6C /* LikedNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */; };
 		60C850262750EBCE005766F5 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C850252750EBCE005766F5 /* MenuModel.swift */; };
 		60D334172747CF69007C2462 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */; };
 		60D334192747D464007C2462 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334182747D464007C2462 /* MainButton.swift */; };
@@ -194,6 +195,7 @@
 		607A75D827468F37007EFD4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		607A75DD27469330007EFD4D /* AppNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNetworkManager.swift; sourceTree = "<group>"; };
 		607A75DF27469364007EFD4D /* AuthNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
+		60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedNetworkManager.swift; sourceTree = "<group>"; };
 		60C850252750EBCE005766F5 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		60D334182747D464007C2462 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 		60ECE5ED272EAC0A006B479A /* LikedScreen */ = {
 			isa = PBXGroup;
 			children = (
+				60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */,
 				60ECE5EE272EAC3A006B479A /* Model */,
 				60ECE5EF272EAC3E006B479A /* View */,
 				60ECE5F0272EAC4F006B479A /* ViewModel */,
@@ -1184,6 +1187,7 @@
 				60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				6004D815274BC86100DCD20A /* Steps.swift in Sources */,
+				60A1158C27610DE400E06C6C /* LikedNetworkManager.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
 				60682FED275CC32700595019 /* NameCell.swift in Sources */,
 				60ECE602273067CC006B479A /* AuthCoordinator.swift in Sources */,

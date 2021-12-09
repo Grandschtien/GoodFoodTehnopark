@@ -25,5 +25,4 @@ final class MenuViewModel {
         }
         self.dishes = dishes
     }
-    
 }
