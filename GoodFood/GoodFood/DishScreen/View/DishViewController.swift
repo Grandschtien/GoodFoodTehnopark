@@ -7,7 +7,7 @@
 
 import UIKit
 import Kingfisher
-
+import Network
 
 class DishViewController: UIViewController {
     
@@ -17,6 +17,10 @@ class DishViewController: UIViewController {
     private let imageForHeaderView = UIImageView()
     private let nextButton = MainButton(color: UIColor(named: "mainColor"), title: "Перейти к готовке")
     private var activityIndicator = UIActivityIndicatorView()
+    private let errorLabel = UILabel()
+    private let errorButton = UIButton(type: .roundedRect)
+    private let errorStackView = UIStackView()
+    
     private var likedButton: UIBarButtonItem?
     var imageHeightConstraint: NSLayoutConstraint?
     var imageBottomConstraint: NSLayoutConstraint?
@@ -129,7 +133,7 @@ extension DishViewController {
                                           style: .plain, target: self,
                                           action: #selector(likedAction))
             navigationItem.setRightBarButtonItems([likedButton ?? UIBarButtonItem()], animated: false)
-
+            
         } else {
             likedButton = UIBarButtonItem(image: UIImage(named: "likedOutline"),
                                           style: .plain,
@@ -160,6 +164,45 @@ extension DishViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
+    
+    private func createErrorLabel(with errorText: String, and errorButtonText: String) {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = errorText
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        
+        errorButton.setTitle(errorButtonText, for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        errorButton.addTarget(self, action: #selector(fetchDish), for: .touchUpInside)
+        errorStackView.isHidden = false
+        errorLabel.isHidden = false
+        errorButton.isHidden = false
+        
+    }
 }
 
 //MARK: - Actions
@@ -185,84 +228,121 @@ extension DishViewController {
         nextAction?(key)
     }
     
+    @objc
     private func fetchDish() {
-        DishWithIngredientsNetworkManager.fetchDishWithIngredients(key: key) {[weak self] result in
-            switch result {
-            case .success(let viewModel):
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = {[weak self] path in
+            guard let `self` = self else { return }
+            if path.status == .satisfied {
                 DispatchQueue.main.async {
-                    self?.viewModel = viewModel
-                    guard let imageUrl = URL(string: self?.viewModel?.dish.imageString ?? "") else { return }
-                    let resourceForImage = ImageResource(downloadURL: imageUrl,
-                                                         cacheKey: self?.viewModel?.dish.imageString)
-                    self?.imageForHeaderView.contentMode = .scaleAspectFill
-                    self?.imageForHeaderView.clipsToBounds = true
-                    self?.imageForHeaderView.kf.setImage(with: resourceForImage,
-                                                         placeholder: UIImage(named: "DishPlaceHolder"))
-                    self?.activityIndicator.stopAnimating()
-                    self?.activityIndicator.isHidden = true
-                    self?.tableView.isHidden = false
-                    self?.tableView.reloadData()
+                    self.setupWaitingIndicator()
+                    self.errorStackView.isHidden = true
+                    self.errorLabel.isHidden = true
+                    self.errorButton.isHidden = true
                 }
-            case .failure(let error):
+                DishWithIngredientsNetworkManager.fetchDishWithIngredients(key: self.key) {[weak self] result in
+                    switch result {
+                    case .success(let viewModel):
+                        DispatchQueue.main.async {
+                            self?.viewModel = viewModel
+                            guard let imageUrl = URL(string: self?.viewModel?.dish.imageString ?? "") else { return }
+                            let resourceForImage = ImageResource(downloadURL: imageUrl,
+                                                                 cacheKey: self?.viewModel?.dish.imageString)
+                            self?.imageForHeaderView.contentMode = .scaleAspectFill
+                            self?.imageForHeaderView.clipsToBounds = true
+                            self?.imageForHeaderView.kf.setImage(with: resourceForImage,
+                                                                 placeholder: UIImage(named: "DishPlaceHolder"))
+                            self?.activityIndicator.stopAnimating()
+                            self?.activityIndicator.isHidden = true
+                            self?.tableView.isHidden = false
+                            self?.tableView.reloadData()
+                            monitor.cancel()
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            if let error = error as? AppErrors {
+                                switch error {
+                                case .noInternetConnection:
+                                    self?.tableView.isHidden = true
+                                    self?.activityIndicator.isHidden = true
+                                    self?.activityIndicator.stopAnimating()
+                                    self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                                default:
+                                    self?.tableView.isHidden = true
+                                    self?.activityIndicator.isHidden = true
+                                    self?.activityIndicator.stopAnimating()
+                                    self?.createErrorLabel(with: "Неизвестная ошибка", and: "Обновить")
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
                 DispatchQueue.main.async {
-                    print(error.localizedDescription)
+                    self.tableView.isHidden = true
+                    self.activityIndicator.isHidden = true
+                    self.activityIndicator.stopAnimating()
+                    self.createErrorLabel(with: "Нет сети", and: "Обновить")
                 }
             }
         }
+        let queue = DispatchQueue(label: "Network")
+        
+        monitor.start(queue: queue)
     }
 }
-//MARK: - UITableViewDataSource
-extension DishViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return viewModel?.dish.ingredients.count ?? 0
-        default:
-            return 0
+    //MARK: - UITableViewDataSource
+    extension DishViewController: UITableViewDataSource {
+        func numberOfSections(in tableView: UITableView) -> Int {
+            return 3
         }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let viewModel = viewModel else { return UITableViewCell() }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
-                                                       for: indexPath) as? DishIngredientCell else {
-            return UITableViewCell()
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            switch section {
+            case 0:
+                return 1
+            case 1:
+                return 1
+            case 2:
+                return viewModel?.dish.ingredients.count ?? 0
+            default:
+                return 0
+            }
         }
-        switch indexPath.section {
-        case 0:
-            cell.configureForName(viewModel: viewModel)
-            return cell
-        case 1:
-            cell.configureForStaticLabel()
-            return cell
-        case 2:
-            cell.configureForIngredient(viewModel: viewModel, indexPath: indexPath)
-            return cell
-        default:
-            return UITableViewCell()
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            guard let viewModel = viewModel else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
+                                                           for: indexPath) as? DishIngredientCell else {
+                return UITableViewCell()
+            }
+            switch indexPath.section {
+            case 0:
+                cell.configureForName(viewModel: viewModel)
+                return cell
+            case 1:
+                cell.configureForStaticLabel()
+                return cell
+            case 2:
+                cell.configureForIngredient(viewModel: viewModel, indexPath: indexPath)
+                return cell
+            default:
+                return UITableViewCell()
+            }
         }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return 60
-        case 1:
-            return 45
-        default:
-            return 70
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            switch indexPath.section {
+            case 0:
+                return 60
+            case 1:
+                return 45
+            default:
+                return 70
+            }
         }
+        
     }
-    
-}
-//MARK: - UITableViewDelegate
-extension DishViewController: UITableViewDelegate {
-    
-}
+    //MARK: - UITableViewDelegate
+    extension DishViewController: UITableViewDelegate {
+        
+    }

@@ -9,7 +9,7 @@ import Foundation
 
 final class PrepareScreenNetworkManager {
     static func fetchDishSteps(key: String,
-                               completion: @escaping (Result<PrepareViewModel, Error>) -> ()) {
+                               completion: @escaping (Result<PrepareViewModel?, Error>) -> ()) {
         AppNetworkManager.fetchDish(key: key){ result in
             switch result {
             case .success(let snapshot):
