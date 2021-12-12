@@ -49,6 +49,7 @@
 		6055D7A5273E9F0400BE4EFB /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A4273E9F0400BE4EFB /* PageViewController.swift */; };
 		6055D7A7273EAC1B00BE4EFB /* YourRecipesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */; };
 		6055D7A9273EAC3D00BE4EFB /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */; };
+		605C64BE2765FC9400981B2A /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605C64BD2765FC9400981B2A /* NetworkMonitor.swift */; };
 		6062D505274A61960014E9D4 /* DishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D504274A61960014E9D4 /* DishViewController.swift */; };
 		6062D507274A61A90014E9D4 /* PrepareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D506274A61A90014E9D4 /* PrepareViewController.swift */; };
 		6062D50A274A71560014E9D4 /* DishIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D508274A71560014E9D4 /* DishIngredientCell.swift */; };
@@ -168,6 +169,7 @@
 		6055D7A4273E9F0400BE4EFB /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourRecipesViewModel.swift; sourceTree = "<group>"; };
 		6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		605C64BD2765FC9400981B2A /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		6062D504274A61960014E9D4 /* DishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewController.swift; sourceTree = "<group>"; };
 		6062D506274A61A90014E9D4 /* PrepareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareViewController.swift; sourceTree = "<group>"; };
 		6062D508274A71560014E9D4 /* DishIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishIngredientCell.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				607A75DD27469330007EFD4D /* AppNetworkManager.swift */,
+				605C64BD2765FC9400981B2A /* NetworkMonitor.swift */,
 			);
 			path = AppNetworkManager;
 			sourceTree = "<group>";
@@ -1197,6 +1200,7 @@
 				6062D505274A61960014E9D4 /* DishViewController.swift in Sources */,
 				60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */,
 				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
+				605C64BE2765FC9400981B2A /* NetworkMonitor.swift in Sources */,
 				60682FF5275CC32700595019 /* PhotoCell.swift in Sources */,
 				60ECE61F273817BA006B479A /* LikedViewModel.swift in Sources */,
 				6055D757273DB43A00BE4EFB /* RegistrationModel.swift in Sources */,
@@ -1419,9 +1423,11 @@
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GoodFood;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1429,11 +1435,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Grandschtien.GoodFood;
+				PRODUCT_BUNDLE_IDENTIFIER = EgorShkarin.GoodFood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1448,9 +1454,11 @@
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GoodFood;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1458,11 +1466,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Grandschtien.GoodFood;
+				PRODUCT_BUNDLE_IDENTIFIER = EgorShkarin.GoodFood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

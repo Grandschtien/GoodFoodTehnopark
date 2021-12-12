@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import Kingfisher
+import Network
+import grpc
 class ProfileViewController: UIViewController {
     
     private let profileImageView = UIImageView(frame: CGRect(x: 0,
@@ -220,6 +222,10 @@ extension ProfileViewController {
         errorStackView.distribution = .fill
         errorStackView.alignment = .center
         
+        errorStackView.isHidden = false
+        errorLabel.isHidden = false
+        errorButton.isHidden = false
+        
     }
     private func createGuestModeView() {
         errorStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -291,41 +297,64 @@ extension ProfileViewController {
         
     }
     func setupViewsWithNetwork() {
-        viewModel?.fetchProfile(completion: {[weak self] result in
-            switch result {
-            case .success(let profile):
-                DispatchQueue.main.async {
-                    self?.mainNameLabel.text = profile.name
-                    self?.mailTF.text = profile.email
-                    self?.profileImageView.image = UIImage(data: profile.image) ?? UIImage(named: "profile")
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    if let error = error as? AppErrors {
-                        switch error {
-                        case .clientInGuestMode:
-                            self?.mailStackView.isHidden = true
-                            self?.phoneStackView.isHidden = true
-                            self?.mainNameLabel.isHidden = true
-                            self?.profileImageView.isHidden = true
-                            self?.createGuestModeView()
-                        case .incorrectData:
-                            self?.mailStackView.isHidden = true
-                            self?.phoneStackView.isHidden = true
-                            self?.mainNameLabel.isHidden = true
-                            self?.profileImageView.isHidden = true
-                            self?.createNoConnectionView()
-                        default :
-                            self?.mailStackView.isHidden = true
-                            self?.phoneStackView.isHidden = true
-                            self?.mainNameLabel.isHidden = true
-                            self?.profileImageView.isHidden = true
-                            self?.createUnknownErrorView()
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = {[weak self] path in
+            if path.status == .satisfied {
+                self?.viewModel?.fetchProfile(completion: {[weak self] result in
+                    switch result {
+                    case .success(let profile):
+                        DispatchQueue.main.async {
+                            self?.mainNameLabel.isHidden = false
+                            self?.mailStackView.isHidden = false
+                            self?.phoneStackView.isHidden = false
+                            self?.profileImageView.isHidden = false
+                            self?.errorStackView.isHidden = true
+                            self?.errorLabel.isHidden = true
+                            self?.errorButton.isHidden = true
+                            self?.mainNameLabel.text = profile.name
+                            self?.mailTF.text = profile.email
+                            self?.profileImageView.image = UIImage(data: profile.image) ?? UIImage(named: "profile")
+                            monitor.cancel()
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            if let error = error as? AppErrors {
+                                switch error {
+                                case .clientInGuestMode:
+                                    self?.mailStackView.isHidden = true
+                                    self?.phoneStackView.isHidden = true
+                                    self?.mainNameLabel.isHidden = true
+                                    self?.profileImageView.isHidden = true
+                                    self?.createGuestModeView()
+                                case .incorrectData:
+                                    self?.mailStackView.isHidden = true
+                                    self?.phoneStackView.isHidden = true
+                                    self?.mainNameLabel.isHidden = true
+                                    self?.profileImageView.isHidden = true
+                                    self?.createNoConnectionView()
+                                default :
+                                    self?.mailStackView.isHidden = true
+                                    self?.phoneStackView.isHidden = true
+                                    self?.mainNameLabel.isHidden = true
+                                    self?.profileImageView.isHidden = true
+                                    self?.createUnknownErrorView()
+                                }
+                            }
                         }
                     }
+                })
+            } else {
+                DispatchQueue.main.async {
+                    self?.mailStackView.isHidden = true
+                    self?.phoneStackView.isHidden = true
+                    self?.mainNameLabel.isHidden = true
+                    self?.profileImageView.isHidden = true
+                    self?.createNoConnectionView()
                 }
             }
-        })
+        }
+        let queue = DispatchQueue(label: "ProfileNetwork")
+        monitor.start(queue: queue)
     }
 }
 

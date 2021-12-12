@@ -97,7 +97,7 @@ final class AppNetworkManager {
         }
     }
     static func fetchDishesData(completion: @escaping (Result<[DataSnapshot], Error>) -> ()) {
-        let queryRef =  Database.database().reference().child("dishes")
+        let queryRef = Database.database().reference().child("dishes")
         queryRef.observeSingleEvent(of: .value) { snapshot in
             guard let objects = snapshot.children.allObjects as? [DataSnapshot]
             else {

@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import Network
 
 class MenuViewController: UIViewController {
     
@@ -15,6 +16,9 @@ class MenuViewController: UIViewController {
     private var activityIndicator = UIActivityIndicatorView()
     private let noConnectionLabel = UILabel()
     private let refreshButton = UIButton()
+    private let errorLabel = UILabel()
+    private let errorButton = UIButton(type: .roundedRect)
+    private let errorStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: MenuViewModel?
@@ -37,6 +41,9 @@ class MenuViewController: UIViewController {
         setupViews()
         fetchData()
     }
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
@@ -81,7 +88,6 @@ extension MenuViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        setupWaitingIndicator()
     }
     
     private func setupUI() {
@@ -106,27 +112,43 @@ extension MenuViewController {
         ])
     }
     
-    private func setupNoConnectionLabel() {
-        let noConnectionStackView = UIStackView()
-        noConnectionStackView.addArrangedSubview(noConnectionLabel)
-        noConnectionStackView.addArrangedSubview(refreshButton)
-        view.addSubview(noConnectionStackView)
-        NSLayoutConstraint.activate([
-            noConnectionStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            noConnectionStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            noConnectionLabel.leadingAnchor.constraint(equalTo: noConnectionStackView.leadingAnchor),
-            noConnectionLabel.trailingAnchor.constraint(equalTo: noConnectionStackView.trailingAnchor),
-            refreshButton.leadingAnchor.constraint(equalTo: noConnectionStackView.leadingAnchor),
-            refreshButton.trailingAnchor.constraint(equalTo: noConnectionStackView.trailingAnchor)
-        ])
-        noConnectionStackView.axis = .vertical
-        noConnectionStackView.spacing = 8
-        noConnectionStackView.alignment = .center
+    private func createErrorLabel(with errorText: String, and errorButtonText: String) {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
         
-        noConnectionLabel.text = "Нет интернет соединения. Пожалуйста, проверьте подключение к сети и нажмите кнопку Обновить"
-        noConnectionLabel.numberOfLines = 0
-        refreshButton.setTitle("Обновить", for: .normal)
-        refreshButton.tintColor = .blue
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = errorText
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        
+        errorButton.setTitle(errorButtonText, for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        errorButton.addTarget(self, action: #selector(fetchData), for: .touchUpInside)
+        errorStackView.isHidden = false
+        errorLabel.isHidden = false
+        errorButton.isHidden = false
+        
     }
 }
 //MARK: - Actions
@@ -149,33 +171,66 @@ extension MenuViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
     }
-    
+    @objc
     fileprivate func fetchData() {
-        MenuNetworkService.fetchDishes{[weak self] response in
-            switch response {
-            case .success(let viewModel):
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = {[weak self] path in
+            if path.status == .satisfied {
                 DispatchQueue.main.async {
-                    self?.viewModel = viewModel
-                    self?.activityIndicator.stopAnimating()
-                    self?.activityIndicator.isHidden = true
-                    self?.tableView.reloadData()
+                    self?.setupWaitingIndicator()
+                    self?.errorStackView.isHidden = true
+                    self?.errorLabel.isHidden = true
+                    self?.errorButton.isHidden = true
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self?.tableView.backgroundColor = .clear
-                    if let error = error as? AppErrors {
-                        switch error {
-                        case .incorrectData:
-                            self?.view.backgroundColor = .red
-                        case .noInternetConnection:
-                            self?.view.backgroundColor = .blue
-                        default:
-                            self?.view.backgroundColor = .green
+                MenuNetworkService.fetchDishes{[weak self] response in
+                    switch response {
+                    case .success(let viewModel):
+                        DispatchQueue.main.async {
+                            if viewModel != nil {
+                                self?.viewModel = viewModel
+                                self?.activityIndicator.stopAnimating()
+                                self?.tableView.isHidden = false
+                                self?.activityIndicator.isHidden = true
+                                self?.tableView.reloadData()
+                                monitor.cancel()
+                            } else {
+                                self?.tableView.isHidden = true
+                                self?.activityIndicator.isHidden = true
+                                self?.activityIndicator.stopAnimating()
+                                self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                            }
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            if let error = error as? AppErrors {
+                                switch error {
+                                case .noInternetConnection:
+                                    self?.tableView.isHidden = true
+                                    self?.activityIndicator.isHidden = true
+                                    self?.activityIndicator.stopAnimating()
+                                    self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                                default:
+                                    self?.tableView.isHidden = true
+                                    self?.activityIndicator.isHidden = true
+                                    self?.activityIndicator.stopAnimating()
+                                    self?.createErrorLabel(with: "Неизвестная ошибка", and: "Обновить")
+                                }
+                            }
                         }
                     }
                 }
+            } else {
+                DispatchQueue.main.async {
+                    self?.tableView.isHidden = true
+                    self?.activityIndicator.isHidden = true
+                    self?.activityIndicator.stopAnimating()
+                    self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                }
             }
         }
+        let queue = DispatchQueue(label: "Network")
+        
+        monitor.start(queue: queue)
     }
 }
 

@@ -24,6 +24,7 @@ class ProfileViewModel {
             }
         }
     }
+    
     func uploadProfileImage(image: UIImage) {
         if let user = Auth.auth().currentUser {
             guard let imageData = image.jpegData(compressionQuality: 0.4) else { return }

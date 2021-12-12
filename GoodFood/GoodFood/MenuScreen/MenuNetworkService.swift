@@ -10,7 +10,7 @@ import Firebase
 
 
 final class MenuNetworkService {
-    static func fetchDishes(completion: @escaping (Result<MenuViewModel, Error>) -> ()) {
+    static func fetchDishes(completion: @escaping (Result<MenuViewModel?, Error>) -> ()) {
         AppNetworkManager.fetchDishesData { result in
             switch result {
             case .success(let snapshots):

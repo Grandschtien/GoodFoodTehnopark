@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if FirebaseApp.app() == nil {
                FirebaseApp.configure()
         }
-        
+        NetworkMonitor.shared.startMonitoring()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)

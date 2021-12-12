@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Network
 
 class LikedViewController: UIViewController {
     
     private let tableView = UITableView()
     private var activityIndicator = UIActivityIndicatorView()
-
+    private let errorLabel = UILabel()
+    private let errorButton = UIButton(type: .roundedRect)
+    private let errorStackView = UIStackView()
+    
     private var coordinator: CoordinatorProtocol?
     private var viewModel: LikedViewModel?
     var dish: ((String) -> Void)?
@@ -64,21 +68,60 @@ extension LikedViewController {
                            forCellReuseIdentifier: MenuCell.reuseId)
         
     }
-    
+    @objc
     private func fetchData() {
-        LikedNetworkManager.fetchDishes {[weak self] result in
-            switch result {
-            case .success(let viewModel):
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = {[weak self] path in
+            if path.status == .satisfied {
                 DispatchQueue.main.async {
-                    self?.viewModel = viewModel
-                    self?.activityIndicator.stopAnimating()
-                    self?.activityIndicator.isHidden = true
-                    self?.tableView.reloadData()
+                    self?.setupWaitingIndicator()
+                    self?.errorStackView.isHidden = true
+                    self?.errorLabel.isHidden = true
+                    self?.errorButton.isHidden = true
                 }
-            case .failure(let error):
-                print(error.localizedDescription)
+                
+                LikedNetworkManager.fetchDishes {[weak self] result in
+                    switch result {
+                    case .success(let viewModel):
+                        DispatchQueue.main.async {
+                            self?.viewModel = viewModel
+                            self?.tableView.isHidden = false
+                            self?.activityIndicator.stopAnimating()
+                            self?.activityIndicator.isHidden = true
+                            self?.tableView.reloadData()
+                            monitor.cancel()
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            if let error = error as? AppErrors {
+                                switch error {
+                                case .noInternetConnection:
+                                    self?.tableView.isHidden = true
+                                    self?.activityIndicator.isHidden = true
+                                    self?.activityIndicator.stopAnimating()
+                                    self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                                default:
+                                    self?.tableView.isHidden = true
+                                    self?.activityIndicator.isHidden = true
+                                    self?.activityIndicator.stopAnimating()
+                                    self?.createErrorLabel(with: "Неизвестная ошибка", and: "Обновить")
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.tableView.isHidden = true
+                    self?.activityIndicator.isHidden = true
+                    self?.activityIndicator.stopAnimating()
+                    self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                }
             }
         }
+        let queue = DispatchQueue(label: "Network")
+        
+        monitor.start(queue: queue)
     }
     private func setupWaitingIndicator() {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -89,6 +132,44 @@ extension LikedViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+    
+    private func createErrorLabel(with errorText: String, and errorButtonText: String) {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = errorText
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        
+        errorButton.setTitle(errorButtonText, for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        errorButton.addTarget(self, action: #selector(fetchData), for: .touchUpInside)
+        errorStackView.isHidden = false
+        errorLabel.isHidden = false
+        errorButton.isHidden = false
     }
     
 }
