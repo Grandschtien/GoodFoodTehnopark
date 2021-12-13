@@ -18,6 +18,7 @@ enum AppErrors: Error {
     case cannotCastToDictionary
     case invalidUrl
     case noInternetConnection
+    case noLikedRecipes
 }
 
 final class AppNetworkManager {
@@ -77,6 +78,7 @@ final class AppNetworkManager {
                 .child("users")
                 .child(currentUser.uid)
                 .child("LikedDishes")
+                .child(key)
             queryRef.setValue("dish\(key)")
         }
         UserDefaults.standard.set(true, forKey: key)
@@ -110,6 +112,7 @@ final class AppNetworkManager {
     static func fetchLikedDishesKeys(completion: @escaping (Result<[String], Error>) -> ()) {
         if let user = Auth.auth().currentUser {
             let queryRef =  Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            
             queryRef.observeSingleEvent(of: .value) { snapshot in
                 var keysArray = [String]()
                 guard let snapshot = snapshot.value as? [String: Any]
@@ -174,16 +177,6 @@ final class AppNetworkManager {
     }
     
     static func getOldRating(dishForKey key: String, completion: @escaping (Double, Int?) -> ()) {
-//        let queryRef = Database.database().reference().child("dishes").child(key).child("Rating")
-//
-//        queryRef.observeSingleEvent(of: .value) { snapshot in
-//            guard let rating = snapshot.value as? Double else {
-//                print("fail")
-//                return
-//            }
-//            completion(rating)
-//        }
-//
         let queryRef = Database.database().reference().child("dishes").child(key)
         
         queryRef.observeSingleEvent(of: .value) { snapshot in

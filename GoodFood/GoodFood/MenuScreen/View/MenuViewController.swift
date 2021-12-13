@@ -19,6 +19,7 @@ class MenuViewController: UIViewController {
     private let errorLabel = UILabel()
     private let errorButton = UIButton(type: .roundedRect)
     private let errorStackView = UIStackView()
+    private let refreshControl = UIRefreshControl()
     
     var array: [MenuModel] = []
     
@@ -46,7 +47,7 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        fetchData()
+        fetchData(isIndicatorNeed: true)
     }
     
     
@@ -106,6 +107,8 @@ extension MenuViewController {
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: MenuCell.reuseId, bundle: nil), forCellReuseIdentifier: MenuCell.reuseId)
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(updateMenu), for: .valueChanged)
     }
     
     private func setupWaitingIndicator() {
@@ -173,12 +176,19 @@ extension MenuViewController {
         add?()
     }
     @objc
-    fileprivate func fetchData() {
+    private func updateMenu() {
+        fetchData(isIndicatorNeed: false)
+        refreshControl.endRefreshing()
+    }
+    @objc
+    fileprivate func fetchData(isIndicatorNeed: Bool) {
         let monitor = NWPathMonitor()
         monitor.pathUpdateHandler = {[weak self] path in
             if path.status == .satisfied {
                 DispatchQueue.main.async {
-                    self?.setupWaitingIndicator()
+                    if isIndicatorNeed {
+                        self?.setupWaitingIndicator()
+                    }
                     self?.errorStackView.isHidden = true
                     self?.errorLabel.isHidden = true
                     self?.errorButton.isHidden = true

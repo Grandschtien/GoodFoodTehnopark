@@ -19,6 +19,10 @@ final class LikedNetworkManager {
                         completion(.failure(AppErrors.noInternetConnection))
                         return
                     }
+                    if keys.count == 0 {
+                        completion(.failure(AppErrors.noLikedRecipes))
+                    }
+                    print(keys)
                     var dict = [String: [String: Any]]()
                     for key in keys {
                         guard let value = snapshot[key] as? [String: Any] else { continue }
@@ -29,8 +33,8 @@ final class LikedNetworkManager {
                     }
                 }
                 break
-            case .failure(_):
-                completion(.failure(AppErrors.clientInGuestMode))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

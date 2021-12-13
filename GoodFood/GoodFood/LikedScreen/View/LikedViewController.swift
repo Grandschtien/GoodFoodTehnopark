@@ -15,6 +15,7 @@ class LikedViewController: UIViewController {
     private let errorLabel = UILabel()
     private let errorButton = UIButton(type: .roundedRect)
     private let errorStackView = UIStackView()
+    private let refreshControl = UIRefreshControl()
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: LikedViewModel?
@@ -33,12 +34,12 @@ class LikedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData(indicatorIsNeed: true)
         setupConstraints()
         setupUI()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
         tabBarController?.tabBar.isHidden = false
     }
 }
@@ -67,19 +68,28 @@ extension LikedViewController {
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: MenuCell.reuseId, bundle: nil),
                            forCellReuseIdentifier: MenuCell.reuseId)
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(updateTable(sender:)), for: .valueChanged)
         
+    }
+    @objc
+    private func updateTable(sender: UIRefreshControl) {
+        fetchData(indicatorIsNeed: false)
+        sender.endRefreshing()
     }
     @objc
     private func enterAction() {
         enter?()
     }
     @objc
-    private func fetchData() {
+    private func fetchData(indicatorIsNeed: Bool) {
         let monitor = NWPathMonitor()
         monitor.pathUpdateHandler = {[weak self] path in
             if path.status == .satisfied {
                 DispatchQueue.main.async {
-                    self?.setupWaitingIndicator()
+                    if indicatorIsNeed {
+                        self?.setupWaitingIndicator()
+                    }
                     self?.errorStackView.isHidden = true
                     self?.errorLabel.isHidden = true
                     self?.errorButton.isHidden = true
@@ -115,7 +125,7 @@ extension LikedViewController {
                                     self?.tableView.isHidden = true
                                     self?.activityIndicator.isHidden = true
                                     self?.activityIndicator.stopAnimating()
-                                    self?.createErrorLabel(with: "Неизвестная ошибка", and: "Обновить")
+                                    self?.createErrorLabel(with: "Здесь пока ничего нет", and: "Обновить")
                                 }
                             }
                         }
