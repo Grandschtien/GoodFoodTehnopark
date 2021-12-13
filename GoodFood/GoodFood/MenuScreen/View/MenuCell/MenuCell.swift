@@ -45,4 +45,14 @@ class MenuCell: UITableViewCell {
                                      cacheKey: viewModel.dishes[indexPath.row].image)
         self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
     }
+    
+    func configure(with dish: MenuModel) {
+        self.nameLabel.text = dish.name
+        self.timeLabel.text = dish.cookTime
+        self.ratingView.rating = dish.rating
+        guard let imageUrl = URL(string: dish.image) else { return }
+        let resource = ImageResource(downloadURL: imageUrl,
+                                     cacheKey: dish.image)
+        self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
+    }
 }

@@ -252,6 +252,7 @@ extension PrepareViewController {
     
     @objc
     func exitAction() {
+        //TODO: - Сделать добавление рецепта в историю при нажатии кнопки завершения
         exit?()
     }
 }

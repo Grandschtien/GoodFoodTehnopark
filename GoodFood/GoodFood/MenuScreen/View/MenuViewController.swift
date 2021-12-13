@@ -20,10 +20,17 @@ class MenuViewController: UIViewController {
     private let errorButton = UIButton(type: .roundedRect)
     private let errorStackView = UIStackView()
     
+    var array: [MenuModel] = []
+    
     private var coordinator: CoordinatorProtocol?
     private var viewModel: MenuViewModel?
     let transition = PanelTransition()
-    
+    private var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    private var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
     var add: (() -> Void)?
     var sort: (() -> Void)?
     var dish: ((String) -> Void)?
@@ -74,7 +81,7 @@ extension MenuViewController {
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Блюдо или ингредиент"
+        searchController.searchBar.placeholder = "Название"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
@@ -165,12 +172,6 @@ extension MenuViewController {
     private func menuAddButtonAction() {
         add?()
     }
-}
-//MARK: - UISearchResultsUpdating
-extension MenuViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
     @objc
     fileprivate func fetchData() {
         let monitor = NWPathMonitor()
@@ -233,10 +234,29 @@ extension MenuViewController: UISearchResultsUpdating {
         monitor.start(queue: queue)
     }
 }
+//MARK: - UISearchResultsUpdating
+extension MenuViewController: UISearchResultsUpdating {
+    
+    func filterContentForSearchText(_ searchText: String) {
+        array = viewModel?.dishes.filter { (dish: MenuModel) -> Bool in
+            return dish.name.lowercased().contains(searchText.lowercased())
+        } ?? []
+        
+        tableView.reloadData()
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
+}
 
 //MARK: - UITableViewDataSource
 extension MenuViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return array.count
+        }
         return viewModel?.dishes.count ?? 0
     }
     
@@ -244,7 +264,15 @@ extension MenuViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseId, for: indexPath) as? MenuCell,
               let viewModel = viewModel
         else { return UITableViewCell() }
-        cell.configure(with: viewModel, for: indexPath)
+        
+        let filteredDish: MenuModel
+        
+        if isFiltering {
+            filteredDish = array[indexPath.row]
+            cell.configure(with: filteredDish)
+        } else {
+            cell.configure(with: viewModel, for: indexPath)
+        }
         return cell
     }
     
