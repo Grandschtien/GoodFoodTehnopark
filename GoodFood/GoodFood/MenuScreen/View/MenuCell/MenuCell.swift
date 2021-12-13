@@ -7,6 +7,7 @@
 
 import UIKit
 import Cosmos
+import Kingfisher
 
 class MenuCell: UITableViewCell {
     @IBOutlet weak var dishImage: UIImageView!
@@ -21,20 +22,47 @@ class MenuCell: UITableViewCell {
         self.containerView.layer.cornerRadius = 20
         self.containerView.layer.masksToBounds = true
         self.ratingView.isUserInteractionEnabled = false
+        self.dishImage.contentMode = .scaleAspectFill
         self.timeLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
     }
     
-    func configure(with dish: MenuModel?) {
-        guard let dish = dish else {
-            return
-        }
-        
-        if dish.name.isEmpty == true || dish.cookTime.isEmpty == true{
-            return
-        }
-        nameLabel.text = dish.name
-        timeLabel.text = dish.cookTime
-        dishImage.image = UIImage(named: "DishPlaceHolder")
-        ratingView.rating = 5
+    func configure(with viewModel: MenuViewModel, for indexPath: IndexPath) {
+        self.nameLabel.text = viewModel.dishes[indexPath.row].name
+        self.timeLabel.text = viewModel.dishes[indexPath.row].cookTime
+        self.ratingView.rating = viewModel.dishes[indexPath.row].rating
+        guard let imageUrl = URL(string: viewModel.dishes[indexPath.row].image) else { return }
+        let resource = ImageResource(downloadURL: imageUrl,
+                                     cacheKey: viewModel.dishes[indexPath.row].image)
+        self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
+    }
+    
+    func configureForLikedScreen(with viewModel: LikedViewModel, for indexPath: IndexPath) {
+        self.nameLabel.text = viewModel.dishes[indexPath.row].name
+        self.timeLabel.text = viewModel.dishes[indexPath.row].cookTime
+        self.ratingView.rating = viewModel.dishes[indexPath.row].rating
+        guard let imageUrl = URL(string: viewModel.dishes[indexPath.row].image) else { return }
+        let resource = ImageResource(downloadURL: imageUrl,
+                                     cacheKey: viewModel.dishes[indexPath.row].image)
+        self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
+    }
+    
+    func configureForHistoryScreen(with viewModel: HistoryViewModel, for indexPath: IndexPath) {
+        self.nameLabel.text = viewModel.dishes[indexPath.row].name
+        self.timeLabel.text = viewModel.dishes[indexPath.row].cookTime
+        self.ratingView.rating = viewModel.dishes[indexPath.row].rating
+        guard let imageUrl = URL(string: viewModel.dishes[indexPath.row].image) else { return }
+        let resource = ImageResource(downloadURL: imageUrl,
+                                     cacheKey: viewModel.dishes[indexPath.row].image)
+        self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
+    }
+    
+    func configure(with dish: MenuModel) {
+        self.nameLabel.text = dish.name
+        self.timeLabel.text = dish.cookTime
+        self.ratingView.rating = dish.rating
+        guard let imageUrl = URL(string: dish.image) else { return }
+        let resource = ImageResource(downloadURL: imageUrl,
+                                     cacheKey: dish.image)
+        self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
     }
 }

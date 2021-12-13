@@ -13,7 +13,9 @@ struct Profile {
     let image: Data?
     
     init?(dictionary: [String: Any]) {
-        guard let name = dictionary["name"] as? String, let email = dictionary["email"] as? String else { return nil }
+        guard let name = dictionary["name"] as? String,
+              let email = dictionary["email"] as? String
+        else { return nil }
         self.name = name
         self.email = email
         self.image = dictionary["avatar"] as? Data

@@ -7,11 +7,10 @@
 
 import Foundation
 
-struct Step {
-    let step: String
-    let image: Data?
-}
-
-struct Steps {
-    let steps: [Step]
+struct Steps: Codable {
+    let steps: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case steps = "Steps"
+    }
 }

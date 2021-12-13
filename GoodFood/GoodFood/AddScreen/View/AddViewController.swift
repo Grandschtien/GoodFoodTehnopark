@@ -14,16 +14,21 @@ class AddViewController: UIViewController {
     
     private var navBar = UINavigationBar()
     private var tableView = UITableView()
-    weak var delegate: AddViewControllerDelegate?
-    var back: (() -> Void)?
-    
     private let imagePicker = UIImagePickerController()
     
-    private let sectionsArray = ["Название блюда", "Фото", "Время приготовления", "Ингредиенты", "Приготовление", ""]
+    weak var delegate: AddViewControllerDelegate?
+    private var isEditingTableView: Bool = false
+    var back: (() -> Void)?
     
+    private let sectionsArray = ["Название блюда",
+                                 "Фото",
+                                 "Время приготовления",
+                                 "Ингредиенты",
+                                 "Приготовление",
+                                 ""]
     private var ingredientsArray = [""]
     private var stagesArray = [""]
-    private var isEditingTableView: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()

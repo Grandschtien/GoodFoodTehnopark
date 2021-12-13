@@ -7,7 +7,9 @@
 
 import UIKit
 import FirebaseAuth
-
+import Kingfisher
+import Network
+import grpc
 class ProfileViewController: UIViewController {
     
     private let profileImageView = UIImageView(frame: CGRect(x: 0,
@@ -22,12 +24,16 @@ class ProfileViewController: UIViewController {
     private let mailTF = UITextField()
     private let mailStackView = UIStackView()
     private let tFStackView = UIStackView()
+    private let errorLabel = UILabel()
+    private let errorButton = UIButton(type: .roundedRect)
+    private let errorStackView = UIStackView()
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: ProfileViewModel?
     
     var exit: (() -> Void)?
     var imagePicker: (() -> Void)?
+    var enter: (() -> Void)?
     
     init(coordinator: CoordinatorProtocol, viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -184,30 +190,189 @@ extension ProfileViewController {
         
         
     }
+    private func createNoConnectionView() {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = "Нет сети"
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        
+        errorButton.setTitle("Обновить", for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        
+        errorStackView.isHidden = false
+        errorLabel.isHidden = false
+        errorButton.isHidden = false
+        
+    }
+    private func createGuestModeView() {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = "Вы в гостевом режиме"
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        
+        errorButton.setTitle("Войти", for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        errorButton.addTarget(self, action: #selector(enterAction), for: .touchUpInside)
+        
+    }
+    private func createUnknownErrorView() {
+        errorStackView.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorStackView)
+        errorStackView.addArrangedSubview(errorLabel)
+        errorStackView.addArrangedSubview(errorButton)
+        
+        NSLayoutConstraint.activate([
+            errorStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorLabel.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor),
+            errorButton.trailingAnchor.constraint(equalTo: errorStackView.trailingAnchor, constant: 0),
+            errorButton.leadingAnchor.constraint(equalTo: errorStackView.leadingAnchor, constant: 0)
+        ])
+        
+        errorLabel.text = "Неизвестная ошибка :("
+        
+        errorLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = UIColor(named: "LaunchScreenLabelColor")
+        errorButton.setTitle("Обновить", for: .normal)
+        errorButton.setTitleColor(UIColor(named: "mainColor"), for: .normal)
+        errorButton.layer.cornerRadius = 10
+        errorButton.layer.borderWidth = 1
+        errorButton.layer.borderColor = UIColor(named: "mainColor")?.cgColor
+        
+        errorStackView.axis = .vertical
+        errorStackView.spacing = 30
+        errorStackView.distribution = .fill
+        errorStackView.alignment = .center
+        
+    }
     func setupViewsWithNetwork() {
-        viewModel?.fetchProfile(completion: {[weak self] result in
-            switch result {
-            case .success(let profile):
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = {[weak self] path in
+            if path.status == .satisfied {
+                self?.viewModel?.fetchProfile(completion: {[weak self] result in
+                    switch result {
+                    case .success(let profile):
+                        DispatchQueue.main.async {
+                            self?.mainNameLabel.isHidden = false
+                            self?.mailStackView.isHidden = false
+                            self?.phoneStackView.isHidden = false
+                            self?.profileImageView.isHidden = false
+                            self?.errorStackView.isHidden = true
+                            self?.errorLabel.isHidden = true
+                            self?.errorButton.isHidden = true
+                            self?.mainNameLabel.text = profile.name
+                            self?.mailTF.text = profile.email
+                            self?.profileImageView.image = UIImage(data: profile.image) ?? UIImage(named: "profile")
+                            monitor.cancel()
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            if let error = error as? AppErrors {
+                                switch error {
+                                case .clientInGuestMode:
+                                    self?.mailStackView.isHidden = true
+                                    self?.phoneStackView.isHidden = true
+                                    self?.mainNameLabel.isHidden = true
+                                    self?.profileImageView.isHidden = true
+                                    self?.createGuestModeView()
+                                case .incorrectData:
+                                    self?.mailStackView.isHidden = true
+                                    self?.phoneStackView.isHidden = true
+                                    self?.mainNameLabel.isHidden = true
+                                    self?.profileImageView.isHidden = true
+                                    self?.createNoConnectionView()
+                                default :
+                                    self?.mailStackView.isHidden = true
+                                    self?.phoneStackView.isHidden = true
+                                    self?.mainNameLabel.isHidden = true
+                                    self?.profileImageView.isHidden = true
+                                    self?.createUnknownErrorView()
+                                }
+                            }
+                        }
+                    }
+                })
+            } else {
                 DispatchQueue.main.async {
-                    self?.mainNameLabel.text = profile.name
-                    self?.mailTF.text = profile.email
-                    self?.profileImageView.image = UIImage(data: profile.image) ?? UIImage(named: "profile")
+                    self?.mailStackView.isHidden = true
+                    self?.phoneStackView.isHidden = true
+                    self?.mainNameLabel.isHidden = true
+                    self?.profileImageView.isHidden = true
+                    self?.createNoConnectionView()
                 }
-            case .failure(_):
-                break
             }
-        })
+        }
+        let queue = DispatchQueue(label: "ProfileNetwork")
+        monitor.start(queue: queue)
     }
 }
 
 extension ProfileViewController {
     @objc
     private func exitAction() {
+        AppNetworkManager.clearUserDefaults()
         exit?()
     }
     @objc
     private func imageTapped() {
         imagePicker?()
+    }
+    @objc
+    private func enterAction() {
+        enter?()
     }
 }
 

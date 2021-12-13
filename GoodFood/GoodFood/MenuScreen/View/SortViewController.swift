@@ -117,6 +117,8 @@ extension SortViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath) as? SortCell else { return }
+        
+        
         cell.checkMark.isHidden = false
     }
 }

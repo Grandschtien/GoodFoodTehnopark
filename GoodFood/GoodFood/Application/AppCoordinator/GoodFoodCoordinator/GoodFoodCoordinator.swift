@@ -21,8 +21,8 @@ final class GoodFoodCoordinator {
 
 extension GoodFoodCoordinator: CoordinatorProtocol {    
     func start() {
-        let menuViewModel = MenuViewModel()
-        let menuViewController = MenuViewController(viewModel: menuViewModel, coordinatror: self)
+        AppNetworkManager.setupUserDefaults() 
+        let menuViewController = MenuViewController(coordinatror: self)
         
         menuViewController.tabBarItem = UITabBarItem(title: "Меню",
                                                      image:  UIImage(named: "menu"),
@@ -45,21 +45,19 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
             menuViewController.present(sortVC, animated: true)
         }
         
-        menuViewController.dish = {
-            let dishViewModel = DishViewModel()
-            let dishVC = DishViewController(viewModel: dishViewModel, coordinatror: self)
+        menuViewController.dish = { dishKey in
+            let dishVC = DishViewController(key: dishKey, coordinatror: self)
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)
             }
-            dishVC.nextAction = { [weak self] in
+            dishVC.nextAction = { [weak self] dishKey in
                 guard let `self` = self else { return }
-                let prepareViewModel = PrepareViewModel()
-                let prepareViewController = PrepareViewController(viewModel: prepareViewModel, coordinatror: self)
+                let prepareViewController = PrepareViewController(key: dishKey, coordinatror: self)
                 prepareViewController.back = {
                     dishVC.navigationController?.popViewController(animated: true)
                 }
                 prepareViewController.exit = {
-                    
+                    self.start()
                 }
                 dishVC.navigationController?.pushViewController(prepareViewController, animated: true)
             }
@@ -81,7 +79,15 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
                                                   tabBarController: self)
             authCoordinator.start()
         }
-        
+        profileVC.enter = {[weak self] in
+            guard let `self` = self else { return }
+            let enterViewModel = EnterViewModel()
+            let enterVC = EnterViewController(viewModel: enterViewModel, coordinator: self)
+            let navVc = UINavigationController(rootViewController: enterVC)
+            let authCoordinator = AuthCoordinator(window: self.window, navigationController: navVc, tabBarController: self)
+            authCoordinator.start()
+            
+        }
         profileVC.imagePicker = {
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
                 let imagePicker = UIImagePickerController()
@@ -102,12 +108,37 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
                                             image:  UIImage(named: "Profile"),
                                             selectedImage:  UIImage(named: "Profile"))
         
-        let likedViewModel = LikedViewModel()
         let yourRecipesViewModel = YourRecipesViewModel()
-        let histroyViewModel = HistoryViewModel()
         let yourRecipeVC = YourRecipesViewController(viewModel: yourRecipesViewModel, coordinator: self)
-        let historyVC = HistoryViewController(viewModel: histroyViewModel, coordinator: self)
-        let likedVC = LikedViewController(viewModel: likedViewModel, coordinator: self)
+        let historyVC = HistoryViewController(coordinator: self)
+        let likedVC = LikedViewController(coordinator: self)
+        likedVC.dish = { dishKey in
+            let dishVC = DishViewController(key: dishKey, coordinatror: self)
+            dishVC.back = {
+                dishVC.navigationController?.popViewController(animated: true)
+            }
+            dishVC.nextAction = { [weak self] dishKey in
+                guard let `self` = self else { return }
+                let prepareViewController = PrepareViewController(key: dishKey, coordinatror: self)
+                prepareViewController.back = {
+                    dishVC.navigationController?.popViewController(animated: true)
+                }
+                prepareViewController.exit = {
+                    self.start()
+                }
+                dishVC.navigationController?.pushViewController(prepareViewController, animated: true)
+            }
+            likedVC.navigationController?.pushViewController(dishVC, animated: true)
+        }
+        likedVC.enter = {[weak self] in
+            guard let `self` = self else { return }
+            let enterViewModel = EnterViewModel()
+            let enterVC = EnterViewController(viewModel: enterViewModel, coordinator: self)
+            let navVc = UINavigationController(rootViewController: enterVC)
+            let authCoordinator = AuthCoordinator(window: self.window, navigationController: navVc, tabBarController: self)
+            authCoordinator.start()
+            
+        }
         
         let containerVC = ContainerViewController(subViewControllers: [likedVC, yourRecipeVC, historyVC])
         containerVC.tabBarItem = UITabBarItem(title: "Избранное",

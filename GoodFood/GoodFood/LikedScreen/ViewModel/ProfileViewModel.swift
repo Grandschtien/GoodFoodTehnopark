@@ -19,11 +19,12 @@ class ProfileViewModel {
                     return
                 }
                 completion(.success(profile))
-            case .failure(let error):
-                completion(.failure(error))
+            case .failure(_):
+                completion(.failure(AppErrors.clientInGuestMode))
             }
         }
     }
+    
     func uploadProfileImage(image: UIImage) {
         if let user = Auth.auth().currentUser {
             guard let imageData = image.jpegData(compressionQuality: 0.4) else { return }
@@ -38,11 +39,5 @@ class ProfileViewModel {
             }
         }
     }
-//    func removeUserInfo() {
-//        if UserDefaults.standard.value(forKey: UserDefaultsManager.UserInfo.email.rawValue) != nil,
-//           UserDefaults.standard.value(forKey: UserDefaultsManager.UserInfo.name.rawValue) != nil {
-//            UserDefaultsManager.removeUserInfo()
-//        }
-//    }
     
 }

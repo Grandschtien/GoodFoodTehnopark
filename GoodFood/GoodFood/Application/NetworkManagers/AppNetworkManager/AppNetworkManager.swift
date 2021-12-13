@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseStorage
 import UIKit
+import AVFoundation
 
 enum AppErrors: Error {
     case clientInGuestMode
@@ -16,6 +17,8 @@ enum AppErrors: Error {
     case incorrectData
     case cannotCastToDictionary
     case invalidUrl
+    case noInternetConnection
+    case noLikedRecipes
 }
 
 final class AppNetworkManager {
@@ -67,36 +70,153 @@ final class AppNetworkManager {
         }
         
     }
+    static func uploadKeyOfLikedDish(key: String) {
+        if let currentUser = Auth.auth().currentUser {
+            let queryRef = Database
+                .database()
+                .reference()
+                .child("users")
+                .child(currentUser.uid)
+                .child("LikedDishes")
+                .child(key)
+            queryRef.setValue("dish\(key)")
+        }
+        UserDefaults.standard.set(true, forKey: key)
+    }
     
-    static func fetchDishesData(completion: @escaping (Result<Data, Error>) -> ()) {
-        let queryRef =  Database.database().reference().child("Dishes")
-        
-        queryRef.observeSingleEvent(of: .value) { snapshot in
-            guard let data = snapshot.data else {
-                completion(.failure(AppErrors.cannotCastToDictionary))
-                return
-            }
-            completion(.success(data))
-            
+    static func uploadKeyOfFinishedDish(key: String) {
+        if let currentUser = Auth.auth().currentUser {
+            let queryRef = Database
+                .database()
+                .reference()
+                .child("users")
+                .child(currentUser.uid)
+                .child("History")
+                .child(key)
+            queryRef.setValue("dish\(key)")
         }
     }
     
-    static func fetchDishesImageData(url: String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: url) else {
-            completion(nil)
-            return
+    static func deleteKeyOfLikedImage(key: String) {
+        if let currentUser = Auth.auth().currentUser {
+            let queryRef = Database
+                .database()
+                .reference()
+                .child("users")
+                .child(currentUser.uid)
+                .child("LikedDishes")
+                .child(key)
+            queryRef.setValue(nil)
+            UserDefaults.standard.set(false, forKey: key)
         }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                DispatchQueue.main.async {
-                    completion(data)
+    }
+    static func fetchDishesData(completion: @escaping (Result<[DataSnapshot], Error>) -> ()) {
+        let queryRef = Database.database().reference().child("dishes")
+        queryRef.observeSingleEvent(of: .value) { snapshot in
+            guard let objects = snapshot.children.allObjects as? [DataSnapshot]
+            else {
+                completion(.failure(AppErrors.incorrectData))
+                return
+            }
+            completion(.success(objects))
+        }
+    }
+    
+    static func fetchLikedDishesKeys(completion: @escaping (Result<[String], Error>) -> ()) {
+        if let user = Auth.auth().currentUser {
+            let queryRef =  Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            
+            queryRef.observeSingleEvent(of: .value) { snapshot in
+                var keysArray = [String]()
+                guard let snapshot = snapshot.value as? [String: Any]
+                else {
+                    completion(.failure(AppErrors.incorrectData))
+                    return
                 }
-            } else {
-                if let error = error {
-                    completion(nil)
+                for key in snapshot.keys {
+                    keysArray.append(String(key))
+                }
+                completion(.success(keysArray))
+            }
+        } else {
+            completion(.failure(AppErrors.clientInGuestMode))
+        }
+    }
+    static func fetchHistoryDishesKeys(completion: @escaping (Result<[String], Error>) -> ()) {
+        if let user = Auth.auth().currentUser {
+            let queryRef =  Database.database().reference().child("users").child(user.uid).child("History")
+            
+            queryRef.observeSingleEvent(of: .value) { snapshot in
+                var keysArray = [String]()
+                guard let snapshot = snapshot.value as? [String: Any]
+                else {
+                    completion(.failure(AppErrors.incorrectData))
+                    return
+                }
+                for key in snapshot.keys {
+                    keysArray.append(String(key))
+                }
+                completion(.success(keysArray))
+            }
+        } else {
+            completion(.failure(AppErrors.clientInGuestMode))
+        }
+    }
+    
+    static func fetchDish(key: String, completion: @escaping (Result<Data, Error>) -> ()) {
+        let queryRef = Database.database().reference().child("dishes").child(key)
+        queryRef.observeSingleEvent(of: .value) { snapshot in
+            guard let snapshot = snapshot.data else {
+                completion(.failure(AppErrors.incorrectData))
+                return
+            }
+            completion(.success(snapshot))
+        }
+    }
+    static func clearUserDefaults() {
+        if let user = Auth.auth().currentUser {
+            let allLikedDishes = Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            allLikedDishes.observeSingleEvent(of: .value) { snapshot in
+                guard let dict = snapshot.value as? [String: Any] else { return }
+                DispatchQueue.main.async {
+                    for key in dict.keys {
+                        UserDefaults.standard.removeObject(forKey: key)
+                    }
                 }
             }
-        }.resume()
+        }
+    }
+    static func setupUserDefaults() {
+        if let user = Auth.auth().currentUser {
+            let allLikedDishes = Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            allLikedDishes.observeSingleEvent(of: .value) { snapshot in
+                guard let dict = snapshot.value as? [String: Any] else { return }
+                DispatchQueue.main.async {
+                    for key in dict.keys {
+                        UserDefaults.standard.set(true, forKey: key)
+                    }
+                }
+            }
+        }
+    }
+    
+    static func checkUser() -> Bool {
+        if Auth.auth().currentUser != nil {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    static func getOldRating(dishForKey key: String, completion: @escaping (Double, Int?) -> ()) {
+        let queryRef = Database.database().reference().child("dishes").child(key)
+        
+        queryRef.observeSingleEvent(of: .value) { snapshot in
+            guard let dict = snapshot.value as? [String: Any] else { return }
+            completion(dict["Rating"] as? Double ?? 0, dict["CountOfRatings"] as? Int)
+        }
+
     }
 }
 
@@ -110,3 +230,4 @@ extension DataSnapshot {
 extension Data {
     var string: String? { String(data: self, encoding: .utf8) }
 }
+

@@ -35,7 +35,7 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
                                         <color key="value" red="0.99942404029999998" green="0.90759029830000004" blue="0.124948792" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -82,6 +82,11 @@
             <point key="canvasLocation" x="131.8840579710145" y="65.290178571428569"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="tvo-AH-OEl">
+            <size key="intrinsicContentSize" width="220" height="40"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="BackgroundColor">
             <color red="0.92199999094009399" green="0.9179999828338623" blue="0.94099998474121094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

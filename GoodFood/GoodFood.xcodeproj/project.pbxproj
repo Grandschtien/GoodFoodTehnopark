@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		44CDC43D377AB341DFF46091 /* Pods_GoodFoodTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802801A122089E275F42E796 /* Pods_GoodFoodTests.framework */; };
 		56D92FB4B8A98A95FFC7B4A5 /* Pods_GoodFood_GoodFoodUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */; };
-		6004D80F274BBB5D00DCD20A /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004D80E274BBB5D00DCD20A /* Ingredient.swift */; };
+		6004D80F274BBB5D00DCD20A /* DishWithIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004D80E274BBB5D00DCD20A /* DishWithIngredient.swift */; };
 		6004D811274BBC5F00DCD20A /* DishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004D810274BBC5F00DCD20A /* DishViewModel.swift */; };
 		6004D813274BC84500DCD20A /* PrepareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004D812274BC84500DCD20A /* PrepareViewModel.swift */; };
 		6004D815274BC86100DCD20A /* Steps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004D814274BC86100DCD20A /* Steps.swift */; };
@@ -17,6 +17,10 @@
 		6004D81A274BCB8900DCD20A /* StepCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6004D818274BCB8900DCD20A /* StepCell.xib */; };
 		6004D81E274BD13E00DCD20A /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6004D81C274BD13E00DCD20A /* RatingCell.swift */; };
 		6004D81F274BD13E00DCD20A /* RatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6004D81D274BD13E00DCD20A /* RatingCell.xib */; };
+		6012EA15275F603100AA49BD /* MenuNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012EA14275F603100AA49BD /* MenuNetworkService.swift */; };
+		6012EA16275F780500AA49BD /* DishIngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6062D509274A71560014E9D4 /* DishIngredientCell.xib */; };
+		6012EA18275F83ED00AA49BD /* DishWithIngredientsNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012EA17275F83ED00AA49BD /* DishWithIngredientsNetworkManager.swift */; };
+		6012EA1A2760C34B00AA49BD /* PrepareScreenNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6012EA192760C34A00AA49BD /* PrepareScreenNetworkManager.swift */; };
 		601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6A271F12EE00935800 /* AppDelegate.swift */; };
 		601DAD6D271F12EE00935800 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6C271F12EE00935800 /* SceneDelegate.swift */; };
 		601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601DAD6E271F12EE00935800 /* EnterViewController.swift */; };
@@ -45,6 +49,7 @@
 		6055D7A5273E9F0400BE4EFB /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A4273E9F0400BE4EFB /* PageViewController.swift */; };
 		6055D7A7273EAC1B00BE4EFB /* YourRecipesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */; };
 		6055D7A9273EAC3D00BE4EFB /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */; };
+		605C64BE2765FC9400981B2A /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605C64BD2765FC9400981B2A /* NetworkMonitor.swift */; };
 		6062D505274A61960014E9D4 /* DishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D504274A61960014E9D4 /* DishViewController.swift */; };
 		6062D507274A61A90014E9D4 /* PrepareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D506274A61A90014E9D4 /* PrepareViewController.swift */; };
 		6062D50A274A71560014E9D4 /* DishIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062D508274A71560014E9D4 /* DishIngredientCell.swift */; };
@@ -71,6 +76,8 @@
 		607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 607A75D827468F37007EFD4D /* GoogleService-Info.plist */; };
 		607A75DE27469330007EFD4D /* AppNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DD27469330007EFD4D /* AppNetworkManager.swift */; };
 		607A75E027469364007EFD4D /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DF27469364007EFD4D /* AuthNetworkManager.swift */; };
+		60A1158C27610DE400E06C6C /* LikedNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */; };
+		60B9619A2767B2F400358503 /* HistoryNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B961992767B2F400358503 /* HistoryNetworkManager.swift */; };
 		60C850262750EBCE005766F5 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C850252750EBCE005766F5 /* MenuModel.swift */; };
 		60D334172747CF69007C2462 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */; };
 		60D334192747D464007C2462 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334182747D464007C2462 /* MainButton.swift */; };
@@ -120,7 +127,7 @@
 		1668D1DE3562DA2C4512A2D6 /* Pods_GoodFood_GoodFoodUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood_GoodFoodUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B1A3DC8EBB69219AF715281 /* Pods-GoodFood-GoodFoodUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; path = "Target Support Files/Pods-GoodFood-GoodFoodUITests/Pods-GoodFood-GoodFoodUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D9D43975B167F094725BC5B /* Pods_GoodFood.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodFood.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6004D80E274BBB5D00DCD20A /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		6004D80E274BBB5D00DCD20A /* DishWithIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishWithIngredient.swift; sourceTree = "<group>"; };
 		6004D810274BBC5F00DCD20A /* DishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewModel.swift; sourceTree = "<group>"; };
 		6004D812274BC84500DCD20A /* PrepareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareViewModel.swift; sourceTree = "<group>"; };
 		6004D814274BC86100DCD20A /* Steps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Steps.swift; sourceTree = "<group>"; };
@@ -128,6 +135,9 @@
 		6004D818274BCB8900DCD20A /* StepCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepCell.xib; sourceTree = "<group>"; };
 		6004D81C274BD13E00DCD20A /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
 		6004D81D274BD13E00DCD20A /* RatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingCell.xib; sourceTree = "<group>"; };
+		6012EA14275F603100AA49BD /* MenuNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNetworkService.swift; sourceTree = "<group>"; };
+		6012EA17275F83ED00AA49BD /* DishWithIngredientsNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishWithIngredientsNetworkManager.swift; sourceTree = "<group>"; };
+		6012EA192760C34A00AA49BD /* PrepareScreenNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareScreenNetworkManager.swift; sourceTree = "<group>"; };
 		601DAD67271F12EE00935800 /* GoodFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		601DAD6A271F12EE00935800 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		601DAD6C271F12EE00935800 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,10 +170,11 @@
 		6055D7A4273E9F0400BE4EFB /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourRecipesViewModel.swift; sourceTree = "<group>"; };
 		6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		605C64BD2765FC9400981B2A /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		6062D504274A61960014E9D4 /* DishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewController.swift; sourceTree = "<group>"; };
 		6062D506274A61A90014E9D4 /* PrepareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareViewController.swift; sourceTree = "<group>"; };
 		6062D508274A71560014E9D4 /* DishIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishIngredientCell.swift; sourceTree = "<group>"; };
-		6062D509274A71560014E9D4 /* IngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientCell.xib; sourceTree = "<group>"; };
+		6062D509274A71560014E9D4 /* DishIngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DishIngredientCell.xib; sourceTree = "<group>"; };
 		6062D50D274A7B7D0014E9D4 /* ParalaxTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParalaxTableView.swift; sourceTree = "<group>"; };
 		60682FCD275CC32600595019 /* AddViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		60682FCF275CC32600595019 /* AddModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddModel.swift; sourceTree = "<group>"; };
@@ -187,6 +198,8 @@
 		607A75D827468F37007EFD4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		607A75DD27469330007EFD4D /* AppNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNetworkManager.swift; sourceTree = "<group>"; };
 		607A75DF27469364007EFD4D /* AuthNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
+		60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedNetworkManager.swift; sourceTree = "<group>"; };
+		60B961992767B2F400358503 /* HistoryNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryNetworkManager.swift; sourceTree = "<group>"; };
 		60C850252750EBCE005766F5 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		60D334182747D464007C2462 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
@@ -339,6 +352,7 @@
 		6062D4FC274A601D0014E9D4 /* DishScreen */ = {
 			isa = PBXGroup;
 			children = (
+				6012EA17275F83ED00AA49BD /* DishWithIngredientsNetworkManager.swift */,
 				6062D500274A61640014E9D4 /* Model */,
 				6062D4FF274A615F0014E9D4 /* View */,
 				6062D4FE274A614B0014E9D4 /* ViewModel */,
@@ -349,6 +363,7 @@
 		6062D4FD274A60590014E9D4 /* PrepareScreen */ = {
 			isa = PBXGroup;
 			children = (
+				6012EA192760C34A00AA49BD /* PrepareScreenNetworkManager.swift */,
 				6062D503274A61790014E9D4 /* Model */,
 				6062D502274A61720014E9D4 /* View */,
 				6062D501274A616C0014E9D4 /* ViewModel */,
@@ -377,7 +392,7 @@
 		6062D500274A61640014E9D4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6004D80E274BBB5D00DCD20A /* Ingredient.swift */,
+				6004D80E274BBB5D00DCD20A /* DishWithIngredient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -412,7 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				6062D508274A71560014E9D4 /* DishIngredientCell.swift */,
-				6062D509274A71560014E9D4 /* IngredientCell.xib */,
+				6062D509274A71560014E9D4 /* DishIngredientCell.xib */,
 			);
 			path = Ingredient;
 			sourceTree = "<group>";
@@ -560,6 +575,7 @@
 			isa = PBXGroup;
 			children = (
 				607A75DD27469330007EFD4D /* AppNetworkManager.swift */,
+				605C64BD2765FC9400981B2A /* NetworkMonitor.swift */,
 			);
 			path = AppNetworkManager;
 			sourceTree = "<group>";
@@ -567,6 +583,7 @@
 		60ECE5D9272D567B006B479A /* MenuScreen */ = {
 			isa = PBXGroup;
 			children = (
+				6012EA14275F603100AA49BD /* MenuNetworkService.swift */,
 				60ECE5DC272D5696006B479A /* Model */,
 				60ECE5DB272D5690006B479A /* View */,
 				60ECE5DA272D568A006B479A /* ViewModel */,
@@ -626,6 +643,8 @@
 		60ECE5ED272EAC0A006B479A /* LikedScreen */ = {
 			isa = PBXGroup;
 			children = (
+				60B961992767B2F400358503 /* HistoryNetworkManager.swift */,
+				60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */,
 				60ECE5EE272EAC3A006B479A /* Model */,
 				60ECE5EF272EAC3E006B479A /* View */,
 				60ECE5F0272EAC4F006B479A /* ViewModel */,
@@ -657,8 +676,8 @@
 			isa = PBXGroup;
 			children = (
 				60ECE61E273817BA006B479A /* LikedViewModel.swift */,
-				6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */,
 				6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */,
+				6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1026,6 +1045,7 @@
 				6004D81F274BD13E00DCD20A /* RatingCell.xib in Resources */,
 				60682FF2275CC32700595019 /* AddStageCell.xib in Resources */,
 				607A75D927468F37007EFD4D /* GoogleService-Info.plist in Resources */,
+				6012EA16275F780500AA49BD /* DishIngredientCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,13 +1185,15 @@
 				6055D753273DB40D00BE4EFB /* Dish.swift in Sources */,
 				6055D759273DB44A00BE4EFB /* EnterModel.swift in Sources */,
 				601DAD6F271F12EE00935800 /* EnterViewController.swift in Sources */,
-				6004D80F274BBB5D00DCD20A /* Ingredient.swift in Sources */,
+				6004D80F274BBB5D00DCD20A /* DishWithIngredient.swift in Sources */,
 				60ECE600273067C0006B479A /* GoodFoodCoordinator.swift in Sources */,
+				6012EA1A2760C34B00AA49BD /* PrepareScreenNetworkManager.swift in Sources */,
 				60682FFD275CC32700595019 /* AddViewController.swift in Sources */,
 				6055D740273D3D0700BE4EFB /* PanelTransition.swift in Sources */,
 				60ECE61927380BD1006B479A /* RegisterViewModel.swift in Sources */,
 				601DAD6B271F12EE00935800 /* AppDelegate.swift in Sources */,
 				6004D815274BC86100DCD20A /* Steps.swift in Sources */,
+				60A1158C27610DE400E06C6C /* LikedNetworkManager.swift in Sources */,
 				601DAD75271F12EE00935800 /* GoodFood.xcdatamodeld in Sources */,
 				60682FED275CC32700595019 /* NameCell.swift in Sources */,
 				60ECE602273067CC006B479A /* AuthCoordinator.swift in Sources */,
@@ -1181,9 +1203,11 @@
 				6062D505274A61960014E9D4 /* DishViewController.swift in Sources */,
 				60ECE609273178B8006B479A /* EnterViewModel.swift in Sources */,
 				60ECE61B27380E54006B479A /* RestorePasswordViewModel.swift in Sources */,
+				605C64BE2765FC9400981B2A /* NetworkMonitor.swift in Sources */,
 				60682FF5275CC32700595019 /* PhotoCell.swift in Sources */,
 				60ECE61F273817BA006B479A /* LikedViewModel.swift in Sources */,
 				6055D757273DB43A00BE4EFB /* RegistrationModel.swift in Sources */,
+				6012EA18275F83ED00AA49BD /* DishWithIngredientsNetworkManager.swift in Sources */,
 				6055D74F273DB3E700BE4EFB /* ProfileModel.swift in Sources */,
 				6055D73E273D3CAC00BE4EFB /* SortViewController.swift in Sources */,
 				60C850262750EBCE005766F5 /* MenuModel.swift in Sources */,
@@ -1210,7 +1234,9 @@
 				6004D819274BCB8900DCD20A /* StepCell.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				6004D813274BC84500DCD20A /* PrepareViewModel.swift in Sources */,
+				60B9619A2767B2F400358503 /* HistoryNetworkManager.swift in Sources */,
 				6055D75D273E700300BE4EFB /* HistoryViewController.swift in Sources */,
+				6012EA15275F603100AA49BD /* MenuNetworkService.swift in Sources */,
 				6055D7A3273E9EF600BE4EFB /* ContainerViewController.swift in Sources */,
 				60ECE61D2738122F006B479A /* MenuViewModel.swift in Sources */,
 				60682FF3275CC32700595019 /* ConfirmCell.swift in Sources */,
@@ -1400,10 +1426,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GoodFood;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1411,11 +1439,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Grandschtien.GoodFood;
+				PRODUCT_BUNDLE_IDENTIFIER = EgorShkarin.GoodFood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1429,10 +1457,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GoodFood;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1440,11 +1470,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Grandschtien.GoodFood;
+				PRODUCT_BUNDLE_IDENTIFIER = EgorShkarin.GoodFood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

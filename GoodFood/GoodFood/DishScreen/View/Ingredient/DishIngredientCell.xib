@@ -10,34 +10,37 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="IngredientCell" customModule="GoodFood" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="KGk-i7-Jjw" customClass="DishIngredientCell" customModule="GoodFood">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acv-ay-4ud">
-                        <rect key="frame" x="10" y="5" width="300" height="34"/>
+                        <rect key="frame" x="10" y="5" width="300" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85O-F2-6OL">
+                                <rect key="frame" x="10" y="10" width="280" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="85O-F2-6OL" firstAttribute="centerY" secondItem="acv-ay-4ud" secondAttribute="centerY" id="Tir-54-Nbo"/>
+                            <constraint firstAttribute="trailing" secondItem="85O-F2-6OL" secondAttribute="trailing" constant="10" id="Ydl-EO-ASC"/>
+                            <constraint firstItem="85O-F2-6OL" firstAttribute="leading" secondItem="acv-ay-4ud" secondAttribute="leading" constant="10" id="bv5-1I-Nxs"/>
+                        </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85O-F2-6OL">
-                        <rect key="frame" x="16" y="12" width="288" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <color key="backgroundColor" name="BackgroundColor"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="acv-ay-4ud" secondAttribute="trailing" constant="10" id="3Lb-kL-tZB"/>
-                    <constraint firstAttribute="trailing" secondItem="85O-F2-6OL" secondAttribute="trailing" constant="16" id="Hkx-gc-3Sx"/>
                     <constraint firstItem="acv-ay-4ud" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="VKr-f3-DqV"/>
-                    <constraint firstItem="85O-F2-6OL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="btq-ZF-Oma"/>
                     <constraint firstItem="acv-ay-4ud" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="cKE-tc-fhT"/>
-                    <constraint firstItem="85O-F2-6OL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="kzh-qm-Sie"/>
                     <constraint firstAttribute="bottom" secondItem="acv-ay-4ud" secondAttribute="bottom" constant="5" id="vpb-x2-165"/>
-                    <constraint firstAttribute="bottom" secondItem="85O-F2-6OL" secondAttribute="bottom" constant="11" id="wpg-ps-Yg5"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -45,7 +48,7 @@
                 <outlet property="containerView" destination="acv-ay-4ud" id="tab-EB-oIs"/>
                 <outlet property="nameLabel" destination="85O-F2-6OL" id="Uke-0p-nth"/>
             </connections>
-            <point key="canvasLocation" x="131.8840579710145" y="48.883928571428569"/>
+            <point key="canvasLocation" x="131.8840579710145" y="50.892857142857139"/>
         </tableViewCell>
     </objects>
     <resources>
