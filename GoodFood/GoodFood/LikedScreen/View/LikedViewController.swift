@@ -19,6 +19,7 @@ class LikedViewController: UIViewController {
     private var coordinator: CoordinatorProtocol?
     private var viewModel: LikedViewModel?
     var dish: ((String) -> Void)?
+    var enter: (() -> Void)?
     
     
     init(coordinator: CoordinatorProtocol) {
@@ -69,6 +70,10 @@ extension LikedViewController {
         
     }
     @objc
+    private func enterAction() {
+        enter?()
+    }
+    @objc
     private func fetchData() {
         let monitor = NWPathMonitor()
         monitor.pathUpdateHandler = {[weak self] path in
@@ -85,6 +90,7 @@ extension LikedViewController {
                     case .success(let viewModel):
                         DispatchQueue.main.async {
                             self?.viewModel = viewModel
+                            
                             self?.tableView.isHidden = false
                             self?.activityIndicator.stopAnimating()
                             self?.activityIndicator.isHidden = true
@@ -100,6 +106,11 @@ extension LikedViewController {
                                     self?.activityIndicator.isHidden = true
                                     self?.activityIndicator.stopAnimating()
                                     self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                                case .clientInGuestMode:
+                                    self?.tableView.isHidden = true
+                                    self?.activityIndicator.isHidden = true
+                                    self?.activityIndicator.stopAnimating()
+                                    self?.createErrorLabel(with: "Вы в гостевом режиме", and: "Войти")
                                 default:
                                     self?.tableView.isHidden = true
                                     self?.activityIndicator.isHidden = true

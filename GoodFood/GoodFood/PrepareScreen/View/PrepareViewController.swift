@@ -38,6 +38,7 @@ class PrepareViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(key)
         setupConstraints()
         fetchSteps()
         setupUI()
@@ -166,9 +167,9 @@ extension PrepareViewController {
                                         constant: 20).isActive = true
         exitButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
         exitButton.trailingAnchor.constraint(equalTo: footerView!.trailingAnchor,
-                                             constant: -25).isActive = true
+                                             constant: -24).isActive = true
         exitButton.leadingAnchor.constraint(equalTo: footerView!.leadingAnchor,
-                                            constant: 25).isActive = true
+                                            constant: 24).isActive = true
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -226,6 +227,7 @@ extension PrepareViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingCell.reuseId) as? RatingCell else {
                 return UITableViewCell()
             }
+            cell.delegate = self
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: StepCell.reuseId, for: indexPath) as? StepCell
@@ -251,5 +253,11 @@ extension PrepareViewController {
     @objc
     func exitAction() {
         exit?()
+    }
+}
+
+extension PrepareViewController: RatingCellProtocol {
+    func pushRating(rating: Double) {
+        viewModel?.updateRating(dishForkey: key, rating: rating)
     }
 }

@@ -77,7 +77,6 @@ final class AppNetworkManager {
                 .child("users")
                 .child(currentUser.uid)
                 .child("LikedDishes")
-                .child(key)
             queryRef.setValue("dish\(key)")
         }
         UserDefaults.standard.set(true, forKey: key)
@@ -123,12 +122,13 @@ final class AppNetworkManager {
                 }
                 completion(.success(keysArray))
             }
+        } else {
+            completion(.failure(AppErrors.clientInGuestMode))
         }
     }
     
     static func fetchDish(key: String, completion: @escaping (Result<Data, Error>) -> ()) {
         let queryRef = Database.database().reference().child("dishes").child(key)
-        
         queryRef.observeSingleEvent(of: .value) { snapshot in
             guard let snapshot = snapshot.data else {
                 completion(.failure(AppErrors.incorrectData))
@@ -162,6 +162,35 @@ final class AppNetworkManager {
                 }
             }
         }
+    }
+    
+    static func checkUser() -> Bool {
+        if Auth.auth().currentUser != nil {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    static func getOldRating(dishForKey key: String, completion: @escaping (Double, Int?) -> ()) {
+//        let queryRef = Database.database().reference().child("dishes").child(key).child("Rating")
+//
+//        queryRef.observeSingleEvent(of: .value) { snapshot in
+//            guard let rating = snapshot.value as? Double else {
+//                print("fail")
+//                return
+//            }
+//            completion(rating)
+//        }
+//
+        let queryRef = Database.database().reference().child("dishes").child(key)
+        
+        queryRef.observeSingleEvent(of: .value) { snapshot in
+            guard let dict = snapshot.value as? [String: Any] else { return }
+            completion(dict["Rating"] as? Double ?? 0, dict["CountOfRatings"] as? Int)
+        }
+
     }
 }
 

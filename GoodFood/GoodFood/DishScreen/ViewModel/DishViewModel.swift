@@ -23,6 +23,10 @@ final class DishViewModel {
         AppNetworkManager.deleteKeyOfLikedImage(key: key)
     }
     
+    func checkLikeFunctional() -> Bool {
+        return AppNetworkManager.checkUser()
+    }
+    
 }
 func parseJson<T: Decodable>(from data: Data, to type: T.Type) -> T?{
     let decoder = JSONDecoder()

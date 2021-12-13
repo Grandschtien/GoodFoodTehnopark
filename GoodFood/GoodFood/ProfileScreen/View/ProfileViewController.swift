@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController {
     
     var exit: (() -> Void)?
     var imagePicker: (() -> Void)?
+    var enter: (() -> Void)?
     
     init(coordinator: CoordinatorProtocol, viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -260,6 +261,7 @@ extension ProfileViewController {
         errorStackView.spacing = 30
         errorStackView.distribution = .fill
         errorStackView.alignment = .center
+        errorButton.addTarget(self, action: #selector(enterAction), for: .touchUpInside)
         
     }
     private func createUnknownErrorView() {
@@ -367,6 +369,10 @@ extension ProfileViewController {
     @objc
     private func imageTapped() {
         imagePicker?()
+    }
+    @objc
+    private func enterAction() {
+        enter?()
     }
 }
 

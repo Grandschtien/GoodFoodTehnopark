@@ -250,11 +250,18 @@ extension DishViewController {
                                                                  cacheKey: self?.viewModel?.dish.imageString)
                             self?.imageForHeaderView.contentMode = .scaleAspectFill
                             self?.imageForHeaderView.clipsToBounds = true
+                            self?.navigationController?.isNavigationBarHidden = false
                             self?.imageForHeaderView.kf.setImage(with: resourceForImage,
                                                                  placeholder: UIImage(named: "DishPlaceHolder"))
                             self?.activityIndicator.stopAnimating()
                             self?.activityIndicator.isHidden = true
                             self?.tableView.isHidden = false
+                            
+                            if viewModel.checkLikeFunctional() {
+                                self?.navigationItem.rightBarButtonItem?.isEnabled = true
+                            } else {
+                                self?.navigationItem.rightBarButtonItem?.isEnabled = false
+                            }
                             self?.tableView.reloadData()
                             monitor.cancel()
                         }
@@ -265,6 +272,7 @@ extension DishViewController {
                                 case .noInternetConnection:
                                     self?.tableView.isHidden = true
                                     self?.activityIndicator.isHidden = true
+                                    self?.navigationController?.isNavigationBarHidden = true
                                     self?.activityIndicator.stopAnimating()
                                     self?.createErrorLabel(with: "Нет сети", and: "Обновить")
                                 default:
@@ -282,6 +290,7 @@ extension DishViewController {
                     self.tableView.isHidden = true
                     self.activityIndicator.isHidden = true
                     self.activityIndicator.stopAnimating()
+                    self.navigationController?.isNavigationBarHidden = true
                     self.createErrorLabel(with: "Нет сети", and: "Обновить")
                 }
             }

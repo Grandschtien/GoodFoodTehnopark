@@ -14,6 +14,12 @@ final class MenuViewModel {
     
     var dishes: [MenuModel]
     
+    enum Sort {
+        case time
+        case rating
+        case name
+    }
+    
     init(snapshots: [DataSnapshot]) throws {
         var dishes = [MenuModel]()
         
@@ -25,4 +31,23 @@ final class MenuViewModel {
         }
         self.dishes = dishes
     }
+    
+    func sort(with sort: Sort) {
+        switch sort {
+        case .time:
+            self.dishes = self.dishes.sorted(by: { firstDish, secondDish in
+                return firstDish.cookTime < secondDish.cookTime
+            })
+        case .rating:
+            self.dishes = self.dishes.sorted(by: { firstDish, secondDish in
+                return firstDish.rating < secondDish.rating
+            })
+        case .name:
+            self.dishes = self.dishes.sorted(by: { firstDish, secondDish in
+                return firstDish.name < secondDish.name
+            })
+        }
+    }
+    
+    
 }

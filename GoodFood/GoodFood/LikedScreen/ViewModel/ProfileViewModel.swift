@@ -39,11 +39,5 @@ class ProfileViewModel {
             }
         }
     }
-//    func removeUserInfo() {
-//        if UserDefaults.standard.value(forKey: UserDefaultsManager.UserInfo.email.rawValue) != nil,
-//           UserDefaults.standard.value(forKey: UserDefaultsManager.UserInfo.name.rawValue) != nil {
-//            UserDefaultsManager.removeUserInfo()
-//        }
-//    }
     
 }

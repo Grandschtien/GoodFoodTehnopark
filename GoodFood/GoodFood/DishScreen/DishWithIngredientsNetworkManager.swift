@@ -18,7 +18,7 @@ final class DishWithIngredientsNetworkManager {
                     completion(.failure(AppErrors.incorrectData))
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                completion(.failure(error))
             }
         }
     }

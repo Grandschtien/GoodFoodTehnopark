@@ -57,7 +57,7 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
                     dishVC.navigationController?.popViewController(animated: true)
                 }
                 prepareViewController.exit = {
-                    
+                    self.start()
                 }
                 dishVC.navigationController?.pushViewController(prepareViewController, animated: true)
             }
@@ -79,7 +79,15 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
                                                   tabBarController: self)
             authCoordinator.start()
         }
-        
+        profileVC.enter = {[weak self] in
+            guard let `self` = self else { return }
+            let enterViewModel = EnterViewModel()
+            let enterVC = EnterViewController(viewModel: enterViewModel, coordinator: self)
+            let navVc = UINavigationController(rootViewController: enterVC)
+            let authCoordinator = AuthCoordinator(window: self.window, navigationController: navVc, tabBarController: self)
+            authCoordinator.start()
+            
+        }
         profileVC.imagePicker = {
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
                 let imagePicker = UIImagePickerController()
@@ -117,11 +125,20 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
                     dishVC.navigationController?.popViewController(animated: true)
                 }
                 prepareViewController.exit = {
-                    
+                    self.start()
                 }
                 dishVC.navigationController?.pushViewController(prepareViewController, animated: true)
             }
             likedVC.navigationController?.pushViewController(dishVC, animated: true)
+        }
+        likedVC.enter = {[weak self] in
+            guard let `self` = self else { return }
+            let enterViewModel = EnterViewModel()
+            let enterVC = EnterViewController(viewModel: enterViewModel, coordinator: self)
+            let navVc = UINavigationController(rootViewController: enterVC)
+            let authCoordinator = AuthCoordinator(window: self.window, navigationController: navVc, tabBarController: self)
+            authCoordinator.start()
+            
         }
         
         let containerVC = ContainerViewController(subViewControllers: [likedVC, yourRecipeVC, historyVC])

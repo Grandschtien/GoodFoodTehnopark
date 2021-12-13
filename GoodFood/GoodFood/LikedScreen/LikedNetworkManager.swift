@@ -29,8 +29,8 @@ final class LikedNetworkManager {
                     }
                 }
                 break
-            case .failure(let error):
-                break
+            case .failure(_):
+                completion(.failure(AppErrors.clientInGuestMode))
             }
         }
     }
