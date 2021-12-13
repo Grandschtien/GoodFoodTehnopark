@@ -77,6 +77,7 @@
 		607A75DE27469330007EFD4D /* AppNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DD27469330007EFD4D /* AppNetworkManager.swift */; };
 		607A75E027469364007EFD4D /* AuthNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607A75DF27469364007EFD4D /* AuthNetworkManager.swift */; };
 		60A1158C27610DE400E06C6C /* LikedNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */; };
+		60B9619A2767B2F400358503 /* HistoryNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B961992767B2F400358503 /* HistoryNetworkManager.swift */; };
 		60C850262750EBCE005766F5 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C850252750EBCE005766F5 /* MenuModel.swift */; };
 		60D334172747CF69007C2462 /* AuthErrorCode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */; };
 		60D334192747D464007C2462 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D334182747D464007C2462 /* MainButton.swift */; };
@@ -198,6 +199,7 @@
 		607A75DD27469330007EFD4D /* AppNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNetworkManager.swift; sourceTree = "<group>"; };
 		607A75DF27469364007EFD4D /* AuthNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkManager.swift; sourceTree = "<group>"; };
 		60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedNetworkManager.swift; sourceTree = "<group>"; };
+		60B961992767B2F400358503 /* HistoryNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryNetworkManager.swift; sourceTree = "<group>"; };
 		60C850252750EBCE005766F5 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		60D334162747CF69007C2462 /* AuthErrorCode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrorCode+Extension.swift"; sourceTree = "<group>"; };
 		60D334182747D464007C2462 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 		60ECE5ED272EAC0A006B479A /* LikedScreen */ = {
 			isa = PBXGroup;
 			children = (
+				60B961992767B2F400358503 /* HistoryNetworkManager.swift */,
 				60A1158B27610DE300E06C6C /* LikedNetworkManager.swift */,
 				60ECE5EE272EAC3A006B479A /* Model */,
 				60ECE5EF272EAC3E006B479A /* View */,
@@ -673,8 +676,8 @@
 			isa = PBXGroup;
 			children = (
 				60ECE61E273817BA006B479A /* LikedViewModel.swift */,
-				6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */,
 				6055D7A8273EAC3D00BE4EFB /* HistoryViewModel.swift */,
+				6055D7A6273EAC1B00BE4EFB /* YourRecipesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1231,6 +1234,7 @@
 				6004D819274BCB8900DCD20A /* StepCell.swift in Sources */,
 				60F6035E27294BDB00B69B4D /* UITextField+Extension.swift in Sources */,
 				6004D813274BC84500DCD20A /* PrepareViewModel.swift in Sources */,
+				60B9619A2767B2F400358503 /* HistoryNetworkManager.swift in Sources */,
 				6055D75D273E700300BE4EFB /* HistoryViewController.swift in Sources */,
 				6012EA15275F603100AA49BD /* MenuNetworkService.swift in Sources */,
 				6055D7A3273E9EF600BE4EFB /* ContainerViewController.swift in Sources */,

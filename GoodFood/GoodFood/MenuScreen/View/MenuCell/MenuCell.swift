@@ -46,6 +46,16 @@ class MenuCell: UITableViewCell {
         self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
     }
     
+    func configureForHistoryScreen(with viewModel: HistoryViewModel, for indexPath: IndexPath) {
+        self.nameLabel.text = viewModel.dishes[indexPath.row].name
+        self.timeLabel.text = viewModel.dishes[indexPath.row].cookTime
+        self.ratingView.rating = viewModel.dishes[indexPath.row].rating
+        guard let imageUrl = URL(string: viewModel.dishes[indexPath.row].image) else { return }
+        let resource = ImageResource(downloadURL: imageUrl,
+                                     cacheKey: viewModel.dishes[indexPath.row].image)
+        self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
+    }
+    
     func configure(with dish: MenuModel) {
         self.nameLabel.text = dish.name
         self.timeLabel.text = dish.cookTime

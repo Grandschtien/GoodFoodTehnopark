@@ -109,9 +109,8 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
                                             selectedImage:  UIImage(named: "Profile"))
         
         let yourRecipesViewModel = YourRecipesViewModel()
-        let histroyViewModel = HistoryViewModel()
         let yourRecipeVC = YourRecipesViewController(viewModel: yourRecipesViewModel, coordinator: self)
-        let historyVC = HistoryViewController(viewModel: histroyViewModel, coordinator: self)
+        let historyVC = HistoryViewController(coordinator: self)
         let likedVC = LikedViewController(coordinator: self)
         likedVC.dish = { dishKey in
             let dishVC = DishViewController(key: dishKey, coordinatror: self)

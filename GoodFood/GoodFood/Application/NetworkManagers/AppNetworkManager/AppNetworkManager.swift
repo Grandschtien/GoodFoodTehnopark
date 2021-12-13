@@ -84,6 +84,19 @@ final class AppNetworkManager {
         UserDefaults.standard.set(true, forKey: key)
     }
     
+    static func uploadKeyOfFinishedDish(key: String) {
+        if let currentUser = Auth.auth().currentUser {
+            let queryRef = Database
+                .database()
+                .reference()
+                .child("users")
+                .child(currentUser.uid)
+                .child("History")
+                .child(key)
+            queryRef.setValue("dish\(key)")
+        }
+    }
+    
     static func deleteKeyOfLikedImage(key: String) {
         if let currentUser = Auth.auth().currentUser {
             let queryRef = Database
@@ -112,6 +125,26 @@ final class AppNetworkManager {
     static func fetchLikedDishesKeys(completion: @escaping (Result<[String], Error>) -> ()) {
         if let user = Auth.auth().currentUser {
             let queryRef =  Database.database().reference().child("users").child(user.uid).child("LikedDishes")
+            
+            queryRef.observeSingleEvent(of: .value) { snapshot in
+                var keysArray = [String]()
+                guard let snapshot = snapshot.value as? [String: Any]
+                else {
+                    completion(.failure(AppErrors.incorrectData))
+                    return
+                }
+                for key in snapshot.keys {
+                    keysArray.append(String(key))
+                }
+                completion(.success(keysArray))
+            }
+        } else {
+            completion(.failure(AppErrors.clientInGuestMode))
+        }
+    }
+    static func fetchHistoryDishesKeys(completion: @escaping (Result<[String], Error>) -> ()) {
+        if let user = Auth.auth().currentUser {
+            let queryRef =  Database.database().reference().child("users").child(user.uid).child("History")
             
             queryRef.observeSingleEvent(of: .value) { snapshot in
                 var keysArray = [String]()

@@ -58,7 +58,6 @@ extension LikedViewController {
     }
     
     private func setupUI() {
-        
         view.backgroundColor = UIColor(named: "BackgroundColor")
         tableView.delegate = self
         tableView.dataSource = self
