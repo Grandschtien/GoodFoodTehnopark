@@ -61,4 +61,19 @@
 ![UserFlow-Horizontal 1](https://user-images.githubusercontent.com/58490727/137774243-efca97a9-b589-41a2-82c6-160cfe0ad19e.png)
 
 ## Установка
-Этот раздел будет заполнен, когда допишем приложение:)
+```
+pod init 
+```
+```
+  pod 'Cosmos', '~> 23.0'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Core' 
+  pod 'Kingfisher', '~> 7.0'
+```
+
+```
+pod install
+```
