@@ -108,10 +108,10 @@ extension SortViewController {
             switch sortedBy {
             case .ratingDown:
                 apply?(viewModel?.sortedByRatingDown ?? [])
-            case .ratingUp:
-                apply?(viewModel?.sortedByRatingUp ?? [])
-            case .name:
-                apply?(viewModel?.sortedByNameDishes ?? [])
+            case .nameAZ:
+                apply?(viewModel?.sortedByNameDishesAZ ?? [])
+            case .nameZA:
+                apply?(viewModel?.sortedByNameDishesZA ?? [])
             }
         } else {
             apply?(viewModel?.unSortedDishes ?? [])
@@ -158,9 +158,9 @@ extension SortViewController: UITableViewDelegate {
         } else {
             switch indexPath.row {
             case 0:
-                viewModel?.sort(with: .name)
+                viewModel?.sort(with: .nameAZ)
             case 1:
-                viewModel?.sort(with: .ratingUp)
+                viewModel?.sort(with: .nameZA)
             case 2:
                 viewModel?.sort(with: .ratingDown)
             default:

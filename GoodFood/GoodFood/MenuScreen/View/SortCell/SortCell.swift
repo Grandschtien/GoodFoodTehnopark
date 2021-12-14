@@ -26,9 +26,9 @@ class SortCell: UITableViewCell {
     func configure(with indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            label.text = "По названию"
+            label.text = "По названию (А-Я)"
         case 1:
-            label.text = "По возрастанию рейтинга"
+            label.text = "По названию (Я-А)"
         case 2:
             label.text = "По убыванию рейтинга"
         default:
