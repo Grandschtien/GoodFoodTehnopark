@@ -42,6 +42,9 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
             sortVC.close = {
                 sortVC.dismiss(animated: true, completion: nil)
             }
+            sortVC.apply = {
+                sortVC.dismiss(animated: true, completion: nil)
+            }
             menuViewController.present(sortVC, animated: true)
         }
         

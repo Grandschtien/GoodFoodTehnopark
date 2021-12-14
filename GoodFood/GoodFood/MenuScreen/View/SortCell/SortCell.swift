@@ -12,6 +12,7 @@ class SortCell: UITableViewCell {
     static let reuseId = "SortCell"
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var checkMark: UIImageView!
+    var isSelectedCell: Bool = false 
     
     override func awakeFromNib() {
         super.awakeFromNib()

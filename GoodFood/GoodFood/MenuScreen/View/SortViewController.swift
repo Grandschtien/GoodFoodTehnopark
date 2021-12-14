@@ -10,11 +10,11 @@ import UIKit
 class SortViewController: UIViewController {
     
     private let exitButton = UIButton()
-    private let applyButton = UIButton()
+    private let applyButton = MainButton(color: UIColor(named: "mainColor"), title: "Применить")
     private let tableView = UITableView()
     
     var close: (() -> Void)?
-    
+    var apply: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
@@ -87,7 +87,7 @@ extension SortViewController {
     
     @objc
     private func applyAction() {
-        
+        apply?()
     }
 }
 
@@ -118,7 +118,13 @@ extension SortViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath) as? SortCell else { return }
         
+        if cell.isSelectedCell {
+            cell.checkMark.isHidden = true
+            cell.isSelectedCell = !cell.isSelectedCell
+        } else {
+            cell.checkMark.isHidden = false
+            cell.isSelectedCell = !cell.isSelectedCell
+        }
         
-        cell.checkMark.isHidden = false
     }
 }
