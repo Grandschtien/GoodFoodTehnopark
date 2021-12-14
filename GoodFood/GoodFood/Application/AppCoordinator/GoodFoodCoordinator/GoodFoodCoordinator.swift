@@ -35,11 +35,18 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
             let addNavController = UINavigationController(rootViewController: addVC)
             menuViewController.present(addNavController, animated: true, completion: nil)
         }
-        menuViewController.sort = {
-            let sortVC = SortViewController()
+        menuViewController.sort = { dishes in
+            let sortViewModel = SortViewModel()
+            sortViewModel.unSortedDishes = dishes
+            let sortVC = SortViewController(viewModel: sortViewModel)
+            sortVC.delegate = menuViewController
             sortVC.modalPresentationStyle = .custom
             sortVC.transitioningDelegate = menuViewController.transition
             sortVC.close = {
+                sortVC.dismiss(animated: true, completion: nil)
+            }
+            sortVC.apply = { sortedDishes in
+                sortVC.delegate?.reloadAfterSort(sortedDishes: sortedDishes)
                 sortVC.dismiss(animated: true, completion: nil)
             }
             menuViewController.present(sortVC, animated: true)
@@ -111,6 +118,14 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         let yourRecipesViewModel = YourRecipesViewModel()
         let yourRecipeVC = YourRecipesViewController(viewModel: yourRecipesViewModel, coordinator: self)
         let historyVC = HistoryViewController(coordinator: self)
+        
+        historyVC.dish = { key in
+            let dishVC = DishViewController(key: key, coordinatror: self)
+            historyVC.navigationController?.pushViewController(dishVC, animated: true)
+            dishVC.back = {
+                dishVC.navigationController?.popViewController(animated: true)
+            }
+        }
         let likedVC = LikedViewController(coordinator: self)
         likedVC.dish = { dishKey in
             let dishVC = DishViewController(key: dishKey, coordinatror: self)
@@ -151,6 +166,7 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         })
         
         self.window.rootViewController = tabBarController
+        UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {})
         self.window.makeKeyAndVisible()
     }
 }

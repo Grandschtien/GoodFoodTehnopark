@@ -22,9 +22,8 @@ class MenuViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     
     var array: [MenuModel] = []
-    
     private var coordinator: CoordinatorProtocol?
-    private var viewModel: MenuViewModel?
+    var viewModel: MenuViewModel? 
     let transition = PanelTransition()
     private var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -33,7 +32,7 @@ class MenuViewController: UIViewController {
         return searchController.isActive && !isSearchBarEmpty
     }
     var add: (() -> Void)?
-    var sort: (() -> Void)?
+    var sort: (([MenuModel]) -> Void)?
     var dish: ((String) -> Void)?
     
     init(coordinatror: CoordinatorProtocol) {
@@ -54,6 +53,7 @@ class MenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    //    tableView.reloadData()
         tabBarController?.tabBar.isHidden = false
     }
 }
@@ -70,7 +70,7 @@ extension MenuViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(menuFilterButtonAction))
+       // navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(menuFilterButtonAction))
         let sortButton = UIBarButtonItem(image: UIImage(named: "sort"), style: .plain, target: self, action: #selector(menuSortButtonAction))
         let addButton = UIBarButtonItem(image: UIImage(named: "add"), style: .plain, target: self, action: #selector(menuAddButtonAction))
         navigationItem.setRightBarButtonItems([addButton, sortButton], animated: true)
@@ -169,7 +169,7 @@ extension MenuViewController {
     }
     @objc
     private func menuSortButtonAction() {
-        sort?()
+        sort?(viewModel?.dishes ?? [])
     }
     @objc
     private func menuAddButtonAction() {
@@ -294,7 +294,19 @@ extension MenuViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 extension MenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let dishKey = viewModel?.dishes[indexPath.row].key else {return}
-        dish?(dishKey)
+        if isFiltering {
+            let dishKey = array[indexPath.row].key
+            dish?(dishKey)
+        } else {
+            guard let dishKey = viewModel?.dishes[indexPath.row].key else {return}
+            dish?(dishKey)
+        }
+    }
+}
+
+extension MenuViewController: ReloadData {
+    func reloadAfterSort(sortedDishes: [MenuModel]) {
+        viewModel?.dishes = sortedDishes
+        tableView.reloadData()
     }
 }

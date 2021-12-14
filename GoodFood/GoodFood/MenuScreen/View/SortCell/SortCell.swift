@@ -12,6 +12,11 @@ class SortCell: UITableViewCell {
     static let reuseId = "SortCell"
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var checkMark: UIImageView!
+    var isSelectedCell: Bool = false {
+        didSet {
+            checkMark.isHidden = !isSelectedCell
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,9 +28,9 @@ class SortCell: UITableViewCell {
         case 0:
             label.text = "По названию"
         case 1:
-            label.text = "По рейтингу"
+            label.text = "По возрастанию рейтинга"
         case 2:
-            label.text = "По времени готовки"
+            label.text = "По убыванию рейтинга"
         default:
             break
         }

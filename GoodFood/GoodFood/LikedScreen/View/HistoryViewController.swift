@@ -18,7 +18,7 @@ class HistoryViewController: UIViewController {
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: HistoryViewModel?
-    
+    var dish: ((String) -> Void)?
     
     init(coordinator: CoordinatorProtocol) {
         self.coordinator = coordinator
@@ -34,6 +34,10 @@ class HistoryViewController: UIViewController {
         fetchData(indicatorIsNeed: true)
         setupConstraints()
         setupUI()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false 
     }
 }
 
@@ -208,5 +212,10 @@ extension HistoryViewController: UITableViewDataSource {
 }
 
 extension HistoryViewController: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let dishKey = viewModel?.dishes[indexPath.row].key else {
+            return
+        }
+        dish?(dishKey)
+    }
 }

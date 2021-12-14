@@ -20,16 +20,18 @@ final class MenuViewModel {
         case name
     }
     
-    init(snapshots: [DataSnapshot]) throws {
+    init?(snapshots: [DataSnapshot]) {
         var dishes = [MenuModel]()
         
         for snapshot in snapshots {
             guard let dict = snapshot.value as? [String: Any],
                   let dish = MenuModel(dict: dict, key: snapshot.key)
-            else { throw AppErrors.incorrectData }
+            else { return nil }
             dishes.append(dish)
         }
-        self.dishes = dishes
+        self.dishes = dishes.filter({ dish in
+            return !dish.image.isEmpty
+        })
     }
     
     func sort(with sort: Sort) {

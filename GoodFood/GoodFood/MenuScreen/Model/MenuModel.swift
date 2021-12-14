@@ -27,6 +27,7 @@ struct MenuModel {
         self.key = key
         self.name = name
         self.cookTime = cookingTime
+        
         self.image = image
         self.rating = rating
     }
