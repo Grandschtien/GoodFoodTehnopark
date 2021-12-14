@@ -14,7 +14,7 @@ final class MenuNetworkService {
         AppNetworkManager.fetchDishesData { result in
             switch result {
             case .success(let snapshots):
-                if let response = try? MenuViewModel(snapshots: snapshots) {
+                if let response = MenuViewModel(snapshots: snapshots) {
                     completion(.success(response))
                 } else {
                     completion(.failure(AppErrors.incorrectData))

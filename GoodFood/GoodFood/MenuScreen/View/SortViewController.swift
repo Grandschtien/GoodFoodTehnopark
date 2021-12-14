@@ -7,14 +7,31 @@
 
 import UIKit
 
+protocol ReloadData: AnyObject {
+    func reloadAfterSort(sortedDishes: [MenuModel])
+}
+
 class SortViewController: UIViewController {
     
     private let exitButton = UIButton()
     private let applyButton = MainButton(color: UIColor(named: "mainColor"), title: "Применить")
     private let tableView = UITableView()
+    private var viewModel: SortViewModel?
+    weak var delegate: ReloadData?
+    
+    var previousIndex: IndexPath?
     
     var close: (() -> Void)?
-    var apply: (() -> Void)?
+    var apply: (([MenuModel]) -> Void)?
+    
+    init(viewModel: SortViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
@@ -87,7 +104,19 @@ extension SortViewController {
     
     @objc
     private func applyAction() {
-        apply?()
+        if let sortedBy = viewModel?.sortedBy {
+            switch sortedBy {
+            case .ratingDown:
+                apply?(viewModel?.sortedByRatingDown ?? [])
+            case .ratingUp:
+                apply?(viewModel?.sortedByRatingUp ?? [])
+            case .name:
+                apply?(viewModel?.sortedByNameDishes ?? [])
+            }
+        } else {
+            apply?(viewModel?.unSortedDishes ?? [])
+        }
+        
     }
 }
 
@@ -116,15 +145,30 @@ extension SortViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = tableView.cellForRow(at: indexPath) as? SortCell else { return }
-        
-        if cell.isSelectedCell {
-            cell.checkMark.isHidden = true
-            cell.isSelectedCell = !cell.isSelectedCell
-        } else {
-            cell.checkMark.isHidden = false
-            cell.isSelectedCell = !cell.isSelectedCell
+        guard let selectedCell = tableView.cellForRow(at: indexPath) as? SortCell else {
+            return
         }
         
+        if let previousIndex = previousIndex, let previousCell = tableView.cellForRow(at: previousIndex) as? SortCell {
+            previousCell.isSelectedCell = false
+        }
+        if selectedCell.isSelectedCell {
+            viewModel?.sortedBy = nil
+            selectedCell.isSelectedCell = !selectedCell.isSelectedCell
+        } else {
+            switch indexPath.row {
+            case 0:
+                viewModel?.sort(with: .name)
+            case 1:
+                viewModel?.sort(with: .ratingUp)
+            case 2:
+                viewModel?.sort(with: .ratingDown)
+            default:
+                break
+            }
+            previousIndex = indexPath
+            selectedCell.isSelectedCell = !selectedCell.isSelectedCell
+        }
     }
+    
 }
