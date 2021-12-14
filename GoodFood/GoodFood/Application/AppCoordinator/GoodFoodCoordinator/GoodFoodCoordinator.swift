@@ -166,6 +166,7 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         })
         
         self.window.rootViewController = tabBarController
+        UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: {})
         self.window.makeKeyAndVisible()
     }
 }

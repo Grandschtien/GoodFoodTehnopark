@@ -33,6 +33,7 @@ final class PrepareViewModel {
             }
         }
     }
+    
     func uploadFinishingRecipe(key: String) {
         AppNetworkManager.uploadKeyOfFinishedDish(key: key)
     }
