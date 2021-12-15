@@ -118,12 +118,24 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         let yourRecipesViewModel = YourRecipesViewModel()
         let yourRecipeVC = YourRecipesViewController(viewModel: yourRecipesViewModel, coordinator: self)
         yourRecipeVC.dish = { name in
-            let dishVC = DishViewController(name: name, key: nil, coordinatror: self)
+            let dishVC = DishViewControllerCD(name: name, coordinatror: self)
             yourRecipeVC.navigationController?.pushViewController(dishVC, animated: true)
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)
             }
+            dishVC.nextAction = { name in
+                let prepareVC = PrepareViewControllerCD(recipe: name, coordinatror: self)
+                prepareVC.back = {
+                    prepareVC.navigationController?.popViewController(animated: true)
+                }
+                prepareVC.exit = {
+                    self.start()
+                    
+                }
+                dishVC.navigationController?.pushViewController(prepareVC, animated: true)
+            }
         }
+        
         let historyVC = HistoryViewController(coordinator: self)
         
         historyVC.dish = { key in

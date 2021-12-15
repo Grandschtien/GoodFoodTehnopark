@@ -39,9 +39,15 @@ final class DataManager {
     
     func fetchIngredientsForRecipe(recipe: RecipeCD) -> [IngredientCD] {
         let fr = IngredientCD.fetchRequest()
-        let predicate = NSPredicate(format: "%K == %@", "recipe", recipe)
+        let predicate = NSPredicate(format: "recipe == %@", recipe)
         fr.predicate = predicate
-        return (try? storeContainer.viewContext.fetch(fr)) ?? []
+        do {
+            let result = try storeContainer.viewContext.fetch(fr)
+            return result
+        } catch let error {
+            print(error)
+            return []
+        }
     }
     
     func fetchStages() -> [StageCD] {
@@ -63,7 +69,8 @@ final class DataManager {
         
         configBlock(obj)
         
-        try? storeContainer.viewContext.save()
+        save()
+//        try! storeContainer.viewContext.save()
     }
     
     func createIngredient(recipe: RecipeCD, configBlock: (IngredientCD) -> Void) {
@@ -71,10 +78,12 @@ final class DataManager {
                                                             into: storeContainer.viewContext) as? IngredientCD else {
             return
         }
+        obj.recipe = recipe
         
         configBlock(obj)
         
-        try? storeContainer.viewContext.save()
+        save()
+//        try? storeContainer.viewContext.save()
     }
     
     func createStage(recipe: RecipeCD, configBlock: (StageCD) -> Void) {
@@ -82,9 +91,19 @@ final class DataManager {
                                                             into: storeContainer.viewContext) as? StageCD else {
             return
         }
+        obj.recipe = recipe
         
         configBlock(obj)
         
-        try? storeContainer.viewContext.save()
+        save()
+//        try? storeContainer.viewContext.save()
+    }
+    
+    func save() {
+        do {
+            try storeContainer.viewContext.save()
+        } catch let error {
+            print(error)
+        }
     }
 }

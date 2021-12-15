@@ -181,7 +181,7 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
                 guard let stageCell = tableView.dequeueReusableCell(withIdentifier: StageCell.reuseId, for: indexPath) as? StageCell else {return UITableViewCell()}
                 stageCell.delegate = self
                 stageCell.stageTextView.text = ""
-                stageCell.photoImageView.image = UIImage(named: "PhotoPlaceholder")
+//                stageCell.photoImageView.image = UIImage(named: "PhotoPlaceholder")
                 return stageCell
             } else {
                 guard let addStageCell = tableView.dequeueReusableCell(withIdentifier: AddStageCell.reuseId, for: indexPath) as? AddStageCell else {return UITableViewCell()}
@@ -210,15 +210,17 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
         case 1:
             return 241
         case 2:
-            return 162
+            return 50
+        case 3:
+            return 44
         case 4:
             if indexPath.row < stagesArray.count {
-                return 190
+                return 44
             } else {
                 return 44
             }
         case 5:
-            return 70
+            return 44 //было 70 для фото
         default:
             return 44
         }

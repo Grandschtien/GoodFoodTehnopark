@@ -40,6 +40,8 @@ class LikedViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         tabBarController?.tabBar.isHidden = false
     }
 }

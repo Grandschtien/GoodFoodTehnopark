@@ -39,9 +39,9 @@ class DishIngredientCell: UITableViewCell {
         containerView.backgroundColor = .none
     }
     
-    func configureForIngredientCD(recipe: RecipeCD, indexPath: IndexPath) {
+    func configureForIngredientCD(ingredient: IngredientCD, indexPath: IndexPath) {
         nameLabel.font = nameLabel.font.withSize(20)
-        nameLabel.text = recipe.name
+        nameLabel.text = ingredient.name
     }
     
     func configureForNameCD(recipe: RecipeCD) {
