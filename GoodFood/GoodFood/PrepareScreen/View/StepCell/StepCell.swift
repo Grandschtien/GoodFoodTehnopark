@@ -20,4 +20,8 @@ class StepCell: UITableViewCell {
     func configure(viewModel: PrepareViewModel, indexPath: IndexPath) {
         stepLabel.text = viewModel.steps.steps[indexPath.row]
     }
+    
+    func configureCD(stage: StageCD) {
+        stepLabel.text = stage.name
+    }
 }

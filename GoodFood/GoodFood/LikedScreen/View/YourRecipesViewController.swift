@@ -7,6 +7,10 @@
 
 import UIKit
 
+//protocol InsertData {
+//    func insertData(recipe: RecipeCD)
+//}
+
 class YourRecipesViewController: UIViewController {
 
     private let tableView = UITableView()
@@ -14,6 +18,11 @@ class YourRecipesViewController: UIViewController {
     private var coordinator: CoordinatorProtocol?
     private var viewModel: YourRecipesViewModel?
     
+    private var dataSource: [RecipeCD] = []
+    
+    private let dataBaseManager: DataManager = DataManager.shared
+    
+    var dish: ((RecipeCD) -> Void)?
     
     init(viewModel: YourRecipesViewModel, coordinator: CoordinatorProtocol) {
         self.viewModel = viewModel
@@ -29,6 +38,13 @@ class YourRecipesViewController: UIViewController {
         super.viewDidLoad()
         setupConstraints()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        tabBarController?.tabBar.isHidden = false
+        fetch()
     }
 }
 
@@ -56,33 +72,47 @@ extension YourRecipesViewController {
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: MenuCell.reuseId, bundle: nil),
                            forCellReuseIdentifier: MenuCell.reuseId)
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "testCell")
         
     }
     
+    private func fetch() {
+        dataSource = dataBaseManager.fetch()
+        tableView.reloadData()
+    }
     
 }
 
 extension YourRecipesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseId, for: indexPath) as? MenuCell else { return UITableViewCell()}
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "testCell") else {
+//            return UITableViewCell()
+//        }
+        
+        let recipe = dataSource[indexPath.row]
+        cell.configureForYourRecipesScreen(recipe: recipe)
+        
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 342
     }
     
     
 }
 
 extension YourRecipesViewController: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dish?(dataSource[indexPath.row])
+    }
 }

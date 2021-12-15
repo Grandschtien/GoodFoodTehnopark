@@ -6,9 +6,26 @@
 //
 
 import UIKit
+
 protocol AddViewControllerDelegate: AnyObject {
     func passImage(image: UIImage?)
 }
+
+protocol SaveNameDelegate: AnyObject {
+    func saveName(recipe: RecipeCD)
+}
+
+protocol SaveImageDelegate: AnyObject {
+    func saveImage(recipe: RecipeCD)
+}
+
+protocol SaveTimeDelegate: AnyObject {
+    func saveTime(recipe: RecipeCD)
+}
+
+//protocol SaveIngredientDelegate: AnyObject {
+//    func saveIngredient(recipe: RecipeCD)
+//}
 
 class AddViewController: UIViewController {
     
@@ -16,7 +33,14 @@ class AddViewController: UIViewController {
     private var tableView = UITableView()
     private let imagePicker = UIImagePickerController()
     
+    private let dataBaseManager: DataManager = DataManager.shared
+    
     weak var delegate: AddViewControllerDelegate?
+    weak var saveNameDelegate: SaveNameDelegate?
+    weak var saveImageDelegate: SaveImageDelegate?
+    weak var saveTimeDelegate: SaveTimeDelegate?
+//    weak var saveIngredientDelegate: [SaveIngredientDelegate]?
+    
     private var isEditingTableView: Bool = false
     var back: (() -> Void)?
     
@@ -78,8 +102,15 @@ extension AddViewController {
     
     private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBarButton"), style: .plain, target: self, action: #selector(backAction))
-        let editButton = UIBarButtonItem(image: UIImage(named: "pen"), style: .plain, target: self, action: #selector(startEditing))
-        navigationItem.setRightBarButtonItems([editButton], animated: true)
+        let editButton = UIButton(type: .custom);
+        editButton.setImage(UIImage(named: "pen"), for: .normal);
+        editButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20);
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.addTarget(self, action: #selector(startEditing), for: .touchUpInside);
+        let editBarButtonItem = UIBarButtonItem(customView: editButton)
+        editBarButtonItem.customView?.widthAnchor.constraint(equalToConstant: 20).isActive = true;
+        editBarButtonItem.customView?.heightAnchor.constraint(equalToConstant: 20).isActive = true;
+        navigationItem.setRightBarButtonItems([editBarButtonItem], animated: true)
     }
     
     @objc
@@ -122,15 +153,18 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath) as? NameCell else {return UITableViewCell()}
+            saveNameDelegate = cell
             return cell
         case 1:
             guard let photoCell = tableView.dequeueReusableCell(withIdentifier: PhotoCell.reuseId, for: indexPath) as? PhotoCell else {
                 return UITableViewCell()
             }
+            saveImageDelegate = photoCell
             photoCell.delegate = self
             return photoCell
         case 2:
             guard let timeCell = tableView.dequeueReusableCell(withIdentifier: TimeCell.reuseId, for: indexPath) as? TimeCell else {return UITableViewCell()}
+            saveTimeDelegate = timeCell
             return timeCell
         case 3:
             if indexPath.row < ingredientsArray.count {
@@ -147,7 +181,7 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
                 guard let stageCell = tableView.dequeueReusableCell(withIdentifier: StageCell.reuseId, for: indexPath) as? StageCell else {return UITableViewCell()}
                 stageCell.delegate = self
                 stageCell.stageTextView.text = ""
-                stageCell.photoImageView.image = UIImage(named: "PhotoPlaceholder")
+//                stageCell.photoImageView.image = UIImage(named: "PhotoPlaceholder")
                 return stageCell
             } else {
                 guard let addStageCell = tableView.dequeueReusableCell(withIdentifier: AddStageCell.reuseId, for: indexPath) as? AddStageCell else {return UITableViewCell()}
@@ -176,15 +210,17 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
         case 1:
             return 241
         case 2:
-            return 162
+            return 50
+        case 3:
+            return 44
         case 4:
             if indexPath.row < stagesArray.count {
-                return 190
+                return 44
             } else {
                 return 44
             }
         case 5:
-            return 70
+            return 44 //было 70 для фото
         default:
             return 44
         }
@@ -349,12 +385,6 @@ extension AddViewController: PhotoCellDelegate, StageCellDelegate, UIImagePicker
     }
 }
 
-extension AddViewController: ConfirmCellDelegate {
-    func confirmRecipe() {
-        back?()
-    }
-}
-
 extension AddViewController: AddIngredientCellDelegate {
     func addIngredient() {
         ingredientsArray.append("")
@@ -366,5 +396,24 @@ extension AddViewController: AddStageCellDelegate {
     func addStage() {
         stagesArray.append("")
         tableView.insertRows(at: [IndexPath(row: stagesArray.count - 1, section: 4)], with: .bottom)
+    }
+}
+
+extension AddViewController: ConfirmCellDelegate {
+    func confirmRecipe() {
+        dataBaseManager.createRecipe { recipe in
+            if let saveNameDelegate = saveNameDelegate {
+                saveNameDelegate.saveName(recipe: recipe)
+            }
+            if let saveImageDelegate = saveImageDelegate {
+                saveImageDelegate.saveImage(recipe: recipe)
+            }
+            if let saveTimeDelegate = saveTimeDelegate {
+                saveTimeDelegate.saveTime(recipe: recipe)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ConfirmRecipe"), object: nil, userInfo: ["recipe": recipe])
+        }
+        
+        back?()
     }
 }

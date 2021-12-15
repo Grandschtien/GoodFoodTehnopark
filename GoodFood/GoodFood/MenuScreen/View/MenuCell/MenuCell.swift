@@ -65,4 +65,15 @@ class MenuCell: UITableViewCell {
                                      cacheKey: dish.image)
         self.dishImage.kf.setImage(with: resource, placeholder: UIImage(named: "DishPlaceHolder"))
     }
+    
+    func configureForYourRecipesScreen(recipe: RecipeCD) {
+        self.nameLabel.text = recipe.name
+        if let imageData = recipe.image {
+            self.dishImage.image = UIImage(data: imageData, scale: 1.0)
+        } else {
+            self.dishImage.image = UIImage(named: "DishPlaceHolder")
+        }
+        self.ratingView.isHidden = true
+        self.timeLabel.text = recipe.time ?? ""
+    }
 }

@@ -1,15 +1,15 @@
 //
-//  DishViewController.swift
+//  DishViewControllerCD.swift
 //  GoodFood
 //
-//  Created by Егор Шкарин on 21.11.2021.
+//  Created by Иван on 15.12.2021.
 //
 
 import UIKit
 import Kingfisher
 import Network
 
-class DishViewController: UIViewController {
+class DishViewControllerCD: UIViewController {
     
     private let tableView = ParalaxTableView()
     private var headerView: UIView?
@@ -28,25 +28,20 @@ class DishViewController: UIViewController {
     var imageTrailingConstraint: NSLayoutConstraint?
     
     private var coordinator: CoordinatorProtocol?
-    private var viewModel: DishViewModel?
-    private let key: String?
     private let name: RecipeCD?
     private var ingredients: [IngredientCD] = []
-//    private var stages: [StageCD] = []
     private let dataBaseManager: DataManager = DataManager.shared
     
     var back: (() -> Void)?
-    var nextAction: ((String) -> Void)?
+    var nextAction: ((RecipeCD) -> Void)?
     
-    init(name: RecipeCD?, key: String?, coordinatror: CoordinatorProtocol) {
+    init(name: RecipeCD?, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
-        self.key = key
         self.name = name
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        self.key = ""
         self.name = nil
         super.init(coder: coder)
     }
@@ -61,7 +56,7 @@ class DishViewController: UIViewController {
     }
 }
 
-extension DishViewController {
+extension DishViewControllerCD {
     
     private func setupConstraints() {
         headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
@@ -134,20 +129,6 @@ extension DishViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(backAction))
-        let isLiked = UserDefaults.standard.bool(forKey: key ?? "")
-        if isLiked {
-            likedButton = UIBarButtonItem(image: UIImage(named: "likedFilled"),
-                                          style: .plain, target: self,
-                                          action: #selector(likedAction))
-            navigationItem.setRightBarButtonItems([likedButton ?? UIBarButtonItem()], animated: false)
-            
-        } else {
-            likedButton = UIBarButtonItem(image: UIImage(named: "likedOutline"),
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(likedAction))
-            navigationItem.setRightBarButtonItems([likedButton ?? UIBarButtonItem()], animated: false)
-        }
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: DishIngredientCell.reuseId, bundle: nil),
@@ -213,166 +194,79 @@ extension DishViewController {
 }
 
 //MARK: - Actions
-extension DishViewController {
+extension DishViewControllerCD {
     @objc
     private func backAction() {
         back?()
     }
     
     @objc
-    private func likedAction() {
-        if UserDefaults.standard.bool(forKey: key ?? "") {
-            likedButton?.image = UIImage(named: "likedOutline")
-            viewModel?.deletLikedImage(key: key ?? "")
-        } else {
-            likedButton?.image = UIImage(named: "likedFilled")
-            viewModel?.uploadLikedDish(key: key ?? "")
-        }
-    }
-    
-    @objc
     private func goToStepsAction() {
-        nextAction?(key ?? "")
+        guard let recipe = name else {
+            return
+        }
+        nextAction?(recipe)
     }
     
     @objc
     private func fetchDish() {
-        if let _ = key {
-            let monitor = NWPathMonitor()
-            monitor.pathUpdateHandler = {[weak self] path in
-                guard let `self` = self else { return }
-                if path.status == .satisfied {
-                    DispatchQueue.main.async {
-                        self.setupWaitingIndicator()
-                        self.errorStackView.isHidden = true
-                        self.errorLabel.isHidden = true
-                        self.errorButton.isHidden = true
-                    }
-                    DishWithIngredientsNetworkManager.fetchDishWithIngredients(key: self.key ?? "") {[weak self] result in
-                        switch result {
-                        case .success(let viewModel):
-                            DispatchQueue.main.async {
-                                self?.viewModel = viewModel
-                                guard let imageUrl = URL(string: self?.viewModel?.dish.imageString ?? "") else { return }
-                                let resourceForImage = ImageResource(downloadURL: imageUrl,
-                                                                     cacheKey: self?.viewModel?.dish.imageString)
-                                self?.imageForHeaderView.contentMode = .scaleAspectFill
-                                self?.imageForHeaderView.clipsToBounds = true
-                                self?.navigationController?.isNavigationBarHidden = false
-                                self?.imageForHeaderView.kf.setImage(with: resourceForImage,
-                                                                     placeholder: UIImage(named: "DishPlaceHolder"))
-                                self?.activityIndicator.stopAnimating()
-                                self?.activityIndicator.isHidden = true
-                                self?.tableView.isHidden = false
-                                
-                                if viewModel.checkLikeFunctional() {
-                                    self?.navigationItem.rightBarButtonItem?.isEnabled = true
-                                } else {
-                                    self?.navigationItem.rightBarButtonItem?.isEnabled = false
-                                }
-                                self?.tableView.reloadData()
-                                monitor.cancel()
-                            }
-                        case .failure(let error):
-                            DispatchQueue.main.async {
-                                if let error = error as? AppErrors {
-                                    switch error {
-                                    case .noInternetConnection:
-                                        self?.tableView.isHidden = true
-                                        self?.activityIndicator.isHidden = true
-                                        self?.navigationController?.isNavigationBarHidden = true
-                                        self?.activityIndicator.stopAnimating()
-                                        self?.createErrorLabel(with: "Нет сети", and: "Обновить")
-                                    default:
-                                        self?.tableView.isHidden = true
-                                        self?.activityIndicator.isHidden = true
-                                        self?.activityIndicator.stopAnimating()
-                                        self?.createErrorLabel(with: "Неизвестная ошибка", and: "Обновить")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.tableView.isHidden = true
-                        self.activityIndicator.isHidden = true
-                        self.activityIndicator.stopAnimating()
-                        self.navigationController?.isNavigationBarHidden = true
-                        self.createErrorLabel(with: "Нет сети", and: "Обновить")
-                    }
-                }
-            }
-            let queue = DispatchQueue(label: "Network")
-            
-            monitor.start(queue: queue)
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        tableView.isHidden = false
+        if let imageData = name?.image {
+            imageForHeaderView.image = UIImage(data: imageData, scale: 1.0)
+            self.imageForHeaderView.contentMode = .scaleAspectFill
+            self.imageForHeaderView.clipsToBounds = true
         } else {
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-            activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
-            tableView.isHidden = false
-            if let imageData = name?.image {
-                imageForHeaderView.image = UIImage(data: imageData, scale: 1.0)
-                self.imageForHeaderView.contentMode = .scaleAspectFill
-                self.imageForHeaderView.clipsToBounds = true
-            } else {
-                imageForHeaderView.image = UIImage(named: "DishPlaceHolder")
-                self.imageForHeaderView.contentMode = .scaleAspectFill
-                self.imageForHeaderView.clipsToBounds = true
-            }
-            guard let recipe = name else {
-                return
-            }
-            ingredients = dataBaseManager.fetchIngredientsForRecipe(recipe: recipe)
+            imageForHeaderView.image = UIImage(named: "DishPlaceHolder")
+            self.imageForHeaderView.contentMode = .scaleAspectFill
+            self.imageForHeaderView.clipsToBounds = true
         }
+        guard let recipe = name else {
+            return
+        }
+        ingredients = dataBaseManager.fetchIngredientsForRecipe(recipe: recipe)
     }
 }
     //MARK: - UITableViewDataSource
-    extension DishViewController: UITableViewDataSource {
+    extension DishViewControllerCD: UITableViewDataSource {
         func numberOfSections(in tableView: UITableView) -> Int {
             return 3
         }
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if let _ = key {
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return viewModel?.dish.ingredients.count ?? 0
-                default:
-                    return 0
-                }
-            } else {
-                switch section {
-                case 0:
-                    return 1
-                case 1:
-                    return 1
-                case 2:
-                    return ingredients.count
-                default:
-                    return 0
-                }
+            switch section {
+            case 0:
+                return 1
+            case 1:
+                return 1
+            case 2:
+                return ingredients.count
+            default:
+                return 0
             }
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let viewModel = viewModel else { return UITableViewCell() }
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DishIngredientCell.reuseId,
                                                            for: indexPath) as? DishIngredientCell else {
                 return UITableViewCell()
             }
             switch indexPath.section {
             case 0:
-                cell.configureForName(viewModel: viewModel)
+                guard let recipe = name else {
+                    return UITableViewCell()
+                }
+                cell.configureForNameCD(recipe: recipe)
                 return cell
             case 1:
                 cell.configureForStaticLabel()
                 return cell
             case 2:
-                cell.configureForIngredient(viewModel: viewModel, indexPath: indexPath)
+                guard let recipe = name else {
+                    return UITableViewCell()
+                }
+                cell.configureForIngredientCD(ingredient: ingredients[indexPath.row], indexPath: indexPath)
                 return cell
             default:
                 return UITableViewCell()
@@ -392,6 +286,7 @@ extension DishViewController {
         
     }
     //MARK: - UITableViewDelegate
-    extension DishViewController: UITableViewDelegate {
+    extension DishViewControllerCD: UITableViewDelegate {
         
     }
+

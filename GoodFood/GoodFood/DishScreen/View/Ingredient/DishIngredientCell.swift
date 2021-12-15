@@ -38,4 +38,16 @@ class DishIngredientCell: UITableViewCell {
         nameLabel.textAlignment = .center
         containerView.backgroundColor = .none
     }
+    
+    func configureForIngredientCD(ingredient: IngredientCD, indexPath: IndexPath) {
+        nameLabel.font = nameLabel.font.withSize(20)
+        nameLabel.text = ingredient.name
+    }
+    
+    func configureForNameCD(recipe: RecipeCD) {
+        nameLabel.font = nameLabel.font.withSize(25)
+        nameLabel.text = recipe.name
+        nameLabel.textAlignment = .center
+        containerView.backgroundColor = .none
+    }
 }
