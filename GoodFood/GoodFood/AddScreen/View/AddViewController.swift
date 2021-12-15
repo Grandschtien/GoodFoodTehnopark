@@ -6,9 +6,26 @@
 //
 
 import UIKit
+
 protocol AddViewControllerDelegate: AnyObject {
     func passImage(image: UIImage?)
 }
+
+protocol SaveNameDelegate: AnyObject {
+    func saveName(recipe: RecipeCD)
+}
+
+protocol SaveImageDelegate: AnyObject {
+    func saveImage(recipe: RecipeCD)
+}
+
+protocol SaveTimeDelegate: AnyObject {
+    func saveTime(recipe: RecipeCD)
+}
+
+//protocol SaveIngredientDelegate: AnyObject {
+//    func saveIngredient(recipe: RecipeCD)
+//}
 
 class AddViewController: UIViewController {
     
@@ -16,7 +33,14 @@ class AddViewController: UIViewController {
     private var tableView = UITableView()
     private let imagePicker = UIImagePickerController()
     
+    private let dataBaseManager: DataManager = DataManager.shared
+    
     weak var delegate: AddViewControllerDelegate?
+    weak var saveNameDelegate: SaveNameDelegate?
+    weak var saveImageDelegate: SaveImageDelegate?
+    weak var saveTimeDelegate: SaveTimeDelegate?
+//    weak var saveIngredientDelegate: [SaveIngredientDelegate]?
+    
     private var isEditingTableView: Bool = false
     var back: (() -> Void)?
     
@@ -129,15 +153,18 @@ extension AddViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "NameCell", for: indexPath) as? NameCell else {return UITableViewCell()}
+            saveNameDelegate = cell
             return cell
         case 1:
             guard let photoCell = tableView.dequeueReusableCell(withIdentifier: PhotoCell.reuseId, for: indexPath) as? PhotoCell else {
                 return UITableViewCell()
             }
+            saveImageDelegate = photoCell
             photoCell.delegate = self
             return photoCell
         case 2:
             guard let timeCell = tableView.dequeueReusableCell(withIdentifier: TimeCell.reuseId, for: indexPath) as? TimeCell else {return UITableViewCell()}
+            saveTimeDelegate = timeCell
             return timeCell
         case 3:
             if indexPath.row < ingredientsArray.count {
@@ -356,12 +383,6 @@ extension AddViewController: PhotoCellDelegate, StageCellDelegate, UIImagePicker
     }
 }
 
-extension AddViewController: ConfirmCellDelegate {
-    func confirmRecipe() {
-        back?()
-    }
-}
-
 extension AddViewController: AddIngredientCellDelegate {
     func addIngredient() {
         ingredientsArray.append("")
@@ -373,5 +394,24 @@ extension AddViewController: AddStageCellDelegate {
     func addStage() {
         stagesArray.append("")
         tableView.insertRows(at: [IndexPath(row: stagesArray.count - 1, section: 4)], with: .bottom)
+    }
+}
+
+extension AddViewController: ConfirmCellDelegate {
+    func confirmRecipe() {
+        dataBaseManager.createRecipe { recipe in
+            if let saveNameDelegate = saveNameDelegate {
+                saveNameDelegate.saveName(recipe: recipe)
+            }
+            if let saveImageDelegate = saveImageDelegate {
+                saveImageDelegate.saveImage(recipe: recipe)
+            }
+            if let saveTimeDelegate = saveTimeDelegate {
+                saveTimeDelegate.saveTime(recipe: recipe)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ConfirmRecipe"), object: nil, userInfo: ["recipe": recipe])
+        }
+        
+        back?()
     }
 }

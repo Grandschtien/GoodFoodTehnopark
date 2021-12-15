@@ -29,18 +29,25 @@ class DishViewController: UIViewController {
     
     private var coordinator: CoordinatorProtocol?
     private var viewModel: DishViewModel?
-    private let key: String
+    private let key: String?
+    private let name: RecipeCD?
+    private var ingredients: [IngredientCD] = []
+//    private var stages: [StageCD] = []
+    private let dataBaseManager: DataManager = DataManager.shared
+    
     var back: (() -> Void)?
     var nextAction: ((String) -> Void)?
     
-    init(key: String, coordinatror: CoordinatorProtocol) {
+    init(name: RecipeCD?, key: String?, coordinatror: CoordinatorProtocol) {
         self.coordinator = coordinatror
         self.key = key
+        self.name = name
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         self.key = ""
+        self.name = nil
         super.init(coder: coder)
     }
     
@@ -127,7 +134,7 @@ extension DishViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(backAction))
-        let isLiked = UserDefaults.standard.bool(forKey: key)
+        let isLiked = UserDefaults.standard.bool(forKey: key ?? "")
         if isLiked {
             likedButton = UIBarButtonItem(image: UIImage(named: "likedFilled"),
                                           style: .plain, target: self,
@@ -214,90 +221,110 @@ extension DishViewController {
     
     @objc
     private func likedAction() {
-        if UserDefaults.standard.bool(forKey: key) {
+        if UserDefaults.standard.bool(forKey: key ?? "") {
             likedButton?.image = UIImage(named: "likedOutline")
-            viewModel?.deletLikedImage(key: key)
+            viewModel?.deletLikedImage(key: key ?? "")
         } else {
             likedButton?.image = UIImage(named: "likedFilled")
-            viewModel?.uploadLikedDish(key: key)
+            viewModel?.uploadLikedDish(key: key ?? "")
         }
     }
     
     @objc
     private func goToStepsAction() {
-        nextAction?(key)
+        nextAction?(key ?? "")
     }
     
     @objc
     private func fetchDish() {
-        let monitor = NWPathMonitor()
-        monitor.pathUpdateHandler = {[weak self] path in
-            guard let `self` = self else { return }
-            if path.status == .satisfied {
-                DispatchQueue.main.async {
-                    self.setupWaitingIndicator()
-                    self.errorStackView.isHidden = true
-                    self.errorLabel.isHidden = true
-                    self.errorButton.isHidden = true
-                }
-                DishWithIngredientsNetworkManager.fetchDishWithIngredients(key: self.key) {[weak self] result in
-                    switch result {
-                    case .success(let viewModel):
-                        DispatchQueue.main.async {
-                            self?.viewModel = viewModel
-                            guard let imageUrl = URL(string: self?.viewModel?.dish.imageString ?? "") else { return }
-                            let resourceForImage = ImageResource(downloadURL: imageUrl,
-                                                                 cacheKey: self?.viewModel?.dish.imageString)
-                            self?.imageForHeaderView.contentMode = .scaleAspectFill
-                            self?.imageForHeaderView.clipsToBounds = true
-                            self?.navigationController?.isNavigationBarHidden = false
-                            self?.imageForHeaderView.kf.setImage(with: resourceForImage,
-                                                                 placeholder: UIImage(named: "DishPlaceHolder"))
-                            self?.activityIndicator.stopAnimating()
-                            self?.activityIndicator.isHidden = true
-                            self?.tableView.isHidden = false
-                            
-                            if viewModel.checkLikeFunctional() {
-                                self?.navigationItem.rightBarButtonItem?.isEnabled = true
-                            } else {
-                                self?.navigationItem.rightBarButtonItem?.isEnabled = false
+        if let _ = key {
+            let monitor = NWPathMonitor()
+            monitor.pathUpdateHandler = {[weak self] path in
+                guard let `self` = self else { return }
+                if path.status == .satisfied {
+                    DispatchQueue.main.async {
+                        self.setupWaitingIndicator()
+                        self.errorStackView.isHidden = true
+                        self.errorLabel.isHidden = true
+                        self.errorButton.isHidden = true
+                    }
+                    DishWithIngredientsNetworkManager.fetchDishWithIngredients(key: self.key ?? "") {[weak self] result in
+                        switch result {
+                        case .success(let viewModel):
+                            DispatchQueue.main.async {
+                                self?.viewModel = viewModel
+                                guard let imageUrl = URL(string: self?.viewModel?.dish.imageString ?? "") else { return }
+                                let resourceForImage = ImageResource(downloadURL: imageUrl,
+                                                                     cacheKey: self?.viewModel?.dish.imageString)
+                                self?.imageForHeaderView.contentMode = .scaleAspectFill
+                                self?.imageForHeaderView.clipsToBounds = true
+                                self?.navigationController?.isNavigationBarHidden = false
+                                self?.imageForHeaderView.kf.setImage(with: resourceForImage,
+                                                                     placeholder: UIImage(named: "DishPlaceHolder"))
+                                self?.activityIndicator.stopAnimating()
+                                self?.activityIndicator.isHidden = true
+                                self?.tableView.isHidden = false
+                                
+                                if viewModel.checkLikeFunctional() {
+                                    self?.navigationItem.rightBarButtonItem?.isEnabled = true
+                                } else {
+                                    self?.navigationItem.rightBarButtonItem?.isEnabled = false
+                                }
+                                self?.tableView.reloadData()
+                                monitor.cancel()
                             }
-                            self?.tableView.reloadData()
-                            monitor.cancel()
-                        }
-                    case .failure(let error):
-                        DispatchQueue.main.async {
-                            if let error = error as? AppErrors {
-                                switch error {
-                                case .noInternetConnection:
-                                    self?.tableView.isHidden = true
-                                    self?.activityIndicator.isHidden = true
-                                    self?.navigationController?.isNavigationBarHidden = true
-                                    self?.activityIndicator.stopAnimating()
-                                    self?.createErrorLabel(with: "Нет сети", and: "Обновить")
-                                default:
-                                    self?.tableView.isHidden = true
-                                    self?.activityIndicator.isHidden = true
-                                    self?.activityIndicator.stopAnimating()
-                                    self?.createErrorLabel(with: "Неизвестная ошибка", and: "Обновить")
+                        case .failure(let error):
+                            DispatchQueue.main.async {
+                                if let error = error as? AppErrors {
+                                    switch error {
+                                    case .noInternetConnection:
+                                        self?.tableView.isHidden = true
+                                        self?.activityIndicator.isHidden = true
+                                        self?.navigationController?.isNavigationBarHidden = true
+                                        self?.activityIndicator.stopAnimating()
+                                        self?.createErrorLabel(with: "Нет сети", and: "Обновить")
+                                    default:
+                                        self?.tableView.isHidden = true
+                                        self?.activityIndicator.isHidden = true
+                                        self?.activityIndicator.stopAnimating()
+                                        self?.createErrorLabel(with: "Неизвестная ошибка", and: "Обновить")
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.tableView.isHidden = true
-                    self.activityIndicator.isHidden = true
-                    self.activityIndicator.stopAnimating()
-                    self.navigationController?.isNavigationBarHidden = true
-                    self.createErrorLabel(with: "Нет сети", and: "Обновить")
+                } else {
+                    DispatchQueue.main.async {
+                        self.tableView.isHidden = true
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stopAnimating()
+                        self.navigationController?.isNavigationBarHidden = true
+                        self.createErrorLabel(with: "Нет сети", and: "Обновить")
+                    }
                 }
             }
+            let queue = DispatchQueue(label: "Network")
+            
+            monitor.start(queue: queue)
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
+            tableView.isHidden = false
+            if let imageData = name?.image {
+                imageForHeaderView.image = UIImage(data: imageData, scale: 1.0)
+                self.imageForHeaderView.contentMode = .scaleAspectFill
+                self.imageForHeaderView.clipsToBounds = true
+            } else {
+                imageForHeaderView.image = UIImage(named: "DishPlaceHolder")
+                self.imageForHeaderView.contentMode = .scaleAspectFill
+                self.imageForHeaderView.clipsToBounds = true
+            }
+            guard let recipe = name else {
+                return
+            }
+            ingredients = dataBaseManager.fetchIngredientsForRecipe(recipe: recipe)
         }
-        let queue = DispatchQueue(label: "Network")
-        
-        monitor.start(queue: queue)
     }
 }
     //MARK: - UITableViewDataSource
@@ -306,15 +333,28 @@ extension DishViewController {
             return 3
         }
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            switch section {
-            case 0:
-                return 1
-            case 1:
-                return 1
-            case 2:
-                return viewModel?.dish.ingredients.count ?? 0
-            default:
-                return 0
+            if let _ = key {
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return viewModel?.dish.ingredients.count ?? 0
+                default:
+                    return 0
+                }
+            } else {
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return ingredients.count
+                default:
+                    return 0
+                }
             }
         }
         
@@ -324,18 +364,41 @@ extension DishViewController {
                                                            for: indexPath) as? DishIngredientCell else {
                 return UITableViewCell()
             }
-            switch indexPath.section {
-            case 0:
-                cell.configureForName(viewModel: viewModel)
-                return cell
-            case 1:
-                cell.configureForStaticLabel()
-                return cell
-            case 2:
-                cell.configureForIngredient(viewModel: viewModel, indexPath: indexPath)
-                return cell
-            default:
-                return UITableViewCell()
+            if let _ = key {
+//                let viewModel = viewModel
+                switch indexPath.section {
+                case 0:
+                    cell.configureForName(viewModel: viewModel)
+                    return cell
+                case 1:
+                    cell.configureForStaticLabel()
+                    return cell
+                case 2:
+                    cell.configureForIngredient(viewModel: viewModel, indexPath: indexPath)
+                    return cell
+                default:
+                    return UITableViewCell()
+                }
+            } else {
+                switch indexPath.section {
+                case 0:
+                    guard let recipe = name else {
+                        return UITableViewCell()
+                    }
+                    cell.configureForNameCD(recipe: recipe)
+                    return cell
+                case 1:
+                    cell.configureForStaticLabel()
+                    return cell
+                case 2:
+                    guard let recipe = name else {
+                        return UITableViewCell()
+                    }
+                    cell.configureForIngredientCD(recipe: recipe, indexPath: indexPath)
+                    return cell
+                default:
+                    return UITableViewCell()
+                }
             }
         }
         

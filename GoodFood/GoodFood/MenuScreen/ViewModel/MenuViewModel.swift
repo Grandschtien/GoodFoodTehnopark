@@ -10,7 +10,7 @@ import Firebase
 import UIKit
 
 
-final class MenuViewModel {
+struct MenuViewModel {
     
     var dishes: [MenuModel]
     
@@ -34,7 +34,7 @@ final class MenuViewModel {
         })
     }
     
-    func sort(with sort: Sort) {
+    mutating func sort(with sort: Sort) {
         switch sort {
         case .time:
             self.dishes = self.dishes.sorted(by: { firstDish, secondDish in

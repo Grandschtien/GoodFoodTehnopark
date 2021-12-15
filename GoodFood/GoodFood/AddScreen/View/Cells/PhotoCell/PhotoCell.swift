@@ -38,3 +38,10 @@ extension PhotoCell: AddViewControllerDelegate {
         photoImageView.image = image ?? UIImage(named: "PhotoPlaceholder")
     }
 }
+
+extension PhotoCell: SaveImageDelegate {
+    func saveImage(recipe: RecipeCD) {
+        let imageData = photoImageView.image?.pngData() ?? UIImage(named: "DishPlaceHolder")!.pngData()
+        recipe.image = imageData
+    }
+}

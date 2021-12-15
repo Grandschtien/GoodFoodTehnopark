@@ -53,7 +53,7 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         }
         
         menuViewController.dish = { dishKey in
-            let dishVC = DishViewController(key: dishKey, coordinatror: self)
+            let dishVC = DishViewController(name: nil, key: dishKey, coordinatror: self)
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)
             }
@@ -117,18 +117,36 @@ extension GoodFoodCoordinator: CoordinatorProtocol {
         
         let yourRecipesViewModel = YourRecipesViewModel()
         let yourRecipeVC = YourRecipesViewController(viewModel: yourRecipesViewModel, coordinator: self)
-        let historyVC = HistoryViewController(coordinator: self)
-        
-        historyVC.dish = { key in
-            let dishVC = DishViewController(key: key, coordinatror: self)
-            historyVC.navigationController?.pushViewController(dishVC, animated: true)
+        yourRecipeVC.dish = { name in
+            let dishVC = DishViewController(name: name, key: nil, coordinatror: self)
+            yourRecipeVC.navigationController?.pushViewController(dishVC, animated: true)
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)
             }
         }
+        let historyVC = HistoryViewController(coordinator: self)
+        
+        historyVC.dish = { key in
+            let dishVC = DishViewController(name: nil, key: key, coordinatror: self)
+            dishVC.back = {
+                dishVC.navigationController?.popViewController(animated: true)
+            }
+            dishVC.nextAction = { [weak self] dishKey in
+                guard let `self` = self else { return }
+                let prepareViewController = PrepareViewController(key: dishKey, coordinatror: self)
+                prepareViewController.back = {
+                    dishVC.navigationController?.popViewController(animated: true)
+                }
+                prepareViewController.exit = {
+                    self.start()
+                }
+                dishVC.navigationController?.pushViewController(prepareViewController, animated: true)
+            }
+            historyVC.navigationController?.pushViewController(dishVC, animated: true)
+        }
         let likedVC = LikedViewController(coordinator: self)
         likedVC.dish = { dishKey in
-            let dishVC = DishViewController(key: dishKey, coordinatror: self)
+            let dishVC = DishViewController(name: nil, key: dishKey, coordinatror: self)
             dishVC.back = {
                 dishVC.navigationController?.popViewController(animated: true)
             }
