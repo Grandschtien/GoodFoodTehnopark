@@ -1426,7 +1426,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/ivan/Documents/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GoodFood;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1457,7 +1457,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PLUM5QCSG5;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = /Users/egorskarin/Desktop/GoodFoodTechnopark/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
+				INFOPLIST_FILE = /Users/ivan/Documents/GoodFoodTehnopark/GoodFood/GoodFood/Application/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GoodFood;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

@@ -17,9 +17,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4f6-tq-wCN">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4f6-tq-wCN">
                         <rect key="frame" x="117" y="3" width="86" height="38"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="v8m-w2-LZx"/>
+                        </constraints>
                         <color key="tintColor" name="mainColor"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="+ Этап">
@@ -30,6 +32,12 @@
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="4f6-tq-wCN" secondAttribute="bottom" constant="3" id="ctn-0O-tlO"/>
+                    <constraint firstAttribute="trailing" secondItem="4f6-tq-wCN" secondAttribute="trailing" constant="117" id="h7x-An-KXg"/>
+                    <constraint firstItem="4f6-tq-wCN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="117" id="ndi-fU-KQS"/>
+                    <constraint firstItem="4f6-tq-wCN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="z9F-bt-TJm"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <point key="canvasLocation" x="133" y="56"/>

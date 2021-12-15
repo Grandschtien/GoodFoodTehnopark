@@ -78,8 +78,15 @@ extension AddViewController {
     
     private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "BackBarButton"), style: .plain, target: self, action: #selector(backAction))
-        let editButton = UIBarButtonItem(image: UIImage(named: "pen"), style: .plain, target: self, action: #selector(startEditing))
-        navigationItem.setRightBarButtonItems([editButton], animated: true)
+        let editButton = UIButton(type: .custom);
+        editButton.setImage(UIImage(named: "pen"), for: .normal);
+        editButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20);
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.addTarget(self, action: #selector(startEditing), for: .touchUpInside);
+        let editBarButtonItem = UIBarButtonItem(customView: editButton)
+        editBarButtonItem.customView?.widthAnchor.constraint(equalToConstant: 20).isActive = true;
+        editBarButtonItem.customView?.heightAnchor.constraint(equalToConstant: 20).isActive = true;
+        navigationItem.setRightBarButtonItems([editBarButtonItem], animated: true)
     }
     
     @objc
